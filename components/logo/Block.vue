@@ -42,9 +42,13 @@ const { place, title, subtitle } = defineProps(["place", "title", "subtitle"]);
     color: var(--text-color-primary);
 
     &_auth {
-      font-family: "Inter_SemiBold", sans-serif;
+      font-family: "Inter-SemiBold", sans-serif;
       font-size: 28px;
       line-height: 36px;
+    }
+
+    @media (max-width: 1023px) {
+      text-align: center;
     }
   }
 
@@ -56,6 +60,20 @@ const { place, title, subtitle } = defineProps(["place", "title", "subtitle"]);
       font-size: 17px;
       line-height: 28px;
     }
+
+    @media (max-width: 1023px) {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  @media (max-width: 379px) {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 </style>

@@ -6,7 +6,7 @@
   </main>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .authLayout {
   display: flex;
   justify-content: center;
@@ -15,6 +15,21 @@
   min-height: 100vh;
   background: var(--gradient-primary);
   padding: 40px 10px;
+
+  @media (max-width: 1023px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @media (max-width: 379px) {
+    padding: 0 0 30px 0;
+  }
 }
 
 .fade-enter-active,
@@ -25,25 +40,5 @@
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-@media (max-width: 1023px) {
-  .authLayout {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
-@media (max-width: 767px) {
-  .authLayout {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
-
-@media (max-width: 379px) {
-  .authLayout {
-    padding: 0 0 30px 0;
-  }
 }
 </style>

@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "~/assets/styles/_variables.scss",
     "~/assets/styles/_fonts.scss",
     "~/assets/styles/_forms.scss",
+    "~/assets/styles/_animation.scss",
   ],
   app: {
     head: {

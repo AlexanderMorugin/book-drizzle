@@ -79,6 +79,12 @@ const registerList = ref([
     align-items: center;
     gap: 12px;
     padding-left: 16px;
+    padding-right: 16px;
+
+    @media (max-width: 379px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 
   &__circle {
@@ -93,6 +99,11 @@ const registerList = ref([
     font-size: 16px;
     line-height: 24px;
     color: var(--text-color-thirdly);
+  }
+
+  @media (max-width: 379px) {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 </style>

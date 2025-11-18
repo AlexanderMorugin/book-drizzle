@@ -70,5 +70,10 @@ const { place } = defineProps(["place"]);
     height: 100%;
     object-fit: cover;
   }
+
+  @media (max-width: 379px) {
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 </style>
