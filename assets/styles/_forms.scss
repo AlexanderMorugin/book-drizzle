@@ -1,0 +1,105 @@
+.form-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  gap: 8px;
+}
+.form-label {
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--text-color-fourthly);
+}
+.form-select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.form-search-input {
+  width: 100%;
+  height: 48px;
+  border-radius: var(--border-radius-s);
+  border: 1px solid var(--border-color-primary);
+  background: var(--white-thirdly);
+  backdrop-filter: blur(8px);
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 48px;
+  color: var(--text-color-primary);
+  padding-left: 41px;
+  padding-right: 41px;
+  transition: 0.3s ease all;
+  overflow: hidden;
+}
+.form-search-input:focus {
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 48px;
+  color: var(--text-color-primary);
+  outline: 0;
+  border: 1px solid var(--blue-primary);
+}
+.form-search-input::placeholder {
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 48px;
+  color: var(--text-color-fifthly);
+}
+.form-search-input:focus::placeholder {
+  color: transparent;
+}
+.form-input {
+  height: 36px;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--text-color-primary);
+  border-bottom: 1px solid transparent;
+  padding-left: 13px;
+  padding-right: 13px;
+  transition: 0.25s ease all;
+}
+.form-input:focus {
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--text-color-primary);
+  outline: 0;
+  border-bottom: 1px solid var(--border-color-primary);
+}
+.form-input::placeholder {
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--text-color-fifthly);
+}
+.form-input:focus::placeholder {
+  color: transparent;
+}
+.form-input-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+  color: red;
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .form-search-input {
+    padding-left: 20px;
+  }
+}

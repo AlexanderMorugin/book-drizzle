@@ -6,4 +6,18 @@ export default defineNuxtConfig({
     jwtAccessSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
     jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
   },
+  css: [
+    "~/assets/styles/global.scss",
+    "~/assets/styles/_variables.scss",
+    "~/assets/styles/_fonts.scss",
+    "~/assets/styles/_forms.scss",
+  ],
+  app: {
+    head: {
+      title: "Book Drizzle",
+      htmlAttrs: {
+        lang: "ru",
+      },
+    },
+  },
 });

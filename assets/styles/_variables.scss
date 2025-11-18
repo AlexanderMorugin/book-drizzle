@@ -1,0 +1,84 @@
+:root {
+  --text-color-primary: #1d293d;
+  --text-color-secondary: #45556c;
+  --text-color-thirdly: #314158;
+  --text-color-fourthly: #0a0a0a;
+  --text-color-fifthly: #717182;
+  --text-color-sixthly: #62748e;
+  --text-color-seventhly: #030213;
+  --text-color-eighthly: #0a0a0a;
+
+  --white-primary: #ffffff;
+  --white-secondary: #fdfeff;
+  --white-thirdly: rgba(255, 255, 255, 0.8);
+  --white-fourthly: rgba(255, 255, 255, 0.6);
+
+  --violet-primary: #f3e8ff;
+  --violet-secondary: #9810fa;
+  --violet-thirdly: #ad46ff;
+
+  --green-primary: #cbfbf1;
+  --green-secondary: #009689;
+  --green-thirdly: #00bba7;
+  --green-fourthly: #00786f;
+  --green-fifthly: #00a63e;
+  --green-sixthly: #00c950;
+  --green-seventhly: #008236;
+  --green-eighthly: #009689;
+
+  --blue-primary: #155dfc;
+  --blue-secondary: #1447e6;
+  --blue-thirdly: #dbeafe;
+  --blue-fourthly: #2b7fff;
+
+  --red-primary: #ff4c4f;
+
+  --gray-primary: #f8fafc;
+  --gray-secondary: #90a1b9;
+  --gray-thirdly: #eff6ff;
+  --gray-fourthly: #f1f5f9;
+  --gray-fifthly: rgba(255, 255, 255, 0.6);
+  --gray-sixthly: #eceef2;
+  --gray-seventhly: #cad5e2;
+
+  --yellow-primary: #ffba00;
+  --yellow-secondary: #fef3c6;
+
+  --brown-primary: #e17100;
+  --brown-secondary: #bb4d00;
+
+  --black-primary: rgba(0, 0, 0, 0.1);
+  --black-secondary: rgba(0, 0, 0, 0.6);
+
+  --border-color-primary: #e2e8f0;
+
+  --gradient-primary: linear-gradient(135deg, var(--gray-primary) 0%, var(--gray-thirdly) 100%);
+  --gradient-logo-primary: linear-gradient(90deg, var(--green-thirdly) 0%, #2b7fff 100%);
+  --gradient-form-register: linear-gradient(90deg, #ad46ff 0%, #9810fa 100%);
+  --gradient-form-login: linear-gradient(90deg, var(--green-thirdly) 0%, var(--green-secondary) 100%);
+  --gradient-user-icon-box: linear-gradient(90deg, #ad46ff 0%, #f6339a 100%);
+  --gradient-progress-done-green: linear-gradient(90deg, var(--green-sixthly) 0%, var(--green-fifthly) 100%);
+  --gradient-progress-blue: linear-gradient(90deg, #2b7fff 0%, var(--blue-primary) 100%);
+  --gradient-progress-gray: linear-gradient(90deg, var(--gray-primary) 0%, var(--gray-thirdly) 100%);
+  --gradient-status-counter: linear-gradient(90deg, var(--gray-primary) 0%, var(--gray-fourthly) 100%);
+  --gradient-book-title: linear-gradient(135deg, var(--white-primary) 0%, var(--gray-primary) 100%);
+
+  --shadow-primary: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-secondary: 0px 4px 6px -4px var(--black-primary), 0px 10px 15px -3px var(--black-primary);
+  --shadow-thirdly: 0px 1px 2px -1px var(--black-primary), 0px 1px 3px 0px var(--black-primary);
+  --shadow-fourthly: 0px 2px 4px -2px var(--black-primary), 0px 4px 6px -1px var(--black-primary);
+  --shadow-fifthly: 0px 25px 100px -12px rgba(0, 0, 0, 0.8);
+
+  --border-radius-full: 50%;
+  --border-radius-s: 8px;
+  --border-radius-m: 10px;
+  --border-radius-l: 14px;
+  --border-radius-xl: 16px;
+
+  --screen-xxl: 1920px;
+  --screen-xl: 1399px;
+  --screen-l: 1279px;
+  --screen-m: 1023px;
+  --screen-s: 767px;
+  --screen-xs: 474px;
+}

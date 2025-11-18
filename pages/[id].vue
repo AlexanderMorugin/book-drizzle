@@ -49,7 +49,7 @@ const userStore = useUserStore();
   gap: 10px;
   width: 700px;
   border: 1px solid blue;
-  border-radius: 10px;
+  border-radius: var(--border-radius-m);
   font-size: 18px;
   padding: 20px;
 }

@@ -1,16 +1,18 @@
 <template>
-  <div>REGISTER</div>
-  <AuthRegister />
-  <ul>
-    <li>
-      <NuxtLink to="/">Главная</NuxtLink>
-    </li>
-    <li>
-      <NuxtLink to="/login">Логин</NuxtLink>
-    </li>
-  </ul>
+  <AuthContainer>
+    <AuthPromoContainer
+      place="register"
+      title="Book Tracker"
+      subtitle="Начните свой читательский путь"
+      ><AuthPromoText place="register"
+    /></AuthPromoContainer>
+    <AuthFormContainer>REGISTER</AuthFormContainer>
+  </AuthContainer>
 </template>
 
-<script setup></script>
-
-<style></style>
+<script setup>
+definePageMeta({
+  layout: "auth-layout",
+  // middleware: ["auth"],
+});
+</script>
