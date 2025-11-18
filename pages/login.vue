@@ -26,6 +26,8 @@
       />
       <!-- Форма -->
       <FormLogin place="login" />
+      <!-- Блок смены авторизации -->
+      <AuthChange place="login" />
     </AuthFormContainer>
   </AuthContainer>
 </template>

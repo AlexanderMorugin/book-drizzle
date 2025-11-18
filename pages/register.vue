@@ -26,6 +26,10 @@
       />
       <!-- Форма -->
       <FormRegister place="register" />
+      <!-- Блок смены авторизации -->
+      <AuthChange place="register" />
+      <!-- Блок политики конфиденциональности -->
+      <AuthConditions />
     </AuthFormContainer>
   </AuthContainer>
 </template>
