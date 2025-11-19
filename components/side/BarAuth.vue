@@ -6,8 +6,8 @@
           <IconProfile class="profileIcon" />
         </div>
         <div class="sideBarAuth__userNameBox">
-          <span class="sideBarAuth__name">Вася</span>
-          <span class="sideBarAuth__email">Пупкин</span>
+          <span class="sideBarAuth__name">{{ userStore.user.name }}</span>
+          <span class="sideBarAuth__email">{{ userStore.user.email }}</span>
         </div>
       </div>
       <ButtonIconNavigate name="logout" @handleClick="handleLogout" />
@@ -16,8 +16,14 @@
 </template>
 
 <script setup>
+const userStore = useUserStore();
+
 const handleLogout = () => {
-  navigateTo("/login");
+  const cookie = useCookie("refresh_token");
+  cookie.value = null;
+  userStore.logoutCurrentUser();
+  location.reload();
+  return navigateTo("/login");
 };
 </script>
 

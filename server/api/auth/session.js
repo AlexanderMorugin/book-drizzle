@@ -1,8 +1,7 @@
 import { eq } from "drizzle-orm";
-import { navigateTo } from "nuxt/app";
-// import { navigateTo, useCookie } from "nuxt/app";
 import { db } from "~/server";
 import { Users } from "~/server/database/schema";
+import { transformUser } from "~/server/utils/transform-user";
 
 export default defineEventHandler(async (event) => {
   const cookie = getCookie(event, "refresh_token");
@@ -27,15 +26,11 @@ export default defineEventHandler(async (event) => {
   // Проверяем действительность рефреш токена
   const rToken = await decodeRefreshToken(existUser[0].refresh_token);
 
-  // console.log("decodeRefreshToken: ", rToken);
-
   // Если рефреш истек, возвращаем ноль вместо пользователя
   // Далее идем на логин и получаем новый рефреш
   if (!rToken) {
     return null;
   }
-
-  // console.log(existUser[0]);
 
   // Генерируем accessToken передаем на устройство пользователя
   const { accessToken } = generateTokens(existUser[0]);
@@ -44,5 +39,8 @@ export default defineEventHandler(async (event) => {
 
   // console.log("decodedAccessToken: ", aToken);
 
-  return { access_token: accessToken, user: existUser[0] };
+  return {
+    access_token: accessToken,
+    user: transformUser(existUser[0]),
+  };
 });

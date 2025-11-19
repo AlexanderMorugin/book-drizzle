@@ -10,15 +10,6 @@ export const useUserStore = defineStore("userStore", () => {
     users.value = res.data.value;
   };
 
-  // const createUser = async (userData) => {
-  //   const { data, status, error } = await useFetch("/api/auth/register", {
-  //     method: "POST",
-  //     body: userData.value,
-  //   });
-
-  //   return { data, status, error };
-  // };
-
   const setCurrentUser = (userData) => {
     user.value = userData;
   };
@@ -44,7 +35,6 @@ export const useUserStore = defineStore("userStore", () => {
     users,
     user,
     loadUsers,
-    // createUser,
     setCurrentUser,
     logoutCurrentUser,
     deleteDatabaseUser,
