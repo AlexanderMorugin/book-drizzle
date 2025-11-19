@@ -14,7 +14,6 @@ export default defineNuxtConfig({
     "~/assets/styles/_animation.scss",
   ],
   app: {
-    // pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "page", mode: "out-in" },
     head: {
       title: "Book Drizzle",

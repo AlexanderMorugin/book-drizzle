@@ -98,7 +98,6 @@ const submitLoginForm = async () => {
       // Если пользователь залогинился в БД, перенаправляем его на главную
       if (status.value === "success") {
         loginMessage.value = "Авторизация прошла успешно!";
-        // location.reload();
         return navigateTo("/");
       }
     }

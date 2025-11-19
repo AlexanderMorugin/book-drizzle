@@ -153,7 +153,7 @@ const submitRegisterForm = async () => {
       // Если пользователь создался в БД, перенаправляем его на логин
       if (status.value === "success") {
         registerMessage.value = "Регистрация прошла успешно!";
-        navigateTo(`/login`);
+        return navigateTo(`/login`);
       }
     }
   } catch (error) {
