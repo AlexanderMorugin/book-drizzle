@@ -1,7 +1,7 @@
 <template>
   <main class="authLayout">
     <transition name="fade" mode="out-in">
-      <RouterView />
+      <NuxtPage />
     </transition>
   </main>
 </template>
@@ -30,15 +30,5 @@
   @media (max-width: 379px) {
     padding: 0 0 30px 0;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease-in;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

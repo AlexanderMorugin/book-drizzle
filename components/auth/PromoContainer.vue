@@ -1,12 +1,7 @@
 <template>
   <section class="authPromoContainer">
     <!-- Лого блок показывается при ширине более 1024px -->
-    <LogoBlock
-      v-if="!isScreenLarge"
-      :place="place"
-      :title="title"
-      :subtitle="subtitle"
-    />
+    <LogoBlock v-if="!isScreenLarge" :place="place" />
     <slot />
     <AuthPromoImage :place="place" />
   </section>

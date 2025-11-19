@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="userStore.user">Пользователь : {{ userStore.user }}</div>
+    <!-- <div v-if="userStore.user">Пользователь : {{ userStore.user }}</div> -->
     <h1>Users</h1>
     <div class="list">
       <div v-for="user in userStore.users" :key="user.id" class="item">
@@ -9,7 +9,7 @@
         <div>email: {{ user.email }}</div>
         <div>password: {{ user.password }}</div>
         <div>book_for_years: {{ user.book_for_years }}</div>
-        <div>refresh_token: {{ user.refresh_token }}</div>
+        <!-- <div>refresh_token: {{ user.refresh_token }}</div> -->
         <div>
           <button @click="deleteUser(user.id)">Удалить</button>
         </div>
@@ -38,7 +38,7 @@ const deleteUser = async (userId) => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 700px;
+  /* width: 700px; */
   border: 1px solid blue;
   border-radius: var(--border-radius-m);
   font-size: 18px;

@@ -1,29 +1,77 @@
 <template>
-  <div class="logoBlock">
+  <div
+    :class="[
+      'logoBlock',
+      {
+        logoBlock_login:
+          place === 'register' ||
+          place === 'login' ||
+          place === 'addBook' ||
+          place === 'progressYear',
+      },
+    ]"
+  >
     <LogoIcon :place="place" />
-    <div class="logoBlock__text">
-      <span
+
+    <div>
+      <component
+        :is="place === 'addBook' ? 'h1' : 'progressYear' ? 'h2' : 'div'"
         :class="[
           'logoBlock__title',
-          { logoBlock__title_auth: place === 'register' || place === 'login' },
+          {
+            logoBlock__title_login:
+              place === 'register' || place === 'login' || place === 'sidebar',
+          },
+          {
+            logoBlock__title_addBook:
+              place === 'addBook' || place === 'progressYear',
+          },
         ]"
-        >{{ title }}</span
       >
-      <span
+        {{
+          place === "register" || place === "login" || place === "sidebar"
+            ? "Book Tracker"
+            : place === "addBook"
+            ? "Добавить новую книгу"
+            : place === "progressYear"
+            ? "Цель чтения"
+            : ""
+        }}
+      </component>
+      <div
         :class="[
           'logoBlock__subtitle',
           {
-            logoBlock__subtitle_auth: place === 'register' || place === 'login',
+            logoBlock__subtitle_login:
+              place === 'register' || place === 'login',
+          },
+          {
+            logoBlock__subtitle_addBook:
+              place === 'addBook' || place === 'progressYear',
           },
         ]"
-        >{{ subtitle }}</span
       >
+        {{ subtitle }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const { place, title, subtitle } = defineProps(["place", "title", "subtitle"]);
+const { place } = defineProps(["place"]);
+
+const subtitle = ref("Ваш читательский журнал");
+
+const setSubtitle = () => {
+  if (place === "sidebar") subtitle.value = "Ваш читательский журнал";
+  if (place === "register") subtitle.value = "Начните свой читательский путь";
+  if (place === "login") subtitle.value = "Ваш персональный трекер чтения";
+  if (place === "addBook") subtitle.value = "Пополните свою библиотеку";
+  if (place === "progressYear")
+    subtitle.value = "Установите годовую цель по количеству книг";
+};
+
+onBeforeMount(() => setSubtitle());
 </script>
 
 <style lang="scss" scoped>
@@ -31,44 +79,65 @@ const { place, title, subtitle } = defineProps(["place", "title", "subtitle"]);
   display: flex;
   align-items: center;
   gap: 12px;
-  width: fit-content;
-
-  &__text {
-    display: flex;
-    flex-direction: column;
-  }
 
   &__title {
+    font-family: "Inter-SemiBold", sans-serif;
+    font-size: 18px;
+    line-height: 28px;
     color: var(--text-color-primary);
 
-    &_auth {
-      font-family: "Inter-SemiBold", sans-serif;
+    &_login {
       font-size: 28px;
       line-height: 36px;
     }
 
-    @media (max-width: 1023px) {
-      text-align: center;
-    }
-  }
-
-  &__subtitle {
-    color: var(--text-color-secondary);
-
-    &_auth {
-      font-family: "Inter-Regular", sans-serif;
-      font-size: 17px;
+    &_addBook {
+      font-size: 19px;
       line-height: 28px;
+
+      @media (max-width: 1023px) {
+        font-size: 28px;
+        line-height: 36px;
+      }
     }
 
     @media (max-width: 1023px) {
       text-align: center;
+    }
+
+    &__subtitle {
+      font-family: "Inter-Regular", sans-serif;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-color-secondary);
+
+      &_login {
+        font-size: 17px;
+        line-height: 28px;
+      }
+
+      &_addBook {
+        font-size: 16px;
+        line-height: 24px;
+
+        @media (max-width: 1023px) {
+          font-size: 17px;
+          line-height: 28px;
+          text-align: center;
+        }
+      }
+    }
+
+    &_login {
+      @media (max-width: 1023px) {
+        border-bottom: 1px solid var(--border-color-primary);
+        padding-bottom: 20px;
+      }
     }
   }
 
   @media (max-width: 1023px) {
     flex-direction: column;
-    width: 100%;
   }
 
   @media (max-width: 379px) {

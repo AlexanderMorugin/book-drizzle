@@ -13,12 +13,7 @@
     <!-- Правый блок -->
     <AuthFormContainer>
       <!-- Лого блок показывается при ширине менее 1023px -->
-      <LogoBlock
-        v-if="isScreenLarge"
-        place="login"
-        title="Book Tracker"
-        subtitle="Ваш персональный трекер чтения"
-      />
+      <LogoBlock v-if="isScreenLarge" place="login" />
       <!-- Заголовок формы -->
       <FormTitle
         title="Добро пожаловать!"
@@ -29,6 +24,8 @@
       <!-- Блок смены авторизации -->
       <AuthChange place="login" />
     </AuthFormContainer>
+
+    <NuxtLink to="/">Main Page</NuxtLink>
   </AuthContainer>
 </template>
 

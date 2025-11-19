@@ -28,5 +28,9 @@ const { title, subtitle } = defineProps(["title", "subtitle"]);
     line-height: 24px;
     color: var(--text-color-secondary);
   }
+
+  @media (max-width: 1023px) {
+    padding-top: 24px;
+  }
 }
 </style>
