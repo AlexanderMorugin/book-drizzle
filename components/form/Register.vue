@@ -42,12 +42,10 @@
     />
 
     <!-- Появляющийся текст ошибки -->
-    <!-- <TransitionGroup name="error" tag="ul">
-      <FormErrorMessage
-        v-if="userStore.existUserErrorMessage"
-        :text="userStore.existUserErrorMessage"
-      />
-    </TransitionGroup> -->
+    <!-- {{ registerMessage }} -->
+    <TransitionGroup name="error" tag="ul">
+      <FormErrorMessage v-if="registerMessage" :text="registerMessage" />
+    </TransitionGroup>
 
     <!-- Кнопка Сабмит -->
     <FormSubmitButton
@@ -79,9 +77,10 @@ const nameField = ref(null);
 const emailField = ref(null);
 const passwordField = ref(null);
 const confirmPasswordField = ref(null);
+const registerMessage = ref(null);
 
 // При клике на инпуте - очищаем в сторе реф ошибки
-const clearErrorMessage = () => userStore.clearExistUserErrorMessage();
+const clearErrorMessage = () => (registerMessage.value = null);
 
 // Валидация
 const rules = computed(() => ({
@@ -122,33 +121,40 @@ const isValid = computed(() => v$.value.$errors);
 
 // Сабмит
 const submitRegisterForm = async () => {
-  isLoading.value = false;
+  isLoading.value = true;
 
   try {
-    isLoading.value = true;
-
     if (!isFromEmpty.value && !isValid.value.length) {
-      // собираем пользователя для регистрации
+      // Собираем пользователя для регистрации
       const userData = {
         email: emailField.value.trim(),
         name: nameField.value.trim(),
         password: passwordField.value.trim(),
+        // book_for_years: 10,
       };
 
-      // отправляем данные пользователя на регистрацию
-      console.log(userData);
+      // Отправляем данные пользователя на регистрацию
+      const { data, status, error } = await useFetch("/api/auth/register", {
+        method: "POST",
+        body: userData,
+      });
+
       // const { data, error } = await userStore.registerUser(userData);
 
-      // если пользователь зарегистрирован, перенаправляем его на главную страницу
-      // if (data) {
-      //   router.push("/");
-      // }
+      // Если пользователь не создался в БД, пишем ошибку
+      if (status.value === "error") {
+        registerMessage.value = "Пользователь с такой почтой уже существует.";
 
-      // Если приходит ошибка - очищаем поля чтобы снова регистрироваться
-      // if (error) {
-      //   passwordField.value = null;
-      //   confirmPasswordField.value = null;
-      // }
+        // Очищаем поля паролей чтобы снова регистрироваться
+        passwordField.value = null;
+        confirmPasswordField.value = null;
+      }
+
+      // Если пользователь создался в БД, перенаправляем его на логин
+      if (status.value === "success") {
+        registerMessage.value = "Регистрация прошла успешно!";
+        navigateTo(`/login`);
+      }
     }
   } catch (error) {
     console.log(error);

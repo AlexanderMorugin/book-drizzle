@@ -41,7 +41,7 @@ const formData = ref({
   email: "",
   password: "",
   confirmPassword: "",
-  book_for_years: 10,
+  // book_for_years: 10,
 });
 
 const registerMessage = ref(null);

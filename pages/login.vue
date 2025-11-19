@@ -1,11 +1,7 @@
 <template>
   <AuthContainer>
     <!-- Левый блок -->
-    <AuthPromoContainer
-      place="login"
-      title="Book Tracker"
-      subtitle="Ваш персональный трекер чтения"
-    >
+    <AuthPromoContainer place="login">
       <!-- Текстовый блок -->
       <AuthPromoText place="login" />
     </AuthPromoContainer>

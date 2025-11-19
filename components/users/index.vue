@@ -9,7 +9,8 @@
         <div>email: {{ user.email }}</div>
         <div>password: {{ user.password }}</div>
         <div>book_for_years: {{ user.book_for_years }}</div>
-        <!-- <div>refresh_token: {{ user.refresh_token }}</div> -->
+        <div>refresh_token: {{ user.refresh_token }}</div>
+        <div>createdAt: {{ user.createdAt }}</div>
         <div>
           <button @click="deleteUser(user.id)">Удалить</button>
         </div>

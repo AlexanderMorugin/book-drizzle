@@ -23,12 +23,9 @@
     />
 
     <!-- Появляющийся текст ошибки -->
-    <!-- <TransitionGroup name="error" tag="ul">
-      <FormErrorMessage
-        v-if="userStore.existUserErrorMessage"
-        :text="userStore.existUserErrorMessage"
-      />
-    </TransitionGroup> -->
+    <TransitionGroup name="error" tag="ul">
+      <FormErrorMessage v-if="loginMessage" :text="loginMessage" />
+    </TransitionGroup>
 
     <!-- Кнопка Сабмит -->
     <FormSubmitButton
@@ -46,15 +43,13 @@ import { helpers, required, minLength, email } from "@vuelidate/validators";
 
 const { place } = defineProps(["place"]);
 
-// const userStore = useUserStore()
-const router = useRouter();
-
 const isLoading = ref(false);
 const emailField = ref(null);
 const passwordField = ref(null);
+const loginMessage = ref(null);
 
 // При клике на инпуте - очищаем в сторе реф ошибки
-const clearErrorMessage = () => userStore.clearExistUserErrorMessage();
+const clearErrorMessage = () => (loginMessage.value = null);
 
 // Валидация
 const rules = computed(() => ({
@@ -79,31 +74,33 @@ const isValid = computed(() => v$.value.$errors);
 
 // Сабмит
 const submitLoginForm = async () => {
-  isLoading.value = false;
+  isLoading.value = true;
 
   try {
-    isLoading.value = true;
-
     if (!isFromEmpty.value && !isValid.value.length) {
-      // собираем пользователя
+      // Собираем пользователя для логина
       const userData = {
         email: emailField.value?.trim(),
         password: passwordField.value?.trim(),
       };
 
-      console.log(userData);
+      // Отправляем данные пользователя на логин
+      const { data, status, error } = await useFetch("/api/auth/login", {
+        method: "POST",
+        body: userData,
+      });
 
-      // const { data, error } = await userStore.loginUser(userData)
+      // Если пользователь не залогинился в БД, пишем ошибку
+      if (status.value === "error") {
+        loginMessage.value = "Имя пользователя или пароль неверные.";
+      }
 
-      // если пользователь залогинен, перенаправляем его на главную страницу
-      // if (data) {
-      //   router.push('/')
-      // }
-      // Если приходит ошибка - очищаем поля чтобы снова логинится
-      // if (error) {
-      //   emailField.value = null
-      //   passwordField.value = null
-      // }
+      // Если пользователь залогинился в БД, перенаправляем его на главную
+      if (status.value === "success") {
+        loginMessage.value = "Авторизация прошла успешно!";
+
+        return navigateTo("/");
+      }
     }
   } catch (error) {
     console.log(error);

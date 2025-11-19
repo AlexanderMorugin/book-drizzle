@@ -38,6 +38,7 @@
             : ""
         }}
       </component>
+
       <div
         :class="[
           'logoBlock__subtitle',
@@ -71,7 +72,7 @@ const setSubtitle = () => {
     subtitle.value = "Установите годовую цель по количеству книг";
 };
 
-onBeforeMount(() => setSubtitle());
+onMounted(() => setSubtitle());
 </script>
 
 <style lang="scss" scoped>

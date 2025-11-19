@@ -55,5 +55,6 @@ export default defineEventHandler(async (event) => {
     .where(eq(Users.email, email));
 
   // Возвращаем на фронтенд accessToken
-  return { access_token: accessToken, existUser };
+  // return { access_token: accessToken, existUser };
+  return { access_token: accessToken };
 });
