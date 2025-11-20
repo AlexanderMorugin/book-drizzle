@@ -4,16 +4,16 @@
     <SideBar v-if="!isScreenLarge" />
 
     <!-- Сайдбар для мобилки -->
-    <!-- <SideBarMobile
+    <SideBarMobile
       :isMobileSideBarOpen="isMobileSideBarOpen"
       @closeMobileSideBar="closeMobileSideBar"
     >
       <SideBar v-if="isScreenLarge" @closeMobileSideBar="closeMobileSideBar" />
-    </SideBarMobile> -->
+    </SideBarMobile>
 
     <div class="mainLayout__content">
-      <!-- <Header @openMobileSideBar="openMobileSideBar" /> -->
-      <Header />
+      <Header @openMobileSideBar="openMobileSideBar" />
+      <!-- <Header /> -->
       <main class="mainLayout__main">
         <NuxtPage />
       </main>
@@ -23,6 +23,11 @@
 
 <script setup>
 const { isScreenLarge } = useResizeLarge();
+
+const isMobileSideBarOpen = ref(false);
+
+const openMobileSideBar = () => (isMobileSideBarOpen.value = true);
+const closeMobileSideBar = () => (isMobileSideBarOpen.value = false);
 </script>
 
 <style lang="scss" scoped>

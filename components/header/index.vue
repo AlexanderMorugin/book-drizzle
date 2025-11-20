@@ -1,39 +1,38 @@
 <template>
   <header class="header">
     <div class="header__titleBox">
-      <!-- <ButtonIconNavigate
+      <ButtonIconNavigate
         v-if="isScreenLarge"
         name="menu"
         @handleClick="emit('openMobileSideBar')"
       />
-      <span class="header__title">{{ headerStore.headerTitle }}</span> -->
+
+      <span class="header__title">Главная</span>
+
+      <!-- <span v-if="headerStore.headerTitle" class="header__title">{{
+        headerStore.headerTitle
+      }}</span> -->
     </div>
 
-    <!-- <ButtonIconNavigate
+    <ButtonIconNavigate
       v-if="headerStore.headerTitle === 'Детали книги'"
       name="back"
       @handleClick="goBack"
-    /> -->
+    />
   </header>
 </template>
 
-<!-- <script setup>
+<script setup>
+const headerStore = useHeaderStore();
+const router = useRouter();
+const { isScreenLarge } = useResizeLarge();
 
+const emit = defineEmits(["openMobileSideBar"]);
 
-import ButtonIconNavigate from './page/ButtonIconNavigate.vue'
-import { useResizeLarge } from '@/composables/useResizeLarge'
+const goBack = () => router.go(-1);
+</script>
 
-
-const headerStore = useHeaderStore()
-
-const { isScreenLarge } = useResizeLarge()
-
-const emit = defineEmits(['openMobileSideBar'])
-
-const goBack = () => router.go(-1)
-</script> -->
-
-<style scoped>
+<style lang="scss" scoped>
 .header {
   display: flex;
   justify-content: space-between;
@@ -44,28 +43,26 @@ const goBack = () => router.go(-1)
   backdrop-filter: blur(8px);
   padding-left: 24px;
   padding-right: 24px;
-}
-.header__titleBox {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.header__title {
-  font-family: "Inter_SemiBold", sans-serif;
-  font-size: 22px;
-  line-height: 28px;
-  color: var(--text-color-primary);
-}
 
-@media (max-width: 1023px) {
-  .header__title {
-    font-size: 18px;
-    line-height: 24px;
+  &__titleBox {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
-}
 
-@media (max-width: 767px) {
-  .header {
+  &__title {
+    font-family: "Inter-SemiBold", sans-serif;
+    font-size: 22px;
+    line-height: 28px;
+    color: var(--text-color-primary);
+
+    @media (max-width: 1023px) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  @media (max-width: 767px) {
     padding-left: 10px;
     padding-right: 10px;
   }
