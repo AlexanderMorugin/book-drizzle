@@ -69,8 +69,7 @@ import {
 
 const { place } = defineProps(["place"]);
 
-// const userStore = useUserStore();
-const router = useRouter();
+const userStore = useUserStore();
 
 const isLoading = ref(false);
 const nameField = ref(null);
@@ -130,16 +129,10 @@ const submitRegisterForm = async () => {
         email: emailField.value.trim(),
         name: nameField.value.trim(),
         password: passwordField.value.trim(),
-        // book_for_years: 10,
       };
 
       // Отправляем данные пользователя на регистрацию
-      const { data, status, error } = await useFetch("/api/auth/register", {
-        method: "POST",
-        body: userData,
-      });
-
-      // const { data, error } = await userStore.registerUser(userData);
+      const status = await userStore.registerUser(userData);
 
       // Если пользователь не создался в БД, пишем ошибку
       if (status.value === "error") {

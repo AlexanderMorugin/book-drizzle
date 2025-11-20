@@ -87,10 +87,7 @@ const submitLoginForm = async () => {
       };
 
       // Отправляем данные пользователя на логин
-      const { data, status } = await useFetch("/api/auth/login", {
-        method: "POST",
-        body: userData,
-      });
+      const status = await userStore.loginUser(userData);
 
       // Если пользователь не залогинился в БД, пишем ошибку
       if (status.value === "error") {
@@ -100,8 +97,6 @@ const submitLoginForm = async () => {
       // Если пользователь залогинился в БД, перенаправляем его на главную
       if (status.value === "success") {
         loginMessage.value = "Авторизация прошла успешно!";
-
-        userStore.setCurrentUser(data.value.user);
         return navigateTo("/");
       }
     }
