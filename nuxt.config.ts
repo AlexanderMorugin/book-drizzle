@@ -28,7 +28,7 @@ export default defineNuxtConfig({
       scrollBehaviorType: "smooth",
     },
   },
-  routeRules: {
-    "/login": { ssr: false },
-  },
+  // routeRules: {
+  //   "/": { swr: true },
+  // },
 });

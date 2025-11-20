@@ -5,7 +5,7 @@
         <div class="sideBarAuth__userIconBox">
           <IconProfile class="profileIcon" />
         </div>
-        <div class="sideBarAuth__userNameBox">
+        <div v-if="userStore.user" class="sideBarAuth__userNameBox">
           <span class="sideBarAuth__name">{{ userStore.user.name }}</span>
           <span class="sideBarAuth__email">{{ userStore.user.email }}</span>
         </div>
@@ -18,11 +18,19 @@
 <script setup>
 const userStore = useUserStore();
 
-const handleLogout = () => {
-  const cookie = useCookie("refresh_token");
-  cookie.value = null;
+const handleLogout = async () => {
+  // const cookie = useCookie("refresh_token");
+  // cookie.value = null;
+  // refreshCookie("refresh_token");
+
+  // Удаляем куки
+  const { refresh } = await useFetch("/api/auth/logout", {
+    method: "POST",
+  });
+
+  await refresh();
+  // Очищаем пользователя в сторе
   userStore.logoutCurrentUser();
-  location.reload();
   return navigateTo("/login");
 };
 </script>

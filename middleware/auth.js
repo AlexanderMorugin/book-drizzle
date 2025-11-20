@@ -3,7 +3,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const cookie = useCookie("refresh_token");
 
-  const { data, status, error } = await useFetch("/api/auth/session");
+  const { data, status, error, refresh } = await useFetch("/api/auth/session");
+  // const res = await $fetch("/api/auth/session");
 
   // Если срок годности рефреш токена истек, отправляем на логин
   if (!data.value) {
@@ -11,6 +12,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     cookie.value = null;
     return navigateTo("/login");
   }
+
+  // console.log(res);
+
+  await refresh();
 
   userStore.setCurrentUser(data.value.user);
 });

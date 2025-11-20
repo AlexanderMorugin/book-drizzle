@@ -43,6 +43,8 @@ import { helpers, required, minLength, email } from "@vuelidate/validators";
 
 const { place } = defineProps(["place"]);
 
+const userStore = useUserStore();
+
 const isLoading = ref(false);
 const emailField = ref(null);
 const passwordField = ref(null);
@@ -85,10 +87,15 @@ const submitLoginForm = async () => {
       };
 
       // Отправляем данные пользователя на логин
-      const { data, status, error } = await useFetch("/api/auth/login", {
-        method: "POST",
-        body: userData,
-      });
+      const { data, status, error, refresh } = await useFetch(
+        "/api/auth/login",
+        {
+          method: "POST",
+          body: userData,
+        }
+      );
+
+      // console.log(data.value.user);
 
       // Если пользователь не залогинился в БД, пишем ошибку
       if (status.value === "error") {
@@ -98,6 +105,8 @@ const submitLoginForm = async () => {
       // Если пользователь залогинился в БД, перенаправляем его на главную
       if (status.value === "success") {
         loginMessage.value = "Авторизация прошла успешно!";
+
+        userStore.setCurrentUser(data.value.user);
         return navigateTo("/");
       }
     }

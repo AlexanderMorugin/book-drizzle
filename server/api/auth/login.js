@@ -38,15 +38,11 @@ export default defineEventHandler(async (event) => {
   const { accessToken, refreshToken } = generateTokens(existUser[0]);
 
   // Записываем в куки refreshToken
-  setCookie(
-    event,
-    "refresh_token",
-    refreshToken
-    //    {
-    //   httpOnly: true,
-    //   sameSite: true,
-    // }
-  );
+  setCookie(event, "refresh_token", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: true,
+  });
 
   // Записываем в Database refreshToken
   await db
@@ -55,6 +51,6 @@ export default defineEventHandler(async (event) => {
     .where(eq(Users.email, email));
 
   // Возвращаем на фронтенд accessToken
-  // return { access_token: accessToken, existUser };
-  return { access_token: accessToken };
+  return { access_token: accessToken, user: existUser[0] };
+  // return { access_token: accessToken };
 });

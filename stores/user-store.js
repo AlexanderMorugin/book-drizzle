@@ -10,8 +10,13 @@ export const useUserStore = defineStore("userStore", () => {
     users.value = res.data.value;
   };
 
-  const setCurrentUser = (userData) => {
-    user.value = userData;
+  const setCurrentUser = async (userData) => {
+    user.value = null;
+
+    if (userData) {
+      return (user.value = await userData);
+    }
+    // user.value = userData;
   };
 
   const logoutCurrentUser = () => {
