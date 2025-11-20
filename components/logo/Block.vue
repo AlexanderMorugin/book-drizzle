@@ -72,7 +72,7 @@ const setSubtitle = () => {
     subtitle.value = "Установите годовую цель по количеству книг";
 };
 
-onMounted(() => setSubtitle());
+setSubtitle();
 </script>
 
 <style lang="scss" scoped>

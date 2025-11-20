@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@nuxt/fonts"],
   runtimeConfig: {
     jwtAccessSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
     jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
@@ -17,9 +17,15 @@ export default defineNuxtConfig({
     layoutTransition: { name: "page", mode: "out-in" },
     head: {
       title: "Book Drizzle",
+      meta: [{ name: "description", content: "My Drizzle Book" }],
       htmlAttrs: {
         lang: "ru",
       },
+    },
+  },
+  router: {
+    options: {
+      scrollBehaviorType: "smooth",
     },
   },
 });

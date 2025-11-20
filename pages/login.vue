@@ -27,7 +27,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "auth-layout",
+  layout: "auth",
   // middleware: ["auth"],
 });
 
