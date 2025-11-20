@@ -19,10 +19,6 @@
 const userStore = useUserStore();
 
 const handleLogout = async () => {
-  // const cookie = useCookie("refresh_token");
-  // cookie.value = null;
-  // refreshCookie("refresh_token");
-
   // Удаляем куки
   const { refresh } = await useFetch("/api/auth/logout", {
     method: "POST",

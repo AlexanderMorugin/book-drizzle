@@ -6,17 +6,13 @@ export const useUserStore = defineStore("userStore", () => {
 
   const loadUsers = async () => {
     const res = await useFetch("/api/users");
-
     users.value = res.data.value;
   };
 
-  const setCurrentUser = async (userData) => {
+  const setCurrentUser = (userData) => {
     user.value = null;
 
-    if (userData) {
-      return (user.value = await userData);
-    }
-    // user.value = userData;
+    user.value = userData;
   };
 
   const logoutCurrentUser = () => {

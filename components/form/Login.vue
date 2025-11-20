@@ -87,15 +87,10 @@ const submitLoginForm = async () => {
       };
 
       // Отправляем данные пользователя на логин
-      const { data, status, error, refresh } = await useFetch(
-        "/api/auth/login",
-        {
-          method: "POST",
-          body: userData,
-        }
-      );
-
-      // console.log(data.value.user);
+      const { data, status } = await useFetch("/api/auth/login", {
+        method: "POST",
+        body: userData,
+      });
 
       // Если пользователь не залогинился в БД, пишем ошибку
       if (status.value === "error") {
