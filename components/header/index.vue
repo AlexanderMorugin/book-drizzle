@@ -7,11 +7,11 @@
         @handleClick="emit('openMobileSideBar')"
       />
 
-      <span class="header__title">Главная</span>
-
-      <!-- <span v-if="headerStore.headerTitle" class="header__title">{{
-        headerStore.headerTitle
-      }}</span> -->
+      <ClientOnly>
+        <span v-if="headerStore.headerTitle" class="header__title">{{
+          headerStore.headerTitle
+        }}</span>
+      </ClientOnly>
     </div>
 
     <ButtonIconNavigate
@@ -28,6 +28,8 @@ const router = useRouter();
 const { isScreenLarge } = useResizeLarge();
 
 const emit = defineEmits(["openMobileSideBar"]);
+
+const pageTitle = ref(null);
 
 const goBack = () => router.go(-1);
 </script>

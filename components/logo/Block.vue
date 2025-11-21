@@ -14,7 +14,26 @@
     <LogoIcon :place="place" />
 
     <div>
-      <component
+      <h1
+        v-if="place === 'addBook'"
+        class="logoBlock__title logoBlock__title_addBook"
+      >
+        Добавить новую книгу
+      </h1>
+      <h2
+        v-if="place === 'progressYear'"
+        class="logoBlock__title logoBlock__title_addBook"
+      >
+        Цель чтения
+      </h2>
+      <div
+        v-if="place === 'register' || place === 'login' || place === 'sidebar'"
+        class="logoBlock__title logoBlock__title_login"
+      >
+        Book Tracker
+      </div>
+
+      <!-- <component
         :is="place === 'addBook' ? 'h1' : 'progressYear' ? 'h2' : 'div'"
         :class="[
           'logoBlock__title',
@@ -37,7 +56,7 @@
             ? "Цель чтения"
             : ""
         }}
-      </component>
+      </component> -->
 
       <div
         :class="[

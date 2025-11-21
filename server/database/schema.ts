@@ -14,3 +14,22 @@ export const Users = pgTable("users", {
 
 export type userSchemaSelect = typeof Users.$inferSelect;
 export type userSchemaInsert = typeof Users.$inferInsert;
+
+export const Books = pgTable("books", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  author: text("author").notNull(),
+  image: text("image"),
+  progress: integer("progress").default(0),
+  rating: integer("rating").default(0),
+  comment: text("comment"),
+
+  // genre: text("genre").notNull(),
+  // user_id: text("user_id").notNull(),
+
+  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+});
+
+export type bookSchemaSelect = typeof Books.$inferSelect;
+export type bookSchemaInsert = typeof Books.$inferInsert;
