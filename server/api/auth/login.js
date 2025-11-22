@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/server";
-import { Users } from "~/server/database/schema";
+import { users } from "~/server/database/schema";
 import { comparePassword } from "~/server/utils/hash-password";
 
 export default defineEventHandler(async (event) => {
@@ -9,8 +9,8 @@ export default defineEventHandler(async (event) => {
   // Проверяем в БД есть ли пользователь с такой почтой
   const existUser = await db
     .select()
-    .from(Users)
-    .where(eq(Users.email, email))
+    .from(users)
+    .where(eq(users.email, email))
     .limit(1);
 
   // Если пользователь с такой почтой существует: Выбрасываем ошибку на стороне сервере
@@ -46,9 +46,9 @@ export default defineEventHandler(async (event) => {
 
   // Записываем в Database refreshToken
   await db
-    .update(Users)
+    .update(users)
     .set({ refresh_token: refreshToken })
-    .where(eq(Users.email, email));
+    .where(eq(users.email, email));
 
   // Возвращаем на фронтенд accessToken
   return { access_token: accessToken, user: existUser[0] };

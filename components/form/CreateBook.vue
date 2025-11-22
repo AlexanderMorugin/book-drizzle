@@ -47,6 +47,7 @@ import { helpers, required, minLength, url } from "@vuelidate/validators";
 
 const { place } = defineProps(["place"]);
 
+const userStore = useUserStore();
 const bookStore = useBookStore();
 
 const isLoading = ref(false);
@@ -98,16 +99,16 @@ const submitAddBook = async () => {
         // genre: parrentSelectedOption.value.name,
         image: imageUrlField.value,
         // dropedImage: dropedImage.value,
-        // user_id: userStore.user[0].id,
+        owner_id: userStore.user.id,
         // progress: 0,
         // rating: 0,
       };
 
-      console.log(bookData);
+      // console.log(bookData);
 
       const status = await bookStore.createdBook(bookData);
 
-      console.log("FORM_ADD_BOOK: ", status);
+      // console.log("FORM_ADD_BOOK: ", status);
     }
   } catch (error) {
     console.log(error);

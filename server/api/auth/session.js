@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/server";
-import { Users } from "~/server/database/schema";
+import { users } from "~/server/database/schema";
 import { transformUser } from "~/server/utils/transform-user";
 
 export default defineEventHandler(async (event) => {
@@ -19,8 +19,8 @@ export default defineEventHandler(async (event) => {
   // Находим в БД пользователя по рефреш токену
   const existUser = await db
     .select()
-    .from(Users)
-    .where(eq(Users.refresh_token, cookie))
+    .from(users)
+    .where(eq(users.refresh_token, cookie))
     .limit(1);
 
   // Проверяем действительность рефреш токена

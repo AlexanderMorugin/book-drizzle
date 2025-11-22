@@ -1,7 +1,7 @@
 <template>
   <div class="bookAddingBlock">
     <LogoBlock place="addBook" />
-    <FormAddBook place="addBook" />
+    <FormCreateBook place="addBook" />
   </div>
 </template>
 

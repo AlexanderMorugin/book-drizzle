@@ -1,10 +1,11 @@
 <template>
-  <NuxtLink :to="`/library/anna`" class="bookCard">
+  <div class="bookCard">
     <BookEmptyImage title="Книга без обложки" />
     <!-- <img v-else :src="book.image" :alt="book.title" class="bookCard__image" /> -->
     <span class="bookCard__title">{{ book.name }}</span>
     <span class="bookCard__author">{{ book.author }}</span>
     <span class="bookCard__genre">Художественная литература</span>
+    <button @click="deleteBook(book.id)">Удалить</button>
     <!-- <BookStatus :progress="50" /> -->
     <!-- <BookRating v-if="book.rating" :rating="4" /> -->
     <!-- <ProgressBarDetails
@@ -12,11 +13,19 @@
       :progress="book.progress"
       class="bookCard__progress"
     /> -->
-  </NuxtLink>
+  </div>
 </template>
 
 <script setup>
 const { book } = defineProps(["book"]);
+
+const bookStore = useBookStore();
+
+const deleteBook = async (id) => {
+  const { status } = await bookStore.deleteBook(id);
+
+  console.log(status.value);
+};
 </script>
 
 <style lang="scss" scoped>

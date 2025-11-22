@@ -1,6 +1,7 @@
+import { relations } from "drizzle-orm";
 import { serial, pgTable, text, integer, timestamp } from "drizzle-orm/pg-core";
 
-export const Users = pgTable("users", {
+export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
@@ -12,10 +13,11 @@ export const Users = pgTable("users", {
   updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 
-export type userSchemaSelect = typeof Users.$inferSelect;
-export type userSchemaInsert = typeof Users.$inferInsert;
+export const userRelations = relations(users, ({ many }) => ({
+  books: many(books),
+}));
 
-export const Books = pgTable("books", {
+export const books = pgTable("books", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   author: text("author").notNull(),
@@ -25,11 +27,23 @@ export const Books = pgTable("books", {
   comment: text("comment"),
 
   // genre: text("genre").notNull(),
-  // user_id: text("user_id").notNull(),
+  owner_id: integer("user_id")
+    .notNull()
+    .references(() => users.id),
 
   createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 
-export type bookSchemaSelect = typeof Books.$inferSelect;
-export type bookSchemaInsert = typeof Books.$inferInsert;
+export const BookRelations = relations(books, ({ one }) => ({
+  owner: one(users, {
+    fields: [books.owner_id],
+    references: [users.id],
+  }),
+}));
+
+// export type userSchemaSelect = typeof Users.$inferSelect;
+// export type userSchemaInsert = typeof Users.$inferInsert;
+
+// export type bookSchemaSelect = typeof Books.$inferSelect;
+// export type bookSchemaInsert = typeof Books.$inferInsert;

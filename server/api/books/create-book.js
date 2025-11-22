@@ -1,6 +1,6 @@
 // import { eq } from "drizzle-orm";
 import { db } from "~/server";
-import { Books } from "~/server/database/schema";
+import { books } from "~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -10,12 +10,16 @@ export default defineEventHandler(async (event) => {
     name: body.name,
     author: body.author,
     image: body.image,
+    owner_id: body.owner_id,
   };
 
   // Отправляем книгу в базу данных
-  const createdBook = await db.insert(Books).values({ ...book });
+  const newBook = await db
+    .insert(books)
+    .values({ ...book })
+    .returning();
 
-  console.log("createdBook: ", createdBook);
+  // console.log("createdBook: ", createdBook);
 
-  return createdBook;
+  return newBook;
 });

@@ -38,8 +38,9 @@ definePageMeta({
 
 const headerStore = useHeaderStore();
 const bookStore = useBookStore();
+const userStore = useUserStore();
 
-await bookStore.loadBooks();
+await bookStore.loadBooks(userStore.user.id);
 
 const bookField = ref(null);
 const isLoading = ref(false);
