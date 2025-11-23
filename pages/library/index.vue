@@ -1,6 +1,5 @@
 <template>
   <PageContainer width="wide">
-    {{ bookStore.books }}
     <!-- <SearchInput
       type="text"
       name="bookField"

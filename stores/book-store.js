@@ -10,8 +10,6 @@ export const useBookStore = defineStore("bookStore", () => {
       body: userId,
     });
 
-    // console.log(data.value);
-
     if (error.value) {
       console.log(error);
     }
@@ -25,9 +23,45 @@ export const useBookStore = defineStore("bookStore", () => {
       body: bookData,
     });
 
-    // console.log(data.value[0]);
-
     return status;
+  };
+
+  const getBook = async (bookId) => {
+    const { data, status, pending } = await useFetch("/api/books/get-book", {
+      method: "POST",
+      body: {
+        id: bookId,
+      },
+    });
+
+    book.value = data.value[0];
+
+    return { data, status, pending };
+  };
+
+  const updateBookRating = async (newRating, bookId) => {
+    const { data, status, refresh } = await useFetch(
+      "/api/books/update-book-rating",
+      {
+        method: "PATCH",
+        body: {
+          rating: newRating,
+          id: bookId,
+        },
+      }
+    );
+  };
+
+  const updateBookComment = async (comment, bookId) => {
+    const { data, status } = await useFetch("/api/books/update-book-comment", {
+      method: "PATCH",
+      body: {
+        comment: comment,
+        id: bookId,
+      },
+    });
+
+    return { data, status };
   };
 
   const deleteBook = async (bookId) => {
@@ -48,6 +82,9 @@ export const useBookStore = defineStore("bookStore", () => {
     book,
     loadBooks,
     createdBook,
+    getBook,
+    updateBookRating,
+    updateBookComment,
     deleteBook,
   };
 });

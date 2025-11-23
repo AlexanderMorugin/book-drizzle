@@ -1,5 +1,6 @@
 <template>
   <section>
+    {{ books }}
     <LoaderPage />
     <div>
       <BookEmptyArray title="В вашей библиотеке книг пока нет." />
