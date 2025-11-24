@@ -3,11 +3,11 @@ import { db } from "~/server";
 import { books } from "~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
-  const { rating, id } = await readBody(event);
+  const { progress, id } = await readBody(event);
 
   const result = await db
     .update(books)
-    .set({ rating: rating })
+    .set({ progress: progress })
     .where(eq(books.id, id));
 
   return result;

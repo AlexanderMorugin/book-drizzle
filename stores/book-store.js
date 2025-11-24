@@ -39,27 +39,43 @@ export const useBookStore = defineStore("bookStore", () => {
     return { data, status, pending };
   };
 
-  const updateBookRating = async (newRating, bookId) => {
+  const updateBookRating = async (newRating) => {
     const { data, status, refresh } = await useFetch(
       "/api/books/update-book-rating",
       {
         method: "PATCH",
         body: {
           rating: newRating,
-          id: bookId,
+          id: book.value.id,
         },
       }
     );
   };
 
-  const updateBookComment = async (comment, bookId) => {
+  const updateBookComment = async (newComment) => {
     const { data, status } = await useFetch("/api/books/update-book-comment", {
       method: "PATCH",
       body: {
-        comment: comment,
-        id: bookId,
+        comment: newComment,
+        id: book.value.id,
       },
     });
+
+    return { data, status };
+  };
+
+  const updateBookProgress = async (progress) => {
+    const { data, status } = await useFetch("/api/books/update-book-progress", {
+      method: "PATCH",
+      body: {
+        progress: progress,
+        id: book.value.id,
+      },
+    });
+
+    if (status.value === "success") {
+      book.value.progress = progress;
+    }
 
     return { data, status };
   };
@@ -77,6 +93,11 @@ export const useBookStore = defineStore("bookStore", () => {
     return { data, status };
   };
 
+  const logoutUser = () => {
+    books.value = [];
+    book.value = null;
+  };
+
   return {
     books,
     book,
@@ -85,6 +106,8 @@ export const useBookStore = defineStore("bookStore", () => {
     getBook,
     updateBookRating,
     updateBookComment,
+    updateBookProgress,
     deleteBook,
+    logoutUser,
   };
 });

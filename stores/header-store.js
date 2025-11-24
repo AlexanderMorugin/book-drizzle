@@ -7,8 +7,13 @@ export const useHeaderStore = defineStore("headerStore", () => {
     headerTitle.value = headerData;
   };
 
+  const logoutUser = () => {
+    headerTitle.value = null;
+  };
+
   return {
     headerTitle,
     setHeaderTitle,
+    logoutUser,
   };
 });

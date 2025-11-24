@@ -1,29 +1,29 @@
 <template>
   <section class="bookTitleBlock">
     <div class="bookTitleBlock__container">
-      <div v-if="!currentBook?.image" class="bookTitleBlock__noImage">
+      <div v-if="!bookStore.book?.image" class="bookTitleBlock__noImage">
         Книга без обложки
       </div>
       <img
         v-else
-        :src="currentBook?.image"
-        :alt="currentBook?.name"
+        :src="bookStore.book?.image"
+        :alt="bookStore.book?.name"
         class="bookTitleBlock__image"
       />
       <div class="bookTitleBlock__details">
-        <h1 class="bookTitleBlock__title">{{ currentBook?.name }}</h1>
-        <span class="bookTitleBlock__author">{{ currentBook?.author }}</span>
+        <h1 class="bookTitleBlock__title">{{ bookStore.book?.name }}</h1>
+        <span class="bookTitleBlock__author">{{ bookStore.book?.author }}</span>
         <span class="bookTitleBlock__genre">{{
-          currentBook?.genre || "Жанр не выбран"
+          bookStore.book?.genre || "Жанр не выбран"
         }}</span>
-        <BookStatus :progress="currentBook?.progress" />
+        <BookStatus :progress="bookStore.book?.progress" />
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-const { currentBook } = defineProps(["currentBook"]);
+const bookStore = useBookStore();
 </script>
 
 <style scoped>

@@ -1,10 +1,7 @@
 <template>
   <PageContainer width="normal">
-    <BookTitleBlock :currentBook="bookStore.book" />
-    <BookEditBlock
-      :currentBook="bookStore.currentBook"
-      :bookId="route.params.id"
-    />
+    <BookTitleBlock />
+    <BookEditBlock />
   </PageContainer>
 </template>
 

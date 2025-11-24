@@ -11,16 +11,16 @@
       <component
         v-else
         :is="isProgressActive ? BookProgressInput : ProgressBarDetails"
-        v-model:value="progress"
-        :progress="progress"
+        v-model:value="bookProgress"
+        :progress="bookProgress"
         :progressErrorMessage="progressErrorMessage"
       />
 
-      <!-- <BookEditSubmitButtons
+      <BookEditSubmitButtons
         v-if="isProgressActive"
         @submitData="submitData"
-        @handleCancel="removeActiveProgress"
-      /> -->
+        @handleCancel="cancelActiveProgress"
+      />
     </BookEditContainer>
 
     <!-- Кнопка "Прочитано" -->
@@ -58,21 +58,20 @@ import { ProgressBarDetails } from "#components";
 const bookStore = useBookStore();
 const router = useRouter();
 
-const { bookId } = defineProps(["bookId"]);
-
 const isLoading = ref(false);
 const isDeleteLoading = ref(false);
 const isProgressActive = ref(false);
-const progress = ref(0);
+const bookProgress = ref(bookStore.book.progress);
 const progressErrorMessage = ref(null);
 const isSuccessDeleteModalOpen = ref(false);
 const successDeleteMessage = ref(null);
 
 const setActiveProgress = () => (isProgressActive.value = true);
-const removeActiveProgress = () => {
+const cancelActiveProgress = () => {
+  // console.log(bookStore.book.progress);
+  bookProgress.value = bookStore.book.progress;
   isProgressActive.value = false;
   progressErrorMessage.value = null;
-  progress.value = bookStore.currentBook.progress;
 };
 
 // Функции модалок
@@ -85,17 +84,21 @@ const removeActiveProgress = () => {
 // Сабмит прогресса чтения книги
 const submitData = async () => {
   progressErrorMessage.value = null;
+  isProgressActive.value = true;
 
-  if (progress.value < 0 || progress.value > 100) {
+  if (bookProgress.value < 0 || bookProgress.value > 100) {
     progressErrorMessage.value = "от 0 до 100";
-    progress.value = bookStore.book.progress;
+    bookProgress.value = bookStore.book.progress;
     return;
   }
 
-  progressErrorMessage.value = null;
-  // await bookStore.updateCurrentBookProgress(progress.value, bookId)
-  // removeActiveProgress()
-  // getStoreData()
+  try {
+    await bookStore.updateBookProgress(bookProgress.value);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isProgressActive.value = false;
+  }
 };
 
 // Установление прогресса чтения на 100%

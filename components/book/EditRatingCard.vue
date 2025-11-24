@@ -5,31 +5,28 @@
       <LoaderComponent v-if="isLoading" />
     </div>
     <BookStarRating
-      v-model:value="userRating"
+      v-model:value="bookRating"
       :maxStars="5"
       @ratingData="updateRating"
     />
 
-    <p class="ratingText">Вы оценили книгу на {{ userRating }} из 5</p>
+    <p class="ratingText">
+      Вы оценили книгу на {{ bookStore.book.rating }} из 5
+    </p>
   </BookEditContainer>
 </template>
 
 <script setup>
 const bookStore = useBookStore();
 
-const { bookId } = defineProps(["bookId"]);
-
-const userRating = ref(bookStore.book.rating);
+const bookRating = ref(bookStore.book.rating);
 const isLoading = ref(false);
 
 const updateRating = async (newRating) => {
-  userRating.value = newRating;
+  bookRating.value = newRating;
   isLoading.value = true;
   try {
-    const { data, status, refresh } = await bookStore.updateBookRating(
-      newRating,
-      bookId
-    );
+    await bookStore.updateBookRating(newRating);
   } catch (error) {
     console.log(error);
   } finally {

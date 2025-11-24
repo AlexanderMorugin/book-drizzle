@@ -1,13 +1,13 @@
 <template>
-  <p v-if="comment" class="bookComment">
-    {{ comment }}
+  <p v-if="bookComment" class="bookComment">
+    {{ bookComment }}
   </p>
 
   <p v-else class="bookComment">Комментария пока нет.</p>
 </template>
 
 <script setup>
-const { comment } = defineProps(["comment"]);
+const { bookComment } = defineProps(["bookComment"]);
 </script>
 
 <style scoped>

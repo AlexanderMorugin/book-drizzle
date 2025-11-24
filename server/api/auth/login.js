@@ -7,11 +7,10 @@ export default defineEventHandler(async (event) => {
   const { email, password } = await readBody(event);
 
   // Проверяем в БД есть ли пользователь с такой почтой
-  const existUser = await db
-    .select()
-    .from(users)
-    .where(eq(users.email, email))
-    .limit(1);
+  const existUser = await db.select().from(users).where(eq(users.email, email));
+  // .limit(1);
+
+  console.log(existUser);
 
   // Если пользователь с такой почтой существует: Выбрасываем ошибку на стороне сервере
   if (!existUser) {

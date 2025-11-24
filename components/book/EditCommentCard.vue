@@ -10,8 +10,8 @@
     <component
       v-else
       :is="isCommentActive ? BookCommentTextArea : BookComment"
-      v-model:value="comment"
-      :comment="comment"
+      v-model:value="bookComment"
+      :bookComment="bookComment"
     />
 
     <BookEditSubmitButtons
@@ -28,11 +28,9 @@ import { BookComment } from "#components";
 
 const bookStore = useBookStore();
 
-const { bookId } = defineProps(["bookId"]);
-
 const isLoading = ref(false);
 const isCommentActive = ref(false);
-const comment = ref(bookStore.book.comment);
+const bookComment = ref(bookStore.book.comment);
 
 const setActiveComment = () => (isCommentActive.value = true);
 const removeActiveComment = () => {
@@ -43,7 +41,7 @@ const removeActiveComment = () => {
 const submitData = async () => {
   isLoading.value = true;
   try {
-    await bookStore.updateBookComment(comment.value, bookId);
+    await bookStore.updateBookComment(bookComment.value);
     isCommentActive.value = false;
   } catch (error) {
     console.log(error);

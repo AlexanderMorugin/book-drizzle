@@ -1,14 +1,10 @@
 <template>
   <section class="bookEditBlock">
-    <BookEditRatingCard :currentBook="currentBook" :bookId="bookId" />
-    <BookEditCommentCard :bookId="bookId" />
-    <BookEditProgressCard :bookId="bookId" />
+    <BookEditRatingCard />
+    <BookEditCommentCard />
+    <BookEditProgressCard />
   </section>
 </template>
-
-<script setup>
-const { currentBook, bookId } = defineProps(["currentBook", "bookId"]);
-</script>
 
 <style lang="scss" scoped>
 .bookEditBlock {

@@ -13,6 +13,7 @@ const logout = () => {
   const cookie = useCookie("refresh_token");
   cookie.value = null;
   userStore.logoutCurrentUser();
+
   location.reload();
   return navigateTo("/login");
 };

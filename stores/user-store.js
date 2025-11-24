@@ -25,6 +25,7 @@ export const useUserStore = defineStore("userStore", () => {
     });
 
     user.value = data.value.user;
+
     return status;
   };
 

@@ -31,5 +31,14 @@ definePageMeta({
   // middleware: ["auth"],
 });
 
+const bookStore = useBookStore();
+const headerStore = useHeaderStore();
+const userStore = useUserStore();
+
 const { isScreenLarge } = useResizeLarge();
+
+// При входе на страницу Логина, очищаем весь стор
+bookStore.logoutUser();
+headerStore.logoutUser();
+userStore.logoutCurrentUser();
 </script>
