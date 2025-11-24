@@ -7,9 +7,11 @@
         @handleClick="setActiveProgress"
       />
 
-      <LoaderComponent v-if="isLoading" />
+      <div class="loader-place-br">
+        <LoaderComponent v-if="isLoading" />
+      </div>
+
       <component
-        v-else
         :is="isProgressActive ? BookProgressInput : ProgressBarDetails"
         v-model:value="bookProgress"
         :progress="bookProgress"
@@ -26,13 +28,13 @@
     <!-- Кнопка "Прочитано" -->
     <FormSubmitButton
       place="book"
-      :isLoading="isLoading"
+      :isLoading="isButtonDoneLoading"
       @handleClick="setProgressDone"
     />
     <!-- Кнопка "Удалить" -->
     <FormSubmitButton
       place="delete"
-      :isLoading="isDeleteLoading"
+      :isLoading="isButtonDeleteLoading"
       @handleClick="deleteBook"
     />
 
@@ -56,10 +58,11 @@ import { BookProgressInput } from "#components";
 import { ProgressBarDetails } from "#components";
 
 const bookStore = useBookStore();
-const router = useRouter();
+// const router = useRouter();
 
 const isLoading = ref(false);
-const isDeleteLoading = ref(false);
+const isButtonDoneLoading = ref(false);
+const isButtonDeleteLoading = ref(false);
 const isProgressActive = ref(false);
 const bookProgress = ref(bookStore.book.progress);
 const progressErrorMessage = ref(null);
@@ -68,7 +71,6 @@ const successDeleteMessage = ref(null);
 
 const setActiveProgress = () => (isProgressActive.value = true);
 const cancelActiveProgress = () => {
-  // console.log(bookStore.book.progress);
   bookProgress.value = bookStore.book.progress;
   isProgressActive.value = false;
   progressErrorMessage.value = null;
@@ -85,6 +87,7 @@ const cancelActiveProgress = () => {
 const submitData = async () => {
   progressErrorMessage.value = null;
   isProgressActive.value = true;
+  isLoading.value = true;
 
   if (bookProgress.value < 0 || bookProgress.value > 100) {
     progressErrorMessage.value = "от 0 до 100";
@@ -98,41 +101,39 @@ const submitData = async () => {
     console.log(error);
   } finally {
     isProgressActive.value = false;
+    isLoading.value = false;
   }
 };
 
 // Установление прогресса чтения на 100%
-// const setProgressDone = async () => {
-//   isLoading.value = false
+const setProgressDone = async () => {
+  isButtonDoneLoading.value = true;
 
-//   try {
-//     isLoading.value = true
-//     progress.value = 100
-//     await bookStore.updateCurrentBookProgress(100, bookId)
-//     getStoreData()
-//   } catch (error) {
-//     console.log(error)
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
+  try {
+    await bookStore.updateBookProgress(100);
+    bookProgress.value = 100;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isButtonDoneLoading.value = false;
+  }
+};
 
 // Удаление книги
-// const deleteBook = async () => {
-//   isDeleteLoading.value = false
+const deleteBook = async () => {
+  isButtonDeleteLoading.value = true;
 
-//   try {
-//     isDeleteLoading.value = true
-//     await bookStore.deleteBook(bookId)
-//     isSuccessDeleteModalOpen.value = true
-//     successDeleteMessage.value = 'Книга успешно удалена!'
-//     // router.go(-1)
-//   } catch (error) {
-//     console.log(error)
-//   } finally {
-//     isDeleteLoading.value = false
-//   }
-// }
+  try {
+    await bookStore.deleteBook();
+    return navigateTo("/library");
+    // isSuccessDeleteModalOpen.value = true
+    // successDeleteMessage.value = 'Книга успешно удалена!'
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isButtonDeleteLoading.value = false;
+  }
+};
 
 // async function getStoreData() {
 //   isLoading.value = false
@@ -147,8 +148,4 @@ const submitData = async () => {
 //     isLoading.value = false
 //   }
 // }
-
-// onMounted(() => {
-//   getStoreData()
-// })
 </script>

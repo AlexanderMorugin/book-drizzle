@@ -13,9 +13,9 @@
   height: 100%;
 }
 .loader {
-  width: 30px;
-  height: 30px;
-  border: 4px dotted var(--blue-primary);
+  width: 20px;
+  height: 20px;
+  border: 2px dotted var(--blue-primary);
   border-radius: var(--border-radius-full);
   display: inline-block;
   position: relative;

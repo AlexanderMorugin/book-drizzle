@@ -108,7 +108,7 @@ const submitAddBook = async () => {
 
       const status = await bookStore.createdBook(bookData);
 
-      // console.log("FORM_ADD_BOOK: ", status);
+      return navigateTo("/library");
     }
   } catch (error) {
     console.log(error);

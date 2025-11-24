@@ -136,14 +136,15 @@ const emit = defineEmits(["handleClick"]);
 .formSubmitButton_loginActive:hover .icon {
   animation: scale 0.3s ease-in-out;
 }
-.formSubmitButton_book {
+/* .formSubmitButton_book {
   background: var(--gradient-progress-done-green);
   margin-top: 32px;
-}
+} */
 .formSubmitButton_book {
   background: var(--gradient-progress-done-green);
   margin-top: 32px;
   transition: 0.25s ease;
+  cursor: pointer;
 }
 .formSubmitButton_book:hover {
   background: var(--gradient-form-login);
@@ -155,6 +156,7 @@ const emit = defineEmits(["handleClick"]);
   background: var(--red-primary);
   margin-top: 32px;
   transition: 0.25s ease;
+  cursor: pointer;
 }
 .formSubmitButton_delete:hover {
   background: var(--blue-primary);

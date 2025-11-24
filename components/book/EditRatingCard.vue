@@ -1,9 +1,11 @@
 <template>
   <BookEditContainer>
     <BookEditTitle title="Рейтинг" />
-    <div class="loader">
+
+    <div class="loader-place-br">
       <LoaderComponent v-if="isLoading" />
     </div>
+
     <BookStarRating
       v-model:value="bookRating"
       :maxStars="5"
@@ -17,6 +19,9 @@
 </template>
 
 <script setup>
+// import { LoaderComponent } from "#components";
+// import { BookEditTitle } from "#components";
+
 const bookStore = useBookStore();
 
 const bookRating = ref(bookStore.book.rating);
@@ -41,11 +46,5 @@ const updateRating = async (newRating) => {
   font-size: 14px;
   line-height: 20px;
   color: var(--text-color-secondary);
-}
-
-.loader {
-  position: absolute;
-  top: 20px;
-  right: 20px;
 }
 </style>

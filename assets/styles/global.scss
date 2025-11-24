@@ -32,6 +32,12 @@ button {
   cursor: pointer;
 }
 
+.loader-place-br {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
 /* Transitions */
 
 .list-enter-active,

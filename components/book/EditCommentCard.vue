@@ -6,9 +6,11 @@
       @handleClick="setActiveComment"
     />
 
-    <LoaderComponent v-if="isLoading" />
+    <div class="loader-place-br">
+      <LoaderComponent v-if="isLoading" />
+    </div>
+
     <component
-      v-else
       :is="isCommentActive ? BookCommentTextArea : BookComment"
       v-model:value="bookComment"
       :bookComment="bookComment"

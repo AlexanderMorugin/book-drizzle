@@ -84,7 +84,7 @@ export const useBookStore = defineStore("bookStore", () => {
     const { data, status } = await useFetch("/api/books/delete-book", {
       method: "DELETE",
       body: {
-        id: bookId,
+        id: book.value.id,
       },
     });
 
