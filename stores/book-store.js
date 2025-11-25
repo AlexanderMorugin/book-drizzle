@@ -40,20 +40,19 @@ export const useBookStore = defineStore("bookStore", () => {
   };
 
   const updateBookRating = async (newRating) => {
-    const { data, status, refresh } = await useFetch(
-      "/api/books/update-book-rating",
-      {
-        method: "PATCH",
-        body: {
-          rating: newRating,
-          id: book.value.id,
-        },
-      }
-    );
+    const result = await useFetch("/api/books/update-book-rating", {
+      method: "PATCH",
+      body: {
+        rating: newRating,
+        id: book.value.id,
+      },
+    });
+
+    return result;
   };
 
   const updateBookComment = async (newComment) => {
-    const { data, status } = await useFetch("/api/books/update-book-comment", {
+    const result = await useFetch("/api/books/update-book-comment", {
       method: "PATCH",
       body: {
         comment: newComment,
@@ -61,11 +60,11 @@ export const useBookStore = defineStore("bookStore", () => {
       },
     });
 
-    return { data, status };
+    return result;
   };
 
   const updateBookProgress = async (progress) => {
-    const { data, status } = await useFetch("/api/books/update-book-progress", {
+    const result = await useFetch("/api/books/update-book-progress", {
       method: "PATCH",
       body: {
         progress: progress,
@@ -73,11 +72,11 @@ export const useBookStore = defineStore("bookStore", () => {
       },
     });
 
-    if (status.value === "success") {
+    if (result.status.value === "success") {
       book.value.progress = progress;
     }
 
-    return { data, status };
+    return result;
   };
 
   const deleteBook = async (bookId) => {

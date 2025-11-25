@@ -57,6 +57,7 @@
 import { BookProgressInput } from "#components";
 import { ProgressBarDetails } from "#components";
 
+const toast = useToast();
 const bookStore = useBookStore();
 // const router = useRouter();
 
@@ -96,7 +97,21 @@ const submitData = async () => {
   }
 
   try {
-    await bookStore.updateBookProgress(bookProgress.value);
+    const result = await bookStore.updateBookProgress(bookProgress.value);
+
+    if (result.status.value === "error") {
+      toast.error({
+        title: "Ошибка!",
+        message: "Прогресс по чтению обновить не удалось.",
+      });
+    }
+
+    if (result.status.value === "success") {
+      toast.success({
+        title: "Успешно!",
+        message: "Прогресс по чтению обновлён.",
+      });
+    }
   } catch (error) {
     console.log(error);
   } finally {
@@ -110,8 +125,23 @@ const setProgressDone = async () => {
   isButtonDoneLoading.value = true;
 
   try {
-    await bookStore.updateBookProgress(100);
-    bookProgress.value = 100;
+    const result = await bookStore.updateBookProgress(100);
+
+    if (result.status.value === "error") {
+      toast.error({
+        title: "Ошибка!",
+        message: "Рейтинг книги обновить не удалось.",
+      });
+    }
+
+    if (result.status.value === "success") {
+      toast.success({
+        title: "Успешно!",
+        message: "Рейтинг книги обновлён.",
+      });
+
+      bookProgress.value = 100;
+    }
   } catch (error) {
     console.log(error);
   } finally {

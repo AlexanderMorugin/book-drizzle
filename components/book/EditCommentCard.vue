@@ -28,6 +28,7 @@
 import { BookCommentTextArea } from "#components";
 import { BookComment } from "#components";
 
+const toast = useToast();
 const bookStore = useBookStore();
 
 const isLoading = ref(false);
@@ -43,8 +44,23 @@ const removeActiveComment = () => {
 const submitData = async () => {
   isLoading.value = true;
   try {
-    await bookStore.updateBookComment(bookComment.value);
-    isCommentActive.value = false;
+    const result = await bookStore.updateBookComment(bookComment.value);
+
+    if (result.status.value === "error") {
+      toast.error({
+        title: "Ошибка!",
+        message: "Заметку добавить не удалось.",
+      });
+    }
+
+    if (result.status.value === "success") {
+      toast.success({
+        title: "Успешно!",
+        message: "Заметка добавлена.",
+      });
+
+      isCommentActive.value = false;
+    }
   } catch (error) {
     console.log(error);
   } finally {

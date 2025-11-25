@@ -22,6 +22,7 @@
 // import { LoaderComponent } from "#components";
 // import { BookEditTitle } from "#components";
 
+const toast = useToast();
 const bookStore = useBookStore();
 
 const bookRating = ref(bookStore.book.rating);
@@ -31,7 +32,21 @@ const updateRating = async (newRating) => {
   bookRating.value = newRating;
   isLoading.value = true;
   try {
-    await bookStore.updateBookRating(newRating);
+    const result = await bookStore.updateBookRating(newRating);
+
+    if (result.status.value === "error") {
+      toast.error({
+        title: "Ошибка!",
+        message: "Рейтинг книги обновить не удалось.",
+      });
+    }
+
+    if (result.status.value === "success") {
+      toast.success({
+        title: "Успешно!",
+        message: "Рейтинг книги обновлён.",
+      });
+    }
   } catch (error) {
     console.log(error);
   } finally {
