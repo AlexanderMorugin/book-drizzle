@@ -13,82 +13,84 @@
         <h2 class="progressYearBlock__title">{{ title }}</h2>
       </div>
 
-      <div v-if="place === 'home'" class="progressYearBlock__starBox">
+      <!-- For Main Content -->
+      <div
+        v-if="place === 'home' && userStore.user?.book_for_years > 0"
+        class="progressYearBlock__starBox"
+      >
         <IconStar class="starIcon" />
-        <!-- <span
-          v-if="bookStore.doneBooks.length && userStore.user.length"
+        <span
           class="progressYearBlock__quantity progressYearBlock__quantity_accent"
-          >{{ bookStore.doneBooks.length }}/{{
-            userStore.user[0]?.books_for_year
-          }}</span
-        > -->
+          >{{ finishedBooks.length }} /
+          {{ userStore.user?.book_for_years }}</span
+        >
       </div>
     </div>
 
-    <div class="progressYearBlock__details">
+    <!-- Если установлена цель на год, показываем этот блок -->
+    <!-- For SideBar Content -->
+    <div
+      v-if="userStore.user?.book_for_years"
+      class="progressYearBlock__details"
+    >
       <div v-if="place === 'sidebar'" class="progressYearBlock__detailsTop">
         <span class="progressYearBlock__detailsTopTitle">Прогресс</span>
-        <!-- <span
-          v-if="bookStore.doneBooks.length && userStore.user.length"
-          class="progressYearBlock__quantity"
-          >{{ bookStore.doneBooks.length }}/{{
-            userStore.user[0]?.books_for_year
-          }}</span
-        > -->
+        <span class="progressYearBlock__quantity"
+          >{{ finishedBooks.length }} /
+          {{ userStore.user?.book_for_years }}</span
+        >
       </div>
 
       <div class="progressYearBlock__detailsMain">
-        <!-- <ProgressBar
-          v-if="bookStore.doneBooks.length && userStore.user.length"
-          :progress="isYearProgress"
-          color="green"
-        /> -->
+        <ProgressBar :progress="isYearProgress" color="green" />
         <div
           :class="[
             'progressYearBlock__detailsTextBox',
             { progressYearBlock__detailsTextBox_big: place === 'home' },
           ]"
         >
-          <!-- <p
-            v-if="
-              place === 'home' &&
-              bookStore.doneBooks.length &&
-              userStore.user.length
-            "
-          >
-            {{ bookStore.doneBooks.length }} книги прочитаны
-          </p> -->
-          <!-- <p>{{ isYearProgress }}% выполнено</p> -->
+          <!-- For Main Content -->
+          <p v-if="place === 'home'">
+            {{ finishedBooks.length }} книги прочитаны
+          </p>
+
+          <!-- For Main and SideBar Content -->
+          <p>{{ isYearProgress }}% выполнено</p>
         </div>
       </div>
 
-      <!-- <p
-        v-if="
-          place === 'home' &&
-          bookStore.doneBooks.length &&
-          userStore.user.length
-        "
-        class="progressYearBlock__detailsBottom"
-      >
+      <!-- For Main Content -->
+      <p v-if="place === 'home'" class="progressYearBlock__detailsBottom">
         Для достижения цели еще
-        {{ userStore.user[0]?.books_for_year - bookStore.doneBooks.length }}
+        {{ userStore.user?.book_for_years - finishedBooks.length }}
         книг!
-      </p> -->
+      </p>
+    </div>
+
+    <!-- Если цели на год нет, показываем этот блок -->
+    <div v-else>
+      <p class="progressYearBlock__detailsBottom">
+        Установите годовую цель по количеству книг
+        <NuxtLink to="/add-book" class="progressYearBlock__link">здесь</NuxtLink
+        >.
+      </p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
-
 const userStore = useUserStore();
-// const bookStore = useBookStore();
+const bookStore = useBookStore();
 
-// const isYearProgress = computed(() =>
-//   Math.round(
-//     (bookStore.doneBooks.length / userStore.user[0]?.books_for_year) * 100
-//   )
-// );
+const finishedBooks = computed(() =>
+  bookStore.books.filter((item) => item.progress === 100)
+);
+
+const isYearProgress = computed(() =>
+  Math.round(
+    (finishedBooks.value.length / userStore.user?.book_for_years) * 100
+  )
+);
 
 const { place, title } = defineProps(["place", "title"]);
 </script>
@@ -182,6 +184,17 @@ const { place, title } = defineProps(["place", "title"]);
   align-items: center;
   gap: 4px;
 }
+
+.progressYearBlock__link {
+  color: var(--blue-primary);
+  text-decoration: underline;
+  transition: 0.25s ease;
+}
+
+.progressYearBlock__link:hover {
+  color: var(--red-primary);
+}
+
 .progressIcon {
   color: var(--green-secondary);
 }

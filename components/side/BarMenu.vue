@@ -23,7 +23,6 @@
 
 <script setup>
 const headerStore = useHeaderStore();
-// const bookStore = useBookStore()
 
 const emit = defineEmits(["closeMobileSideBar"]);
 
@@ -32,7 +31,7 @@ const menuButtons = ref([
     id: 1,
     name: "home",
     title: "Главная",
-    number: null,
+    number: false,
     status: false,
     route: "/",
   },
@@ -40,7 +39,7 @@ const menuButtons = ref([
     id: 2,
     name: "library",
     title: "Моя библиотека",
-    number: null,
+    number: true,
     status: false,
     route: "/library",
   },
@@ -48,15 +47,11 @@ const menuButtons = ref([
     id: 3,
     name: "addBook",
     title: "Добавить книгу",
-    number: null,
+    number: false,
     status: false,
     route: "/add-book",
   },
 ]);
-
-// onMounted(() => {
-//   bookStore.loadBooks()
-// })
 </script>
 
 <style lang="scss" scoped>

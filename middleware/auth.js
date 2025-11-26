@@ -1,17 +1,22 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const userStore = useUserStore();
+  const bookStore = useBookStore();
 
   if (userStore.user) {
     return;
   }
 
-  const { data, status, error, refresh } = await useFetch("/api/auth/session");
+  const result = await useFetch("/api/auth/session");
 
-  if (!data.value) {
+  console.log(result.data.value);
+
+  if (!result.data.value) {
     return navigateTo("/login");
   }
 
-  await refresh();
+  // Записываем в стор пользователя
+  userStore.setCurrentUser(result.data.value.user);
 
-  userStore.setCurrentUser(data.value.user);
+  // Находим в БД его книги и записываем в стор
+  bookStore.loadBooks(result.data.value.user.id);
 });

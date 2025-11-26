@@ -4,7 +4,7 @@
 
     <div class="line" />
 
-    <!-- <BookEditProgressYearBlock /> -->
+    <BookEditProgressYearBlock />
   </PageContainer>
 </template>
 

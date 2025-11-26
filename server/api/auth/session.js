@@ -6,6 +6,8 @@ import { transformUser } from "~/server/utils/transform-user";
 export default defineEventHandler(async (event) => {
   const cookie = getCookie(event, "refresh_token");
 
+  console.log("session-cookie***", cookie);
+
   if (!cookie) {
     return sendError(
       event,
@@ -23,8 +25,12 @@ export default defineEventHandler(async (event) => {
     .where(eq(users.refresh_token, cookie))
     .limit(1);
 
+  console.log("session-existUser***", existUser);
+
   // Проверяем действительность рефреш токена
   const rToken = await decodeRefreshToken(existUser[0].refresh_token);
+
+  console.log("session-rToken***", rToken);
 
   // Если рефреш истек, возвращаем ноль вместо пользователя
   // Далее идем на логин и получаем новый рефреш

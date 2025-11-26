@@ -1,6 +1,5 @@
 <template>
-  <NuxtLink
-    :to="`library/${readingBook.id}`"
+  <div
     :class="[
       'progressReadingBlock',
       {
@@ -18,66 +17,72 @@
     >
       {{ title }}
     </h2>
-    <div
-      :class="[
-        'progressReadingBlock__bookBlock',
-        {
-          progressReadingBlock__bookBlock_wide: place === 'home',
-        },
-      ]"
-    >
-      <!-- <BookImage
-        v-if="place === 'home'"
-        :place="place"
-        :image="readingBook.image"
-        :title="readingBook.name"
-      /> -->
 
-      <div
-        :class="[
-          'progressReadingBlock__details',
-          {
-            progressReadingBlock__details_wide: place === 'home',
-          },
-        ]"
-      >
-        <div>
-          <p
+    <ul class="progressReadingBlock__list">
+      <li v-for="book in readingBooks" :key="book.id">
+        <NuxtLink
+          :to="`/library/${book.id}`"
+          :class="[
+            'progressReadingBlock__bookBlock',
+            {
+              progressReadingBlock__bookBlock_wide: place === 'home',
+            },
+          ]"
+        >
+          <BookImage
+            v-if="place === 'home'"
+            :place="place"
+            :image="book.image"
+            :title="book.name"
+          />
+
+          <div
             :class="[
-              'progressReadingBlock__detailsTitle',
+              'progressReadingBlock__details',
               {
-                progressReadingBlock__detailsTitle_wide: place === 'home',
+                progressReadingBlock__details_wide: place === 'home',
               },
             ]"
           >
-            {{ readingBook.name }}
-          </p>
-          <p
-            :class="[
-              'progressReadingBlock__detailsAuthor',
-              {
-                progressReadingBlock__detailsAuthor_wide: place === 'home',
-              },
-            ]"
-          >
-            {{ readingBook.author }}
-          </p>
-        </div>
+            <div>
+              <p
+                :class="[
+                  'progressReadingBlock__detailsTitle',
+                  {
+                    progressReadingBlock__detailsTitle_wide: place === 'home',
+                  },
+                ]"
+              >
+                {{ book.name }}
+              </p>
+              <p
+                :class="[
+                  'progressReadingBlock__detailsAuthor',
+                  {
+                    progressReadingBlock__detailsAuthor_wide: place === 'home',
+                  },
+                ]"
+              >
+                {{ book.author }}
+              </p>
+            </div>
 
-        <!-- <ProgressBarDetails :progress="readingBook.progress" /> -->
-      </div>
-    </div>
-  </NuxtLink>
+            <ProgressBarDetails :progress="book.progress" />
+          </div>
+        </NuxtLink>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
-// const bookStore = useBookStore()
+const bookStore = useBookStore();
 
 const { title } = defineProps(["place", "title"]);
 
-// const readingBook = computed(() =>
-//   bookStore.books.find((item) => item.progress > 0 && item.progress < 100),
-// )
+const readingBooks = computed(() =>
+  bookStore.books.filter((item) => item.progress > 0 && item.progress < 100)
+);
 </script>
 
 <style scoped>
@@ -105,11 +110,18 @@ const { title } = defineProps(["place", "title"]);
   display: flex;
   gap: 24px;
   width: 100%;
-  background: var(--white-thirdly);
+  background: var(--white-primary);
   border-radius: var(--border-radius-l);
   box-shadow: var(--shadow-thirdly);
   padding: 12px;
+  transition: 0.25s ease;
 }
+
+.progressReadingBlock__bookBlock:hover {
+  background: var(--gray-thirdly);
+  box-shadow: var(--shadow-primary);
+}
+
 .progressReadingBlock__bookBlock_wide {
   box-shadow: var(--shadow-fourthly);
   backdrop-filter: blur(8px);
@@ -143,6 +155,11 @@ const { title } = defineProps(["place", "title"]);
 .progressReadingBlock__detailsAuthor_wide {
   font-size: 16px;
   line-height: 24px;
+}
+.progressReadingBlock__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 @media (max-width: 767px) {

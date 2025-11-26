@@ -4,13 +4,22 @@ import { users } from "~/server/database/schema";
 import { comparePassword } from "~/server/utils/hash-password";
 
 export default defineEventHandler(async (event) => {
-  const { email, password } = await readBody(event);
+  const body = await readBody(event);
+
+  console.log(body);
+
+  if (!body) {
+    return { access_token: null, user: null };
+  }
 
   // Проверяем в БД есть ли пользователь с такой почтой
-  const existUser = await db.select().from(users).where(eq(users.email, email));
-  // .limit(1);
+  const existUser = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, body.email))
+    .limit(1);
 
-  console.log(existUser);
+  console.log(existUser[0]);
 
   // Если пользователь с такой почтой существует: Выбрасываем ошибку на стороне сервере
   if (!existUser) {
@@ -21,7 +30,10 @@ export default defineEventHandler(async (event) => {
   }
 
   // Сверяем пароль
-  const doesThePasswordMatch = comparePassword(password, existUser[0].password);
+  const doesThePasswordMatch = comparePassword(
+    body.password,
+    existUser[0].password
+  );
 
   // Если пароли не совпадают: Выбрасываем ошибку на стороне сервере
   if (!doesThePasswordMatch) {
@@ -47,9 +59,8 @@ export default defineEventHandler(async (event) => {
   await db
     .update(users)
     .set({ refresh_token: refreshToken })
-    .where(eq(users.email, email));
+    .where(eq(users.email, body.email));
 
   // Возвращаем на фронтенд accessToken
   return { access_token: accessToken, user: existUser[0] };
-  // return { access_token: accessToken };
 });

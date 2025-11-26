@@ -25,13 +25,13 @@
     </div>
 
     <div
-      v-if="number"
+      v-if="number && bookStore.books.length > 0"
       :class="[
         'sideBarMenuButton__number',
         { sideBarMenuButton__number_active: isActive },
       ]"
     >
-      {{ number }}
+      {{ bookStore.books.length }}
     </div>
   </NuxtLink>
 </template>
@@ -48,6 +48,8 @@ const { name, title, number, route, isActive } = defineProps([
   "route",
   "isActive",
 ]);
+
+const bookStore = useBookStore();
 </script>
 
 <style scoped>

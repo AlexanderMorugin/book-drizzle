@@ -5,16 +5,14 @@ export const useBookStore = defineStore("bookStore", () => {
   const book = ref(null);
 
   const loadBooks = async (userId) => {
-    const { data, status, error } = await useFetch("/api/books/load-books", {
+    const result = await useFetch("/api/books/load-books", {
       method: "POST",
       body: userId,
     });
 
-    if (error.value) {
-      console.log(error);
-    }
+    books.value = result.data.value;
 
-    books.value = data.value;
+    return result;
   };
 
   const createdBook = async (bookData) => {
@@ -48,6 +46,17 @@ export const useBookStore = defineStore("bookStore", () => {
       },
     });
 
+    if (result.status.value === "success") {
+      book.value.rating = newRating;
+
+      // Обновляем в массиве книг Стора, прогресс данной книги
+      books.value = books.value.map((item) =>
+        item.id === book.value.id ? { ...item, rating: newRating } : item
+      );
+
+      console.log(books.value);
+    }
+
     return result;
   };
 
@@ -74,13 +83,20 @@ export const useBookStore = defineStore("bookStore", () => {
 
     if (result.status.value === "success") {
       book.value.progress = progress;
+
+      // Обновляем в массиве книг Стора, прогресс данной книги
+      books.value = books.value.map((item) =>
+        item.id === book.value.id ? { ...item, progress: progress } : item
+      );
+
+      console.log(books.value);
     }
 
     return result;
   };
 
   const deleteBook = async (bookId) => {
-    const { data, status } = await useFetch("/api/books/delete-book", {
+    const result = await useFetch("/api/books/delete-book", {
       method: "DELETE",
       body: {
         id: book.value.id,
@@ -89,7 +105,7 @@ export const useBookStore = defineStore("bookStore", () => {
 
     books.value = books.value.filter((book) => book.id !== bookId);
 
-    return { data, status };
+    return result;
   };
 
   const logoutUser = () => {

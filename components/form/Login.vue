@@ -23,9 +23,9 @@
     />
 
     <!-- Появляющийся текст ошибки -->
-    <TransitionGroup name="error" tag="ul">
+    <!-- <TransitionGroup name="error" tag="ul">
       <FormErrorMessage v-if="loginMessage" :text="loginMessage" />
-    </TransitionGroup>
+    </TransitionGroup> -->
 
     <!-- Кнопка Сабмит -->
     <FormSubmitButton
@@ -43,7 +43,9 @@ import { helpers, required, minLength, email } from "@vuelidate/validators";
 
 const { place } = defineProps(["place"]);
 
+const toast = useToast();
 const userStore = useUserStore();
+const bookStore = useBookStore();
 
 const isLoading = ref(false);
 const emailField = ref(null);
@@ -87,16 +89,34 @@ const submitLoginForm = async () => {
       };
 
       // Отправляем данные пользователя на логин
-      const status = await userStore.loginUser(userData);
+      const result = await userStore.loginUser(userData);
+
+      // console.log(result.data.value.user);
+
+      console.log(result);
+
+      if (!result) {
+        return;
+      }
 
       // Если пользователь не залогинился в БД, пишем ошибку
-      if (status.value === "error") {
-        loginMessage.value = "Имя пользователя или пароль неверные.";
+      if (result.status.value === "error") {
+        toast.error({
+          title: "Ошибка!",
+          message: "Имя пользователя или пароль неверные.",
+        });
       }
 
       // Если пользователь залогинился в БД, перенаправляем его на главную
-      if (status.value === "success") {
-        loginMessage.value = "Авторизация прошла успешно!";
+      if (result.status.value === "success") {
+        toast.success({
+          title: "Успешно!",
+          message: "Авторизация прошла успешно.",
+        });
+
+        // Находим в БД его книги и записываем в стор
+        bookStore.loadBooks(result.data.value.user.id);
+
         return navigateTo("/");
       }
     }

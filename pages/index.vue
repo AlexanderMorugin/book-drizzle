@@ -6,10 +6,10 @@
     </section>
 
     <section class="home__content">
-      <LoaderPage />
+      <!-- <LoaderPage /> -->
 
       <div>
-        <BookEmptyArray title="Добавьте книги в свою библиотеку." />
+        <!-- <BookEmptyArray title="Добавьте книги в свою библиотеку." /> -->
         <div class="home__contentBlock">
           <ProgressYearBlock place="home" title="Цель на 2025 год" />
           <!-- <ProgressReadingBlock place="home" title="Текущие книги" /> -->
@@ -25,7 +25,7 @@
           <ButtonWithIcon
             name="library"
             text="Библиотека"
-            number="20"
+            :number="bookStore.books.length"
             route="/library"
           />
         </div>
@@ -58,7 +58,7 @@ definePageMeta({
 });
 
 const headerStore = useHeaderStore();
-// const bookStore = useBookStore()
+const bookStore = useBookStore();
 const userStore = useUserStore();
 
 const isLoading = ref(false);

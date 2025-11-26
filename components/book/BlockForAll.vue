@@ -1,11 +1,14 @@
 <template>
   <section>
-    {{ books }}
-    <LoaderPage />
+    <!-- {{ bookStore.books }} -->
+    <!-- <LoaderPage /> -->
     <div>
-      <BookEmptyArray title="В вашей библиотеке книг пока нет." />
-      <ul class="booksBlock">
-        <li v-for="book in books" :key="book.id">
+      <BookEmptyArray
+        v-if="!bookStore.books"
+        title="В вашей библиотеке книг пока нет."
+      />
+      <ul v-else class="booksBlock">
+        <li v-for="book in bookStore.books" :key="book.id">
           <BookCard :book="book" />
         </li>
       </ul>
@@ -14,7 +17,7 @@
 </template>
 
 <script setup>
-const { books, isLoading } = defineProps(["books", "isLoading"]);
+const bookStore = useBookStore();
 </script>
 
 <style scoped>

@@ -14,23 +14,32 @@
 </template>
 
 <script setup>
-// const bookStore = useBookStore()
+const bookStore = useBookStore();
 
 const { padding, line, place } = defineProps(["padding", "line", "place"]);
 
 const counter = ref([
   {
-    number: 10,
+    number: computed(
+      () => bookStore.books.filter((item) => item.progress === 100).length
+    ),
     text: "Прочитано",
     status: "done",
   },
   {
-    number: 2,
+    number: computed(
+      () =>
+        bookStore.books.filter(
+          (item) => item.progress > 0 && item.progress < 100
+        ).length
+    ),
     text: "Читаю",
     status: "reading",
   },
   {
-    number: 5,
+    number: computed(
+      () => bookStore.books.filter((item) => item.progress === 0).length
+    ),
     text: "К чтению",
     status: "mustDo",
   },

@@ -21,12 +21,20 @@
 </template>
 
 <script setup>
+// const bookStore = useBookStore();
+// const userStore = useUserStore();
 const { isScreenLarge } = useResizeLarge();
 
 const isMobileSideBarOpen = ref(false);
 
 const openMobileSideBar = () => (isMobileSideBarOpen.value = true);
 const closeMobileSideBar = () => (isMobileSideBarOpen.value = false);
+
+// const readingBook = computed(() =>
+//   bookStore.books.find((item) => item.progress > 0 && item.progress < 100)
+// );
+
+// await bookStore.loadBooks(userStore.user.id);
 </script>
 
 <style lang="scss" scoped>

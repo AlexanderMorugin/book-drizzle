@@ -8,7 +8,7 @@
     <BookStatus :progress="book.progress" />
     <BookRating v-if="book.rating" :rating="book.rating" />
     <ProgressBarDetails
-      v-if="book.progress && book.progress < 100"
+      v-if="book.progress > 0 && book.progress < 100"
       :progress="book.progress"
       class="bookCard__progress"
     />
@@ -33,6 +33,7 @@ const { book } = defineProps(["book"]);
   transition: 0.25s ease;
 
   &:hover {
+    background: var(--gray-thirdly);
     box-shadow: var(--shadow-primary);
   }
 

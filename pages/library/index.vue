@@ -22,7 +22,7 @@
       </div>
     </section> -->
 
-    <BookBlockForAll :isLoading="isLoading" :books="bookStore.books" />
+    <BookBlockForAll />
     <div class="booksEmptyBlock">Книги не найдены</div>
 
     <SideBarCounter place="books" />
@@ -36,13 +36,13 @@ definePageMeta({
 });
 
 const headerStore = useHeaderStore();
-const bookStore = useBookStore();
-const userStore = useUserStore();
+// const bookStore = useBookStore();
+// const userStore = useUserStore();
 
-await bookStore.loadBooks(userStore.user.id);
+// await bookStore.loadBooks(userStore.user.id);
 
 const bookField = ref(null);
-const isLoading = ref(false);
+// const isLoading = ref(false);
 const booksForButtons = ref([]);
 
 const statusButtons = ref([

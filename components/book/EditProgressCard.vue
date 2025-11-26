@@ -35,21 +35,23 @@
     <FormSubmitButton
       place="delete"
       :isLoading="isButtonDeleteLoading"
-      @handleClick="deleteBook"
+      @handleClick="isDeleteModalOpen = true"
     />
 
     <!-- Модалка успешного удаления книги из supabase -->
-    <!-- <Teleport to="body">
+    <Teleport to="body">
       <Transition name="fade">
-        <BookModal
-          v-if="isSuccessDeleteModalOpen"
-          :isModalOpen="isSuccessDeleteModalOpen"
-          :message="successDeleteMessage"
-          yesButtonText="В библиотеку"
-          @continue="closeSuccessDeleteModal"
+        <ModalDeleteBook
+          v-if="isDeleteModalOpen"
+          :isModalOpen="isDeleteModalOpen"
+          message="Удалить книгу?"
+          yesButtonText="Да"
+          noButtonText="Нет"
+          @continue="deleteBook"
+          @closeModal="isDeleteModalOpen = false"
         />
       </Transition>
-    </Teleport> -->
+    </Teleport>
   </div>
 </template>
 
@@ -59,7 +61,6 @@ import { ProgressBarDetails } from "#components";
 
 const toast = useToast();
 const bookStore = useBookStore();
-// const router = useRouter();
 
 const isLoading = ref(false);
 const isButtonDoneLoading = ref(false);
@@ -67,8 +68,7 @@ const isButtonDeleteLoading = ref(false);
 const isProgressActive = ref(false);
 const bookProgress = ref(bookStore.book.progress);
 const progressErrorMessage = ref(null);
-const isSuccessDeleteModalOpen = ref(false);
-const successDeleteMessage = ref(null);
+const isDeleteModalOpen = ref(false);
 
 const setActiveProgress = () => (isProgressActive.value = true);
 const cancelActiveProgress = () => {
@@ -76,13 +76,6 @@ const cancelActiveProgress = () => {
   isProgressActive.value = false;
   progressErrorMessage.value = null;
 };
-
-// Функции модалок
-
-// const closeSuccessDeleteModal = () => {
-//   isSuccessDeleteModalOpen.value = false;
-//   router.push(BOOKS_PATH);
-// };
 
 // Сабмит прогресса чтения книги
 const submitData = async () => {
@@ -93,6 +86,7 @@ const submitData = async () => {
   if (bookProgress.value < 0 || bookProgress.value > 100) {
     progressErrorMessage.value = "от 0 до 100";
     bookProgress.value = bookStore.book.progress;
+    isLoading.value = false;
     return;
   }
 
@@ -154,28 +148,29 @@ const deleteBook = async () => {
   isButtonDeleteLoading.value = true;
 
   try {
-    await bookStore.deleteBook();
-    return navigateTo("/library");
-    // isSuccessDeleteModalOpen.value = true
-    // successDeleteMessage.value = 'Книга успешно удалена!'
+    const result = await bookStore.deleteBook();
+
+    if (result.status.value === "error") {
+      toast.error({
+        title: "Ошибка!",
+        message: "Книгу удалить не удалось.",
+      });
+    }
+
+    if (result.status.value === "success") {
+      toast.success({
+        title: "Успешно!",
+        message: "Книга удалена.",
+      });
+
+      isDeleteModalOpen.value = false;
+
+      return navigateTo("/library");
+    }
   } catch (error) {
     console.log(error);
   } finally {
     isButtonDeleteLoading.value = false;
   }
 };
-
-// async function getStoreData() {
-//   isLoading.value = false
-//   try {
-//     isLoading.value = true
-//     await bookStore.loadCurrentBook(bookId)
-
-//     progress.value = bookStore.currentBook.progress
-//   } catch (error) {
-//     console.log(error)
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
 </script>

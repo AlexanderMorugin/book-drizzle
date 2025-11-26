@@ -9,6 +9,24 @@ export const useUserStore = defineStore("userStore", () => {
     users.value = res.data.value;
   };
 
+  // const getUser = async (userData) => {
+  //   const result = await useFetch("/api/auth/get-user", {
+  //     method: "POST",
+  //     body: userData,
+  //   });
+
+  //   if (result.error.value) {
+  //     return;
+  //   }
+
+  //   // const newUser = new Promise(result);
+  //   console.log(result.data.value.user);
+
+  //   // user.value = result.data.value.user;
+
+  //   return result;
+  // };
+
   const registerUser = async (userData) => {
     const { data, status } = await useFetch("/api/auth/register", {
       method: "POST",
@@ -19,14 +37,24 @@ export const useUserStore = defineStore("userStore", () => {
   };
 
   const loginUser = async (userData) => {
-    const { data, status } = await useFetch("/api/auth/login", {
+    // user.value = null;
+
+    const result = await useFetch("/api/auth/login", {
       method: "POST",
       body: userData,
     });
 
-    user.value = data.value.user;
+    console.log(result.error.value);
 
-    return status;
+    if (result.error.value) {
+      return null;
+    }
+
+    // console.log(result.error.value);
+
+    user.value = result.data.value.user;
+
+    return result;
   };
 
   const setCurrentUser = (userData) => {
@@ -52,6 +80,28 @@ export const useUserStore = defineStore("userStore", () => {
     return { data, status, refresh };
   };
 
+  const updateBooksForYear = async (booksForYear) => {
+    const result = await useFetch("/api/auth/update-books-for-year", {
+      method: "PATCH",
+      body: {
+        id: user.value.id,
+        book_for_years: booksForYear,
+      },
+    });
+
+    if (result.error.value) {
+      return;
+    }
+
+    // console.log(result);
+
+    user.value.book_for_years = booksForYear;
+
+    // result.refresh();
+
+    return result;
+  };
+
   return {
     users,
     user,
@@ -61,5 +111,6 @@ export const useUserStore = defineStore("userStore", () => {
     setCurrentUser,
     logoutCurrentUser,
     deleteDatabaseUser,
+    updateBooksForYear,
   };
 });
