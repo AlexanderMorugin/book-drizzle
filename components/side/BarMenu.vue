@@ -2,27 +2,26 @@
   <SideBarContainer padding="slim">
     <ul class="sideBarMenu">
       <li v-for="button in menuButtons" :key="button.id">
-        <ClientOnly>
-          <SideBarMenuButton
-            :name="button.name"
-            :title="button.title"
-            :number="button.number"
-            :route="button.route"
-            :isActive="
-              button.title === headerStore.headerTitle
-                ? (button.status = true)
-                : (button.status = false)
-            "
-            @click="emit('closeMobileSideBar')"
-          />
-        </ClientOnly>
+        <SideBarMenuButton
+          :name="button.name"
+          :title="button.title"
+          :number="button.number"
+          :route="button.path"
+          :isActive="
+            button.path === route.path
+              ? (button.status = true)
+              : (button.status = false)
+          "
+          @click="emit('closeMobileSideBar')"
+        />
       </li>
     </ul>
   </SideBarContainer>
 </template>
 
 <script setup>
-const headerStore = useHeaderStore();
+// const headerStore = useHeaderStore();
+const route = useRoute();
 
 const emit = defineEmits(["closeMobileSideBar"]);
 
@@ -33,7 +32,7 @@ const menuButtons = ref([
     title: "Главная",
     number: false,
     status: false,
-    route: "/",
+    path: "/",
   },
   {
     id: 2,
@@ -41,7 +40,7 @@ const menuButtons = ref([
     title: "Моя библиотека",
     number: true,
     status: false,
-    route: "/library",
+    path: "/library",
   },
   {
     id: 3,
@@ -49,9 +48,11 @@ const menuButtons = ref([
     title: "Добавить книгу",
     number: false,
     status: false,
-    route: "/add-book",
+    path: "/add-book",
   },
 ]);
+
+// headerStore.setHeaderTitle();
 </script>
 
 <style lang="scss" scoped>

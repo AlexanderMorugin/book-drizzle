@@ -6,8 +6,6 @@
     </section>
 
     <section class="home__content">
-      <!-- <LoaderPage /> -->
-
       <div>
         <!-- Если у пользователя есть книги -->
         <div v-if="bookStore.books.length" class="home__contentBlock">
@@ -18,8 +16,9 @@
         <!-- Если у пользователя не добавлено ни одной книги -->
         <BookEmptyArray v-else />
       </div>
+
       <div class="home__contentBlock">
-        <div class="home__contentItems">
+        <!-- <div class="home__contentItems">
           <ButtonWithIcon
             name="addBook"
             text="Добавить книгу"
@@ -31,13 +30,13 @@
             :number="bookStore.books.length"
             route="/library"
           />
-        </div>
+        </div> -->
 
         <div class="home__contentItems">
-          <h2 class="home__contentTitle">Прочитанные книги</h2>
+          <!-- <h2 class="home__contentTitle">Прочитанные книги</h2> -->
 
           <!-- Если есть прочитанные книги -->
-          <div v-if="doneBooks.length" class="home__contentSubItems">
+          <!-- <div v-if="doneBooks.length" class="home__contentSubItems">
             <BookDone
               v-for="item in doneBooks"
               :key="item.id"
@@ -47,10 +46,10 @@
               :comment="item.comment"
               :route="item.id"
             />
-          </div>
+          </div> -->
 
           <!-- Если прочитанных книг нет -->
-          <div v-else class="no-info">Пока вы не прочитали ни одной книги.</div>
+          <!-- <div v-else class="no-info">Пока вы не прочитали ни одной книги.</div> -->
         </div>
       </div>
     </section>
@@ -63,7 +62,7 @@ definePageMeta({
   layout: "main",
 });
 
-const headerStore = useHeaderStore();
+// const headerStore = useHeaderStore();
 const bookStore = useBookStore();
 const userStore = useUserStore();
 
@@ -73,14 +72,8 @@ const isYearProgress = computed(() => userStore.user[0]?.books_for_year > 0);
 const doneBooks = computed(() =>
   bookStore.books.filter((item) => item.progress === 100)
 );
-// const ratedBooks = computed(() =>
-//   doneBooks.value.filter((item) => item.rating > 0).slice(0, 2)
-// );
 
-// console.log("doneBooks: ", doneBooks.value);
-// console.log("ratedBooks: ", ratedBooks.value);
-
-headerStore.setHeaderTitle("Главная");
+// headerStore.setHeaderTitle("Главная");
 </script>
 
 <style lang="scss" scoped>

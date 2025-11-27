@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const result = await useFetch("/api/auth/session");
 
-  // console.log(result.data.value);
+  // console.log(result.data.value.user);
 
   if (!result.data.value) {
     return navigateTo("/login");
@@ -18,5 +18,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   userStore.setCurrentUser(result.data.value.user);
 
   // Находим в БД его книги и записываем в стор
-  bookStore.loadBooks(result.data.value.user.id);
+  await bookStore.loadBooks(result.data.value.user.id);
 });

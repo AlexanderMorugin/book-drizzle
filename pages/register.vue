@@ -26,8 +26,6 @@
       <!-- Блок политики конфиденциональности -->
       <AuthConditions />
     </AuthFormContainer>
-
-    <NuxtLink to="/">Main Page</NuxtLink>
   </AuthContainer>
 </template>
 

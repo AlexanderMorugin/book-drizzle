@@ -93,7 +93,7 @@ const submitLoginForm = async () => {
 
       // console.log(result.data.value.user);
 
-      console.log(result);
+      // console.log(result);
 
       if (!result) {
         return;

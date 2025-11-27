@@ -38,7 +38,7 @@ definePageMeta({
   layout: "main",
 });
 
-const headerStore = useHeaderStore();
+// const headerStore = useHeaderStore();
 const bookStore = useBookStore();
 // const userStore = useUserStore();
 
@@ -119,7 +119,7 @@ const statusButtons = ref([
 //   }
 // }
 
-headerStore.setHeaderTitle("Моя библиотека");
+// headerStore.setHeaderTitle("Моя библиотека");
 </script>
 
 <style lang="scss" scoped>

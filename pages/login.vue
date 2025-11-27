@@ -20,8 +20,6 @@
       <!-- Блок смены авторизации -->
       <AuthChange place="login" />
     </AuthFormContainer>
-
-    <NuxtLink to="/">Main Page</NuxtLink>
   </AuthContainer>
 </template>
 
@@ -32,13 +30,13 @@ definePageMeta({
 });
 
 const bookStore = useBookStore();
-const headerStore = useHeaderStore();
+// const headerStore = useHeaderStore();
 const userStore = useUserStore();
 
 const { isScreenLarge } = useResizeLarge();
 
 // При входе на страницу Логина, очищаем весь стор
 bookStore.logoutUser();
-headerStore.logoutUser();
+// headerStore.logoutUser();
 userStore.logoutCurrentUser();
 </script>

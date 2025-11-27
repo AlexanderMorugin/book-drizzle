@@ -1,7 +1,9 @@
 <template>
   <div class="mainLayout">
     <!-- Сайдбар для десктопа -->
-    <SideBar v-if="!isScreenLarge" />
+    <ClientOnly>
+      <SideBar v-if="!isScreenLarge" />
+    </ClientOnly>
 
     <!-- Сайдбар для мобилки -->
     <SideBarMobile
@@ -21,20 +23,12 @@
 </template>
 
 <script setup>
-// const bookStore = useBookStore();
-// const userStore = useUserStore();
-const { isScreenLarge } = useResizeLarge();
+const { isScreenLarge } = await useResizeLarge();
 
 const isMobileSideBarOpen = ref(false);
 
 const openMobileSideBar = () => (isMobileSideBarOpen.value = true);
 const closeMobileSideBar = () => (isMobileSideBarOpen.value = false);
-
-// const readingBook = computed(() =>
-//   bookStore.books.find((item) => item.progress > 0 && item.progress < 100)
-// );
-
-// await bookStore.loadBooks(userStore.user.id);
 </script>
 
 <style lang="scss" scoped>
@@ -61,6 +55,7 @@ const closeMobileSideBar = () => (isMobileSideBarOpen.value = false);
     max-width: 1598px;
     height: 100%;
     background: var(--gradient-primary);
+    border-left: 1px solid var(--border-color-primary);
     padding: 32px;
 
     @media (max-width: 767px) {

@@ -1,6 +1,8 @@
 <template>
   <SideBarContainer padding="wide" line="bottom">
-    <LogoBlock :place="place" />
+    <NuxtLink to="/">
+      <LogoBlock :place="place" />
+    </NuxtLink>
   </SideBarContainer>
 </template>
 

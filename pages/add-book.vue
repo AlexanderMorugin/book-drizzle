@@ -14,9 +14,9 @@ definePageMeta({
   layout: "main",
 });
 
-const headerStore = useHeaderStore();
+// const headerStore = useHeaderStore();
 
-headerStore.setHeaderTitle("Добавить книгу");
+// headerStore.setHeaderTitle("Добавить книгу");
 </script>
 
 <style lang="scss" scoped>

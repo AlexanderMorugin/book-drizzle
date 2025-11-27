@@ -8,30 +8,42 @@
       />
 
       <ClientOnly>
-        <span v-if="headerStore.headerTitle" class="header__title">{{
-          headerStore.headerTitle
-        }}</span>
+        <!-- <span class="header__title">{{ headerStore.headerTitle }}</span> -->
+        <span class="header__title">{{ pageTitle }}</span>
       </ClientOnly>
     </div>
 
-    <ButtonIconNavigate
-      v-if="headerStore.headerTitle === 'Детали книги'"
-      name="back"
-      @handleClick="goBack"
-    />
+    <ButtonIconNavigate name="back" @handleClick="goBack" />
   </header>
 </template>
 
 <script setup>
-const headerStore = useHeaderStore();
+// const headerStore = useHeaderStore();
+const route = useRoute();
 const router = useRouter();
 const { isScreenLarge } = useResizeLarge();
 
 const emit = defineEmits(["openMobileSideBar"]);
 
-const pageTitle = ref(null);
+const pageTitle = computed(() => {
+  if (route.path === "/") {
+    // headerStore.setHeaderTitle("Главная");
+    return "Главная";
+  }
+  if (route.path === "/library") {
+    // headerStore.setHeaderTitle("Главная");
+    return "Моя библиотека";
+  }
+  if (route.path === "/add-book") {
+    // headerStore.setHeaderTitle("Главная");
+    return "Добавить книгу";
+  }
+});
+// const pageTitle = ref(headerStore.headerTitle);
 
 const goBack = () => router.go(-1);
+
+// await headerStore.headerTitle
 </script>
 
 <style lang="scss" scoped>
@@ -40,7 +52,7 @@ const goBack = () => router.go(-1);
   justify-content: space-between;
   align-items: center;
   min-height: 99px;
-  background: var(--white-secondary);
+  background: var(--white-primary);
   border-bottom: 1px solid var(--border-color-primary);
   backdrop-filter: blur(8px);
   padding-left: 24px;

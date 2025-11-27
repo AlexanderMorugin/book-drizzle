@@ -24,8 +24,7 @@ const emit = defineEmits(["closeMobileSideBar"]);
   width: 100%;
   max-width: 320px;
   min-height: 100vh;
-  background: var(--bg-color-primary);
-  border-right: 1px solid var(--border-color-primary);
+  background: var(--white-primary);
 
   @media (max-width: 1023px) {
     max-width: 100%;
