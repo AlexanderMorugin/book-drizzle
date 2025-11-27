@@ -114,12 +114,12 @@ const readingBooks = computed(() =>
   border-radius: var(--border-radius-l);
   box-shadow: var(--shadow-thirdly);
   padding: 12px;
-  transition: 0.25s ease;
+  transition: 0.2s ease;
 }
 
 .progressReadingBlock__bookBlock:hover {
-  background: var(--gray-thirdly);
-  box-shadow: var(--shadow-primary);
+  background: var(--green-primary);
+  box-shadow: var(--shadow-secondary);
 }
 
 .progressReadingBlock__bookBlock_wide {

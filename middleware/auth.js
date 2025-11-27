@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const result = await useFetch("/api/auth/session");
 
-  console.log(result.data.value);
+  // console.log(result.data.value);
 
   if (!result.data.value) {
     return navigateTo("/login");

@@ -12,7 +12,7 @@
         <!-- <BookEmptyArray title="Добавьте книги в свою библиотеку." /> -->
         <div class="home__contentBlock">
           <ProgressYearBlock place="home" title="Цель на 2025 год" />
-          <!-- <ProgressReadingBlock place="home" title="Текущие книги" /> -->
+          <ProgressReadingBlock place="home" title="Текущие книги" />
         </div>
       </div>
       <div class="home__contentBlock">
@@ -31,17 +31,18 @@
         </div>
 
         <div class="home__contentItems">
-          <h2 class="home__contentTitle">Последние активности</h2>
-          <!-- <div v-if="estimateBooks.length" class="home__contentSubItems">
-            <LastRatingPlate
-              v-for="item in estimateBooks"
+          <h2 class="home__contentTitle">Прочитанные книги</h2>
+          <div class="home__contentSubItems">
+            <BookDone
+              v-for="item in doneBooks"
               :key="item.id"
-              :bookName="`Закончена ${item.name}`"
+              :bookName="item.name"
               :author="item.author"
               :rating="item.rating"
+              :comment="item.comment"
               :route="item.id"
             />
-          </div> -->
+          </div>
           <div class="home__contentSubItemsText">
             Вы не оценили ни одной прочтённой книги.
           </div>
@@ -61,27 +62,18 @@ const headerStore = useHeaderStore();
 const bookStore = useBookStore();
 const userStore = useUserStore();
 
-const isLoading = ref(false);
-
-// const isReadingBooks = computed(() =>
-//   bookStore.books.find((item) => item.progress > 0 && item.progress < 100),
-// )
+// const isLoading = ref(false);
 
 const isYearProgress = computed(() => userStore.user[0]?.books_for_year > 0);
-// const doneBooks = computed(() => bookStore.books.filter((item) => item.progress === 100))
-// const estimateBooks = computed(() => doneBooks.value.filter((item) => item.rating > 0).slice(0, 2))
+const doneBooks = computed(() =>
+  bookStore.books.filter((item) => item.progress === 100)
+);
+// const ratedBooks = computed(() =>
+//   doneBooks.value.filter((item) => item.rating > 0).slice(0, 2)
+// );
 
-// async function getStoreData() {
-//   isLoading.value = false
-//   try {
-//     isLoading.value = true
-//     await bookStore.loadBooks()
-//   } catch (error) {
-//     console.log(error)
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
+// console.log("doneBooks: ", doneBooks.value);
+// console.log("ratedBooks: ", ratedBooks.value);
 
 headerStore.setHeaderTitle("Главная");
 </script>
