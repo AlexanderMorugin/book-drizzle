@@ -18,7 +18,7 @@
       {{ title }}
     </h2>
 
-    <ul class="progressReadingBlock__list">
+    <ul v-if="readingBooks.length" class="progressReadingBlock__list">
       <li v-for="book in readingBooks" :key="book.id">
         <NuxtLink
           :to="`/library/${book.id}`"
@@ -72,6 +72,10 @@
         </NuxtLink>
       </li>
     </ul>
+
+    <div v-else class="no-info">
+      На данный момент вы не читаете ни одной книги.
+    </div>
   </div>
 </template>
 
@@ -102,7 +106,7 @@ const readingBooks = computed(() =>
   color: var(--text-color-primary);
 }
 .progressReadingBlock__title_wide {
-  font-family: "Inter_SemiBold", sans-serif;
+  font-family: "Inter-SemiBold", sans-serif;
   font-size: 19px;
   line-height: 28px;
 }

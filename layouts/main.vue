@@ -12,7 +12,7 @@
     </SideBarMobile>
 
     <div class="mainLayout__content">
-      <!-- <Header @openMobileSideBar="openMobileSideBar" /> -->
+      <Header @openMobileSideBar="openMobileSideBar" />
       <main class="mainLayout__main">
         <NuxtPage />
       </main>

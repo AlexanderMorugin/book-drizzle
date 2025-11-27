@@ -69,10 +69,9 @@
 
     <!-- Если цели на год нет, показываем этот блок -->
     <div v-else>
-      <p class="progressYearBlock__detailsBottom">
+      <p class="no-info">
         Установите годовую цель по количеству книг
-        <NuxtLink to="/add-book" class="progressYearBlock__link">здесь</NuxtLink
-        >.
+        <NuxtLink to="/add-book" class="link">здесь</NuxtLink>.
       </p>
     </div>
   </div>
@@ -185,15 +184,15 @@ const { place, title } = defineProps(["place", "title"]);
   gap: 4px;
 }
 
-.progressYearBlock__link {
+/* .progressYearBlock__link {
   color: var(--blue-primary);
   text-decoration: underline;
   transition: 0.25s ease;
-}
+} */
 
-.progressYearBlock__link:hover {
+/* .progressYearBlock__link:hover {
   color: var(--red-primary);
-}
+} */
 
 .progressIcon {
   color: var(--green-secondary);

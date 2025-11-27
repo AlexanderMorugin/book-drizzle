@@ -9,11 +9,14 @@
       <!-- <LoaderPage /> -->
 
       <div>
-        <!-- <BookEmptyArray title="Добавьте книги в свою библиотеку." /> -->
-        <div class="home__contentBlock">
+        <!-- Если у пользователя есть книги -->
+        <div v-if="bookStore.books.length" class="home__contentBlock">
           <ProgressYearBlock place="home" title="Цель на 2025 год" />
           <ProgressReadingBlock place="home" title="Текущие книги" />
         </div>
+
+        <!-- Если у пользователя не добавлено ни одной книги -->
+        <BookEmptyArray v-else />
       </div>
       <div class="home__contentBlock">
         <div class="home__contentItems">
@@ -32,7 +35,9 @@
 
         <div class="home__contentItems">
           <h2 class="home__contentTitle">Прочитанные книги</h2>
-          <div class="home__contentSubItems">
+
+          <!-- Если есть прочитанные книги -->
+          <div v-if="doneBooks.length" class="home__contentSubItems">
             <BookDone
               v-for="item in doneBooks"
               :key="item.id"
@@ -43,9 +48,9 @@
               :route="item.id"
             />
           </div>
-          <div class="home__contentSubItemsText">
-            Вы не оценили ни одной прочтённой книги.
-          </div>
+
+          <!-- Если прочитанных книг нет -->
+          <div v-else class="no-info">Пока вы не прочитали ни одной книги.</div>
         </div>
       </div>
     </section>

@@ -22,8 +22,11 @@
       </div>
     </section> -->
 
-    <BookBlockForAll />
-    <div class="booksEmptyBlock">Книги не найдены</div>
+    <!-- Если у пользователя есть книги -->
+    <BookBlockForAll v-if="bookStore.books.length" />
+
+    <!-- Если у пользователя не добавлено ни одной книги -->
+    <BookEmptyArray v-else />
 
     <SideBarCounter place="books" />
   </PageContainer>
@@ -36,7 +39,7 @@ definePageMeta({
 });
 
 const headerStore = useHeaderStore();
-// const bookStore = useBookStore();
+const bookStore = useBookStore();
 // const userStore = useUserStore();
 
 // await bookStore.loadBooks(userStore.user.id);
@@ -126,14 +129,14 @@ headerStore.setHeaderTitle("Моя библиотека");
   flex-wrap: wrap;
   gap: 12px;
 }
-.booksEmptyBlock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 32px;
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 16px;
-  line-height: 26px;
-  color: var(--text-color-primary);
-}
+// .booksEmptyBlock {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 32px;
+//   font-family: "Inter-Medium", sans-serif;
+//   font-size: 16px;
+//   line-height: 26px;
+//   color: var(--text-color-primary);
+// }
 </style>

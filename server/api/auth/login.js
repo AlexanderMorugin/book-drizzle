@@ -22,12 +22,12 @@ export default defineEventHandler(async (event) => {
   console.log(existUser[0]);
 
   // Если пользователь с такой почтой существует: Выбрасываем ошибку на стороне сервере
-  if (!existUser) {
-    return createError({
-      statusCode: 401,
-      message: "Имя пользователя или пароль неверные.",
-    });
-  }
+  // if (!existUser) {
+  //   return createError({
+  //     statusCode: 401,
+  //     message: "Имя пользователя или пароль неверные.",
+  //   });
+  // }
 
   // Сверяем пароль
   const doesThePasswordMatch = comparePassword(

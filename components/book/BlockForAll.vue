@@ -1,4 +1,5 @@
 <template>
+  копи царя соломона автор
   <section>
     <!-- {{ bookStore.books }} -->
     <!-- <LoaderPage /> -->

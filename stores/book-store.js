@@ -16,12 +16,19 @@ export const useBookStore = defineStore("bookStore", () => {
   };
 
   const createdBook = async (bookData) => {
-    const { data, status } = await useFetch("/api/books/create-book", {
+    const result = await useFetch("/api/books/create-book", {
       method: "POST",
       body: bookData,
     });
 
-    return status;
+    if (result.status.value === "success") {
+      // Добавляем книгу в массив Стора
+      books.value.unshift(result.data.value[0]);
+
+      console.log(books.value);
+    }
+
+    return result;
   };
 
   const getBook = async (bookId) => {
@@ -49,12 +56,12 @@ export const useBookStore = defineStore("bookStore", () => {
     if (result.status.value === "success") {
       book.value.rating = newRating;
 
-      // Обновляем в массиве книг Стора, прогресс данной книги
+      // Обновляем в массиве книг Стора, рейтниг данной книги
       books.value = books.value.map((item) =>
         item.id === book.value.id ? { ...item, rating: newRating } : item
       );
 
-      console.log(books.value);
+      // console.log(books.value);
     }
 
     return result;
@@ -68,6 +75,17 @@ export const useBookStore = defineStore("bookStore", () => {
         id: book.value.id,
       },
     });
+
+    if (result.status.value === "success") {
+      book.value.comment = newComment;
+
+      // Обновляем в массиве книг Стора, комментарий данной книги
+      books.value = books.value.map((item) =>
+        item.id === book.value.id ? { ...item, comment: newComment } : item
+      );
+
+      // console.log(books.value);
+    }
 
     return result;
   };
@@ -89,7 +107,7 @@ export const useBookStore = defineStore("bookStore", () => {
         item.id === book.value.id ? { ...item, progress: progress } : item
       );
 
-      console.log(books.value);
+      // console.log(books.value);
     }
 
     return result;

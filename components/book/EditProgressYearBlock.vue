@@ -1,6 +1,6 @@
 <template>
   <section class="bookEditProgressYearBlock">
-    <LoaderPage />
+    <!-- <LoaderPage /> -->
 
     <div class="bookEditProgressYearBlock__container">
       <LogoBlock place="progressYear" />
@@ -26,7 +26,8 @@
       </div>
 
       <BookEditProgressYearDisplayBlock
-        :doneBooks="bookStore.books.length"
+        v-if="userStore.user?.book_for_years > 0"
+        :doneBooks="doneBooks.length"
         :allBooks="userStore.user?.book_for_years"
       />
     </div>
@@ -38,12 +39,14 @@ const toast = useToast();
 const userStore = useUserStore();
 const bookStore = useBookStore();
 
-// await userStore.getUser(userStore.user.id);
-
 const quantityBooksField = ref(userStore.user.book_for_years);
 const quantityBooksFromDatabase = ref(0);
 const isLoading = ref(false);
 const isButtonLoading = ref(false);
+
+const doneBooks = computed(() =>
+  bookStore.books.filter((item) => item.progress === 100)
+);
 
 const setBooksQuantity = async () => {
   isButtonLoading.value = true;
