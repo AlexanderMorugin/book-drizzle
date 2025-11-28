@@ -115,6 +115,7 @@ const submitLoginForm = async () => {
         });
 
         // Находим в БД его книги и записываем в стор
+        // bookStore.loadBooks(0, 100, result.data.value.user.id);
         bookStore.loadBooks(result.data.value.user.id);
 
         return navigateTo("/");

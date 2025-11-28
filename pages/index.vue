@@ -18,7 +18,7 @@
       </div>
 
       <div class="home__contentBlock">
-        <!-- <div class="home__contentItems">
+        <div class="home__contentItems">
           <ButtonWithIcon
             name="addBook"
             text="Добавить книгу"
@@ -30,13 +30,13 @@
             :number="bookStore.books.length"
             route="/library"
           />
-        </div> -->
+        </div>
 
         <div class="home__contentItems">
-          <!-- <h2 class="home__contentTitle">Прочитанные книги</h2> -->
+          <h2 class="home__contentTitle">Прочитанные книги</h2>
 
           <!-- Если есть прочитанные книги -->
-          <!-- <div v-if="doneBooks.length" class="home__contentSubItems">
+          <div v-if="doneBooks.length" class="home__contentSubItems">
             <BookDone
               v-for="item in doneBooks"
               :key="item.id"
@@ -46,10 +46,10 @@
               :comment="item.comment"
               :route="item.id"
             />
-          </div> -->
+          </div>
 
           <!-- Если прочитанных книг нет -->
-          <!-- <div v-else class="no-info">Пока вы не прочитали ни одной книги.</div> -->
+          <div v-else class="no-info">Пока вы не прочитали ни одной книги.</div>
         </div>
       </div>
     </section>

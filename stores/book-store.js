@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 export const useBookStore = defineStore("bookStore", () => {
   const books = ref([]);
+  const filterBooks = ref([]);
   const book = ref(null);
 
   const loadBooks = async (userId) => {
@@ -11,6 +12,22 @@ export const useBookStore = defineStore("bookStore", () => {
     });
 
     books.value = result.data.value;
+
+    return result;
+  };
+
+  const loadFilterBooks = async (progressFirst, progressLast, userId) => {
+    // console.log(progressFirst, progressLast, userId);
+
+    const result = await useFetch("/api/books/load-filter-books", {
+      method: "POST",
+      body: { progressFirst, progressLast, userId },
+      // body: userId,
+    });
+
+    filterBooks.value = result.data.value;
+
+    // console.log(filterBooks.value);
 
     return result;
   };
@@ -60,6 +77,9 @@ export const useBookStore = defineStore("bookStore", () => {
       books.value = books.value.map((item) =>
         item.id === book.value.id ? { ...item, rating: newRating } : item
       );
+      filterBooks.value = filterBooks.value.map((item) =>
+        item.id === book.value.id ? { ...item, rating: newRating } : item
+      );
 
       // console.log(books.value);
     }
@@ -81,6 +101,9 @@ export const useBookStore = defineStore("bookStore", () => {
 
       // Обновляем в массиве книг Стора, комментарий данной книги
       books.value = books.value.map((item) =>
+        item.id === book.value.id ? { ...item, comment: newComment } : item
+      );
+      filterBooks.value = filterBooks.value.map((item) =>
         item.id === book.value.id ? { ...item, comment: newComment } : item
       );
 
@@ -106,6 +129,9 @@ export const useBookStore = defineStore("bookStore", () => {
       books.value = books.value.map((item) =>
         item.id === book.value.id ? { ...item, progress: progress } : item
       );
+      filterBooks.value = filterBooks.value.map((item) =>
+        item.id === book.value.id ? { ...item, progress: progress } : item
+      );
 
       // console.log(books.value);
     }
@@ -121,20 +147,25 @@ export const useBookStore = defineStore("bookStore", () => {
       },
     });
 
+    // В Сторе удаляем книгу
     books.value = books.value.filter((book) => book.id !== bookId);
+    filterBooks.value = filterBooks.value.filter((book) => book.id !== bookId);
 
     return result;
   };
 
   const logoutUser = () => {
     books.value = [];
+    filterBooks.value = [];
     book.value = null;
   };
 
   return {
     books,
+    filterBooks,
     book,
     loadBooks,
+    loadFilterBooks,
     createdBook,
     getBook,
     updateBookRating,

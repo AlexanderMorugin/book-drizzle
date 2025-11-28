@@ -1,24 +1,29 @@
 <template>
   <header class="header">
     <div class="header__titleBox">
-      <ButtonIconNavigate
-        v-if="isScreenLarge"
-        name="menu"
-        @handleClick="emit('openMobileSideBar')"
-      />
+      <div class="header__titleButton">
+        <ButtonIconNavigate
+          v-if="isScreenLarge"
+          name="menu"
+          @handleClick="emit('openMobileSideBar')"
+        />
+      </div>
 
-      <ClientOnly>
-        <!-- <span class="header__title">{{ headerStore.headerTitle }}</span> -->
-        <span class="header__title">{{ pageTitle }}</span>
-      </ClientOnly>
+      <!-- <ClientOnly> -->
+
+      <span class="header__title">{{ pageTitle }}</span>
+      <!-- </ClientOnly> -->
     </div>
 
-    <ButtonIconNavigate name="back" @handleClick="goBack" />
+    <ButtonIconNavigate
+      v-if="pageTitle === 'Детали книги'"
+      name="back"
+      @handleClick="goBack"
+    />
   </header>
 </template>
 
 <script setup>
-// const headerStore = useHeaderStore();
 const route = useRoute();
 const router = useRouter();
 const { isScreenLarge } = useResizeLarge();
@@ -27,23 +32,20 @@ const emit = defineEmits(["openMobileSideBar"]);
 
 const pageTitle = computed(() => {
   if (route.path === "/") {
-    // headerStore.setHeaderTitle("Главная");
     return "Главная";
   }
   if (route.path === "/library") {
-    // headerStore.setHeaderTitle("Главная");
     return "Моя библиотека";
   }
   if (route.path === "/add-book") {
-    // headerStore.setHeaderTitle("Главная");
     return "Добавить книгу";
   }
+  if (route.path === `/library/${route.params.id}`) {
+    return "Детали книги";
+  }
 });
-// const pageTitle = ref(headerStore.headerTitle);
 
 const goBack = () => router.go(-1);
-
-// await headerStore.headerTitle
 </script>
 
 <style lang="scss" scoped>
@@ -59,9 +61,17 @@ const goBack = () => router.go(-1);
   padding-right: 24px;
 
   &__titleBox {
+    position: relative;
+    height: 40px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    // gap: 20px;
+  }
+
+  &__titleButton {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 
   &__title {
@@ -73,6 +83,7 @@ const goBack = () => router.go(-1);
     @media (max-width: 1023px) {
       font-size: 18px;
       line-height: 24px;
+      padding-left: 60px;
     }
   }
 

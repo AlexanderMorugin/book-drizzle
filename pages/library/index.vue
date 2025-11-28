@@ -9,18 +9,16 @@
     /> -->
 
     <!-- Блок с кнопками -->
-    <!-- <section class="booksStatusBlock">
+    <section class="booksStatusBlock">
       <div v-for="button in statusButtons" :key="button.id">
-        <StatusButton
+        <ButtonStatus
           :title="button.title"
           :quantity="button.quantity"
           :isActive="button.status"
-          @click="
-            setActive(button.id, button.progressGreat, button.progressLess)
-          "
+          @click="setActive(button.id)"
         />
       </div>
-    </section> -->
+    </section>
 
     <!-- Если у пользователя есть книги -->
     <BookBlockForAll v-if="bookStore.books.length" />
@@ -38,11 +36,8 @@ definePageMeta({
   layout: "main",
 });
 
-// const headerStore = useHeaderStore();
 const bookStore = useBookStore();
-// const userStore = useUserStore();
-
-// await bookStore.loadBooks(userStore.user.id);
+const userStore = useUserStore();
 
 const bookField = ref(null);
 // const isLoading = ref(false);
@@ -52,33 +47,42 @@ const statusButtons = ref([
   {
     id: 1,
     title: "Все",
-    progressGreat: null,
-    progressLess: null,
-    quantity: 5,
+    // progressFirst: null,
+    // progressLast: null,
+    quantity: bookStore.books.length,
     status: true,
   },
   {
     id: 2,
     title: "Читаю",
-    progressGreat: 1,
-    progressLess: 99,
-    quantity: 8,
+    // progressFirst: 0,
+    // progressLast: 100,
+    quantity: computed(
+      () =>
+        bookStore.books.filter(
+          (item) => item.progress > 0 && item.progress < 100
+        ).length
+    ),
     status: false,
   },
   {
     id: 3,
     title: "Прочитано",
-    progressGreat: 100,
-    progressLess: 100,
-    quantity: 2,
+    // progressFirst: 100,
+    // progressLast: 100,
+    quantity: computed(
+      () => bookStore.books.filter((item) => item.progress === 100).length
+    ),
     status: false,
   },
   {
     id: 4,
     title: "Запланировано",
-    progressGreat: 0,
-    progressLess: 0,
-    quantity: 7,
+    // progressFirst: 0,
+    // progressLast: 0,
+    quantity: computed(
+      () => bookStore.books.filter((item) => item.progress === 0).length
+    ),
     status: false,
   },
 ]);
@@ -90,36 +94,46 @@ const statusButtons = ref([
 // };
 
 // const setActive = (id, progressGreat, progressLess) => {
-//   const currentButton = statusButtons.value.find((item) => item.id === id);
-//   const activeButton = statusButtons.value.find((item) => item.status === true);
+const setActive = (id) => {
+  // Находим кнопку по которой кликаем
+  const currentButton = statusButtons.value.find((item) => item.id === id);
+  // Находим активную на данный момент кнопку
+  const activeButton = statusButtons.value.find((item) => item.status === true);
 
-//   if (currentButton.status !== true) {
-//     currentButton.status = true;
-//     activeButton.status = false;
-//   }
+  // console.log(currentButton.title);
 
-//   if (progressGreat === null) {
-//     bookStore.loadStatusBooks(0, 100);
-//   } else {
-//     bookStore.loadStatusBooks(progressGreat, progressLess);
-//   }
-// };
+  // При клике на кнопку меняем ее статус на активный, остальным кнопкам этот статус дезактивируем
+  if (currentButton.status !== true) {
+    currentButton.status = true;
+    activeButton.status = false;
+  }
 
-// async function getStoreData() {
-//   isLoading.value = false;
-//   try {
-//     isLoading.value = true;
-//     const { data } = await bookStore.loadBooks();
-//     await bookStore.loadStatusBooks(0, 100);
-//     booksForButtons.value = data;
-//   } catch (error) {
-//     console.log(error);
-//   } finally {
-//     isLoading.value = false;
-//   }
-// }
+  // Кнопка "Все"
+  if (currentButton.title === "Все") {
+    // console.log("Все");
+    bookStore.loadFilterBooks(0, 100, userStore.user.id);
+  }
 
-// headerStore.setHeaderTitle("Моя библиотека");
+  // Кнопка "Читаю"
+  if (currentButton.title === "Читаю") {
+    // console.log("Читаю");
+    bookStore.loadFilterBooks(1, 99, userStore.user.id);
+  }
+
+  // Кнопка "Прочитано"
+  if (currentButton.title === "Прочитано") {
+    // console.log("Прочитано");
+    bookStore.loadFilterBooks(100, 100, userStore.user.id);
+  }
+
+  // Кнопка "Прочитано"
+  if (currentButton.title === "Запланировано") {
+    // console.log("Запланировано");
+    bookStore.loadFilterBooks(0, 0, userStore.user.id);
+  }
+};
+
+await bookStore.loadFilterBooks(0, 100, userStore.user.id);
 </script>
 
 <style lang="scss" scoped>
