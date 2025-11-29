@@ -1,12 +1,14 @@
 <template>
   <PageContainer width="wide">
-    <!-- <SearchInput
+    <FormSearch
       type="text"
       name="bookField"
       placeholder="Поиск книги или автора"
       v-model:value="bookField"
-      @clearInput="clearInput"
-    /> -->
+      @clearInput="bookField = null"
+    />
+
+    <!-- {{ bookField }} -->
 
     <!-- Блок с кнопками -->
     <section class="booksStatusBlock">
@@ -43,20 +45,18 @@ const bookField = ref(null);
 // const isLoading = ref(false);
 const booksForButtons = ref([]);
 
+// console.log(bookField.value);
+
 const statusButtons = ref([
   {
     id: 1,
     title: "Все",
-    // progressFirst: null,
-    // progressLast: null,
     quantity: bookStore.books.length,
     status: true,
   },
   {
     id: 2,
     title: "Читаю",
-    // progressFirst: 0,
-    // progressLast: 100,
     quantity: computed(
       () =>
         bookStore.books.filter(
@@ -68,8 +68,6 @@ const statusButtons = ref([
   {
     id: 3,
     title: "Прочитано",
-    // progressFirst: 100,
-    // progressLast: 100,
     quantity: computed(
       () => bookStore.books.filter((item) => item.progress === 100).length
     ),
@@ -78,8 +76,6 @@ const statusButtons = ref([
   {
     id: 4,
     title: "Запланировано",
-    // progressFirst: 0,
-    // progressLast: 0,
     quantity: computed(
       () => bookStore.books.filter((item) => item.progress === 0).length
     ),
@@ -87,20 +83,11 @@ const statusButtons = ref([
   },
 ]);
 
-// const clearInput = () => {
-//   bookField.value = null;
-
-//   getStoreData();
-// };
-
-// const setActive = (id, progressGreat, progressLess) => {
 const setActive = (id) => {
   // Находим кнопку по которой кликаем
   const currentButton = statusButtons.value.find((item) => item.id === id);
   // Находим активную на данный момент кнопку
   const activeButton = statusButtons.value.find((item) => item.status === true);
-
-  // console.log(currentButton.title);
 
   // При клике на кнопку меняем ее статус на активный, остальным кнопкам этот статус дезактивируем
   if (currentButton.status !== true) {
@@ -110,25 +97,21 @@ const setActive = (id) => {
 
   // Кнопка "Все"
   if (currentButton.title === "Все") {
-    // console.log("Все");
     bookStore.loadFilterBooks(0, 100, userStore.user.id);
   }
 
   // Кнопка "Читаю"
   if (currentButton.title === "Читаю") {
-    // console.log("Читаю");
     bookStore.loadFilterBooks(1, 99, userStore.user.id);
   }
 
   // Кнопка "Прочитано"
   if (currentButton.title === "Прочитано") {
-    // console.log("Прочитано");
     bookStore.loadFilterBooks(100, 100, userStore.user.id);
   }
 
   // Кнопка "Прочитано"
   if (currentButton.title === "Запланировано") {
-    // console.log("Запланировано");
     bookStore.loadFilterBooks(0, 0, userStore.user.id);
   }
 };

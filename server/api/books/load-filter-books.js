@@ -1,4 +1,4 @@
-import { between, or, and, gt, gte, lt, lte, eq, desc } from "drizzle-orm";
+import { and, gte, lte, eq, desc } from "drizzle-orm";
 import { db } from "~/server";
 import { books } from "~/server/database/schema";
 
@@ -15,13 +15,6 @@ export default defineEventHandler(async (event) => {
         gte(books.progress, body.progressFirst),
         lte(books.progress, body.progressLast)
       )
-      // eq(books.owner_id, body.userId),
-
-      // between(books.progress, body.progressFirst, body.progressLast)
-      // or(
-      //   gt(books.progress, body.progressFirst),
-      //   lt(books.progress, body.progressLast)
-      // )
     )
     .orderBy(desc(books.createdAt));
 

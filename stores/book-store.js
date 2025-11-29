@@ -17,17 +17,25 @@ export const useBookStore = defineStore("bookStore", () => {
   };
 
   const loadFilterBooks = async (progressFirst, progressLast, userId) => {
-    // console.log(progressFirst, progressLast, userId);
-
     const result = await useFetch("/api/books/load-filter-books", {
       method: "POST",
       body: { progressFirst, progressLast, userId },
-      // body: userId,
     });
 
     filterBooks.value = result.data.value;
 
-    // console.log(filterBooks.value);
+    return result;
+  };
+
+  // Получаем книги пользователя по поиску
+  const loadSearchBooks = async (searchData, userId) => {
+    // console.log(searchData, userId);
+    const result = await useFetch("/api/books/load-search-books", {
+      method: "POST",
+      body: { searchData, userId },
+    });
+
+    filterBooks.value = result.data.value;
 
     return result;
   };
@@ -166,6 +174,7 @@ export const useBookStore = defineStore("bookStore", () => {
     book,
     loadBooks,
     loadFilterBooks,
+    loadSearchBooks,
     createdBook,
     getBook,
     updateBookRating,
