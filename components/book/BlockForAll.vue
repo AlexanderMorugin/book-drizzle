@@ -1,8 +1,6 @@
 <template>
   <section>
     <div>
-      <!-- {{ bookStore.filterBooks }} -->
-
       <BookEmptyArray
         v-if="!bookStore.books"
         title="В вашей библиотеке книг пока нет."

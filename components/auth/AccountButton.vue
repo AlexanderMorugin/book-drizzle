@@ -21,7 +21,7 @@ const { place } = defineProps(["place"]);
 const emit = defineEmits(["goToAuthPage"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .authAccountButton {
   display: flex;
   justify-content: center;
@@ -33,38 +33,46 @@ const emit = defineEmits(["goToAuthPage"]);
   margin-top: 8px;
   cursor: pointer;
   transition: 0.25s ease;
+
+  &_register {
+    border: 1px solid var(--border-color-primary);
+    transition: 0.25s ease;
+
+    &:hover {
+      border: 1px solid var(--violet-thirdly);
+    }
+  }
+
+  &_login {
+    border: 1px solid var(--border-color-primary);
+    transition: 0.25s ease;
+
+    &:hover {
+      border: 1px solid var(--green-secondary);
+    }
+  }
+
+  &__text {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 16px;
+    color: var(--text-color-thirdly);
+    transition: 0.25s ease;
+  }
 }
-.authAccountButton_register {
-  border: 1px solid var(--border-color-primary);
-  transition: 0.25s ease;
-}
-.authAccountButton_register:hover {
-  border: 1px solid var(--violet-thirdly);
-}
-.authAccountButton_login {
-  border: 1px solid var(--border-color-primary);
-  transition: 0.25s ease;
-}
-.authAccountButton_login:hover {
-  border: 1px solid var(--green-secondary);
-}
+
 .arrowIcon {
   width: 17px;
   height: 17px;
   color: var(--text-color-thirdly);
   stroke-width: 1.5;
   transition: 0.25s ease;
+
+  &_reverse {
+    transform: rotate(180deg);
+  }
 }
-.arrowIcon_reverse {
-  transform: rotate(180deg);
-}
-.authAccountButton__text {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 16px;
-  line-height: 16px;
-  color: var(--text-color-thirdly);
-  transition: 0.25s ease;
-}
+
 .authAccountButton_register:hover .arrowIcon {
   color: var(--violet-secondary);
   animation: slide-to-left 1.5s infinite;

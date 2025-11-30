@@ -10,7 +10,7 @@
       @input="updateValue"
       class="form-search-input"
     />
-    <FormClearButton place="search" @click="$emit('clearInput')" />
+    <FormClearButton v-if="value" place="search" @click="$emit('clearInput')" />
   </div>
 </template>
 

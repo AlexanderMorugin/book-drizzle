@@ -5,7 +5,7 @@
       name="bookField"
       placeholder="Поиск книги или автора"
       v-model:value="bookField"
-      @clearInput="bookField = null"
+      @clearInput="clearInput"
     />
 
     <!-- {{ bookField }} -->
@@ -82,6 +82,11 @@ const statusButtons = ref([
     status: false,
   },
 ]);
+
+const clearInput = () => {
+  bookField.value = null;
+  bookStore.loadFilterBooks(0, 100, userStore.user.id);
+};
 
 const setActive = (id) => {
   // Находим кнопку по которой кликаем

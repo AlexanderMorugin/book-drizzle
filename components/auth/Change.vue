@@ -15,13 +15,14 @@
 </template>
 
 <script setup>
-const router = useRouter();
-
 const { place } = defineProps(["place"]);
 
 const goToAuthPage = () => {
-  if (place === "register") router.push("/login");
-  else router.push("/register");
+  if (place === "register") {
+    return navigateTo("/login");
+  } else {
+    return navigateTo("/register");
+  }
 };
 </script>
 

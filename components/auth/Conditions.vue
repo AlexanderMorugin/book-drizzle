@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .authConditionsText {
   font-family: "Inter-Regular", sans-serif;
   font-size: 12px;
@@ -28,8 +28,9 @@
   line-height: 24px;
   color: var(--violet-secondary);
   transition: 0.25s ease;
-}
-.authConditionsLink:hover {
-  color: var(--violet-thirdly);
+
+  &:hover {
+    color: var(--violet-thirdly);
+  }
 }
 </style>
