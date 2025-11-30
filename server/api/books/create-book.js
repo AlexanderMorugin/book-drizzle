@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
   const book = {
     name: body.name,
     author: body.author,
+    genre: body.genre,
     image: body.image,
     owner_id: body.owner_id,
   };

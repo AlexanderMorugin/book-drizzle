@@ -20,6 +20,11 @@
       :error="v$.authorField.$errors"
       @clearInput="authorField = null"
     />
+    <FormSelectGenre
+      label="Жанр"
+      :options="genres"
+      v-model:value="v$.selectedGenre.$model"
+    />
     <FormInput
       lastInput="true"
       label="Обложка книги"
@@ -54,6 +59,16 @@ const isLoading = ref(false);
 const bookNameField = ref(null);
 const authorField = ref(null);
 const imageUrlField = ref(null);
+const selectedGenre = ref(null);
+
+const genres = ref([
+  { id: 1, name: "Художественная литература" },
+  { id: 2, name: "Искусство и культура" },
+  { id: 3, name: "Публицистика и история" },
+  { id: 4, name: "Философия и религия" },
+  { id: 5, name: "Научно-популярная литература" },
+  { id: 6, name: "Хобби, увлечения, навыки" },
+]);
 
 // Валидация
 const rules = computed(() => ({
@@ -65,6 +80,9 @@ const rules = computed(() => ({
     required: helpers.withMessage("Укажите имя автора", required),
     minLength: helpers.withMessage("Не менее 3 символов", minLength(3)),
   },
+  selectedGenre: {
+    required: helpers.withMessage("Выберите жанр", required),
+  },
   imageUrlField: {
     url: helpers.withMessage("Вставьте ссылку", url),
   },
@@ -73,10 +91,13 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, {
   bookNameField,
   authorField,
+  selectedGenre,
   imageUrlField,
 });
 
-const isFromEmpty = computed(() => !bookNameField.value || !authorField.value);
+const isFromEmpty = computed(
+  () => !bookNameField.value || !authorField.value || !selectedGenre.value
+);
 
 const isValid = computed(() => v$.value.$errors);
 
@@ -89,7 +110,7 @@ const submitAddBook = async () => {
       const bookData = {
         name: bookNameField.value.trim(),
         author: authorField.value.trim(),
-        // genre: parrentSelectedOption.value.name,
+        genre: selectedGenre.value.name,
         image: imageUrlField.value,
         // dropedImage: dropedImage.value,
         owner_id: userStore.user.id,

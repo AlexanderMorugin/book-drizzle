@@ -48,8 +48,6 @@ export const useBookStore = defineStore("bookStore", () => {
     if (result.status.value === "success") {
       // Добавляем книгу в массив Стора
       books.value.unshift(result.data.value[0]);
-
-      console.log(books.value);
     }
 
     return result;
