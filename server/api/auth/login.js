@@ -6,8 +6,6 @@ import { comparePassword } from "~/server/utils/hash-password";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  // console.log(body);
-
   if (!body) {
     return { access_token: null, user: null };
   }
@@ -19,15 +17,13 @@ export default defineEventHandler(async (event) => {
     .where(eq(users.email, body.email))
     .limit(1);
 
-  // console.log(existUser[0]);
-
   // Если пользователь с такой почтой существует: Выбрасываем ошибку на стороне сервере
-  // if (!existUser) {
-  //   return createError({
-  //     statusCode: 401,
-  //     message: "Имя пользователя или пароль неверные.",
-  //   });
-  // }
+  if (!existUser) {
+    return createError({
+      statusCode: 401,
+      message: "Имя пользователя или пароль неверные.",
+    });
+  }
 
   // Сверяем пароль
   const doesThePasswordMatch = comparePassword(

@@ -9,10 +9,7 @@
         />
       </div>
 
-      <!-- <ClientOnly> -->
-
       <span class="header__title">{{ pageTitle }}</span>
-      <!-- </ClientOnly> -->
     </div>
 
     <ButtonIconNavigate
@@ -65,7 +62,6 @@ const goBack = () => router.go(-1);
     height: 40px;
     display: flex;
     align-items: center;
-    // gap: 20px;
   }
 
   &__titleButton {

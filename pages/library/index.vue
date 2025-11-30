@@ -1,5 +1,6 @@
 <template>
   <PageContainer width="wide">
+    <!-- Инпут поиска -->
     <FormSearch
       type="text"
       name="bookField"
@@ -7,8 +8,6 @@
       v-model:value="bookField"
       @clearInput="clearInput"
     />
-
-    <!-- {{ bookField }} -->
 
     <!-- Блок с кнопками -->
     <section class="booksStatusBlock">
@@ -42,10 +41,6 @@ const bookStore = useBookStore();
 const userStore = useUserStore();
 
 const bookField = ref(null);
-// const isLoading = ref(false);
-const booksForButtons = ref([]);
-
-// console.log(bookField.value);
 
 const statusButtons = ref([
   {
@@ -131,14 +126,4 @@ await bookStore.loadFilterBooks(0, 100, userStore.user.id);
   flex-wrap: wrap;
   gap: 12px;
 }
-// .booksEmptyBlock {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 32px;
-//   font-family: "Inter-Medium", sans-serif;
-//   font-size: 16px;
-//   line-height: 26px;
-//   color: var(--text-color-primary);
-// }
 </style>

@@ -19,7 +19,7 @@ const { doneBooks, allBooks } = defineProps(["doneBooks", "allBooks"]);
 const isYearProgress = computed(() => Math.round((doneBooks / allBooks) * 100));
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookEditProgressYearDisplayBlock {
   display: flex;
   flex-direction: column;
@@ -27,26 +27,29 @@ const isYearProgress = computed(() => Math.round((doneBooks / allBooks) * 100));
   background: var(--white-fourthly);
   border-radius: var(--border-radius-m);
   padding: 16px;
-}
-.bookEditProgressYearDisplayBlock__count {
-  font-family: "Inter_SemiBold", sans-serif;
-  font-size: 23px;
-  line-height: 32px;
-  color: var(--violet-secondary);
-  text-align: center;
-}
-.bookEditProgressYearDisplayBlock__title {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-secondary);
-  text-align: center;
-}
-.bookEditProgressYearDisplayBlock__subtitle {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-color-sixthly);
-  text-align: center;
+
+  &__count {
+    font-family: "Inter-SemiBold", sans-serif;
+    font-size: 23px;
+    line-height: 32px;
+    color: var(--violet-secondary);
+    text-align: center;
+  }
+
+  &__title {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-secondary);
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-color-sixthly);
+    text-align: center;
+  }
 }
 </style>

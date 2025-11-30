@@ -19,9 +19,6 @@
 </template>
 
 <script setup>
-// import { LoaderComponent } from "#components";
-// import { BookEditTitle } from "#components";
-
 const toast = useToast();
 const bookStore = useBookStore();
 

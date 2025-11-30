@@ -9,24 +9,6 @@ export const useUserStore = defineStore("userStore", () => {
     users.value = res.data.value;
   };
 
-  // const getUser = async (userData) => {
-  //   const result = await useFetch("/api/auth/get-user", {
-  //     method: "POST",
-  //     body: userData,
-  //   });
-
-  //   if (result.error.value) {
-  //     return;
-  //   }
-
-  //   // const newUser = new Promise(result);
-  //   console.log(result.data.value.user);
-
-  //   // user.value = result.data.value.user;
-
-  //   return result;
-  // };
-
   const registerUser = async (userData) => {
     const { data, status } = await useFetch("/api/auth/register", {
       method: "POST",
@@ -37,20 +19,14 @@ export const useUserStore = defineStore("userStore", () => {
   };
 
   const loginUser = async (userData) => {
-    // user.value = null;
-
     const result = await useFetch("/api/auth/login", {
       method: "POST",
       body: userData,
     });
 
-    console.log(result.error.value);
-
     if (result.error.value) {
       return null;
     }
-
-    // console.log(result.error.value);
 
     user.value = result.data.value.user;
 
@@ -93,11 +69,7 @@ export const useUserStore = defineStore("userStore", () => {
       return;
     }
 
-    // console.log(result);
-
     user.value.book_for_years = booksForYear;
-
-    // result.refresh();
 
     return result;
   };

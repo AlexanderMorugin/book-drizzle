@@ -1,4 +1,3 @@
-// import { eq } from "drizzle-orm";
 import { db } from "~/server";
 import { books } from "~/server/database/schema";
 
@@ -18,8 +17,6 @@ export default defineEventHandler(async (event) => {
     .insert(books)
     .values({ ...book })
     .returning();
-
-  // console.log("createdBook: ", createdBook);
 
   return newBook;
 });

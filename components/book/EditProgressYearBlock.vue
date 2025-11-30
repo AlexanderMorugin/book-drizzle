@@ -40,8 +40,8 @@ const userStore = useUserStore();
 const bookStore = useBookStore();
 
 const quantityBooksField = ref(userStore.user.book_for_years);
-const quantityBooksFromDatabase = ref(0);
-const isLoading = ref(false);
+// const quantityBooksFromDatabase = ref(0);
+// const isLoading = ref(false);
 const isButtonLoading = ref(false);
 
 const doneBooks = computed(() =>
@@ -75,88 +75,86 @@ const setBooksQuantity = async () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookEditProgressYearBlock {
-  /* display: flex;
-  flex-direction: column;
-  gap: 16px; */
   background: var(--gradient-progress-gray);
   border-radius: var(--border-radius-l);
   box-shadow: var(--shadow-secondary);
   padding: 24px 32px 32px 32px;
-}
-.bookEditProgressYearBlock__container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  /* background: var(--gradient-progress-gray);
-  border-radius: var(--border-radius-l);
-  box-shadow: var(--shadow-secondary); */
-  padding: 24px 32px 32px 32px;
-}
-.bookEditProgressYearBlock__inputBox {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.bookEditProgressYearBlock__inputBoxTitle {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
-  line-height: 14px;
-  color: var(--text-color-eighthly);
-}
-.bookEditProgressYearBlock__inputContainer {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.bookEditProgressYearBlock__input {
-  width: 100%;
-  height: 36px;
-  border-radius: var(--border-radius-s);
-  background: var(--white-primary);
-  padding: 9px 13px;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-eighthly);
-  border: 1px solid transparent;
-  transition: 0.25s;
-}
-.bookEditProgressYearBlock__input:focus {
-  outline: 0;
-  border: 1px solid var(--violet-thirdly);
-}
-.bookEditProgressYearBlock__submitButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 101px;
-  background: var(--white-primary);
-  border-radius: var(--border-radius-s);
-  border: 1px solid var(--black-primary);
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-eighthly);
-  padding: 8px 17px;
-  opacity: 0.5;
-  transition: 0.25s ease;
-}
-.bookEditProgressYearBlock__submitButton:hover {
-  opacity: 1;
-  box-shadow: var(--shadow-secondary);
-}
 
-@media (max-width: 1023px) {
-  .bookEditProgressYearBlock {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 32px 32px 32px;
+  }
+
+  &__inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__inputBoxTitle {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--text-color-eighthly);
+  }
+
+  &__inputContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__input {
+    width: 100%;
+    height: 36px;
+    border-radius: var(--border-radius-s);
+    background: var(--white-primary);
+    padding: 9px 13px;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-eighthly);
+    border: 1px solid transparent;
+    transition: 0.25s;
+
+    &:focus {
+      outline: 0;
+      border: 1px solid var(--violet-thirdly);
+    }
+  }
+
+  &__submitButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 101px;
+    background: var(--white-primary);
+    border-radius: var(--border-radius-s);
+    border: 1px solid var(--black-primary);
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-eighthly);
+    padding: 8px 17px;
+    opacity: 0.5;
+    transition: 0.25s ease;
+
+    &:hover {
+      opacity: 1;
+      box-shadow: var(--shadow-secondary);
+    }
+  }
+
+  @media (max-width: 1023px) {
     gap: 32px;
   }
-}
 
-@media (max-width: 474px) {
-  .bookEditProgressYearBlock {
+  @media (max-width: 474px) {
     padding: 40px 10px 20px 10px;
   }
 }

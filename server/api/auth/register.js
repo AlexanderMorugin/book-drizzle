@@ -1,7 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/server";
 import { users } from "~/server/database/schema";
-// import { hashPassword } from "~/server/utils/hash-password";
 
 export default defineEventHandler(async (event) => {
   const { name, email, password, book_for_years } = await readBody(event);
@@ -37,8 +36,6 @@ export default defineEventHandler(async (event) => {
 
   // Отправляем пользователя в базу данных
   const createdUser = await db.insert(users).values({ ...userForRegister });
-
-  // console.log("API_REGISTER: ", createdUser);
 
   return createdUser;
 });

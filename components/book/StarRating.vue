@@ -20,7 +20,7 @@ const setRating = (newRating) => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookStarRating {
   display: flex;
   align-items: center;

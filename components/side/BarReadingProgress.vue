@@ -6,10 +6,6 @@
 
 <script setup>
 const { place, title } = defineProps(["place", "title"]);
-
-// const bookStore = useBookStore();
-
-// bookStore.getReadingBooks();
 </script>
 
 <style lang="scss" scoped>

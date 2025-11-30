@@ -44,12 +44,6 @@ const counter = ref([
     status: "mustDo",
   },
 ]);
-
-// onMounted(() => {
-//   bookStore.loadPlanedBooks()
-//   bookStore.loadReadingBooks()
-//   bookStore.loadDoneBooks()
-// })
 </script>
 
 <style lang="scss" scoped>

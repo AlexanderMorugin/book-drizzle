@@ -78,6 +78,8 @@
 </template>
 
 <script setup>
+const { place, title } = defineProps(["place", "title"]);
+
 const userStore = useUserStore();
 const bookStore = useBookStore();
 
@@ -90,11 +92,9 @@ const isYearProgress = computed(() =>
     (finishedBooks.value.length / userStore.user?.book_for_years) * 100
   )
 );
-
-const { place, title } = defineProps(["place", "title"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .progressYearBlock {
   display: flex;
   flex-direction: column;
@@ -103,96 +103,103 @@ const { place, title } = defineProps(["place", "title"]);
   background: var(--gray-thirdly);
   width: 100%;
   padding: 16px;
-}
-.progressYearBlock_wide {
-  gap: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-secondary);
-}
-.progressYearBlock__titleBox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.progressYearBlock__titleIcon {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.progressYearBlock__title {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 15px;
-  line-height: 24px;
-  color: var(--text-color-primary);
-}
-.progressYearBlock__details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-.progressYearBlock__detailsTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.progressYearBlock__detailsTopTitle {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-secondary);
-}
-.progressYearBlock__quantity {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-primary);
-}
-.progressYearBlock__quantity_accent {
-  color: var(--yellow-primary);
-}
-.progressYearBlock__detailsMain {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.progressYearBlock__detailsTextBox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-color-secondary);
-}
-.progressYearBlock__detailsTextBox_big {
-  font-size: 14px;
-  line-height: 20px;
-}
-.progressYearBlock__detailsBottom {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-secondary);
-}
 
-.progressYearBlock__starBox {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  &_wide {
+    gap: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-secondary);
+
+    @media (max-width: 767px) {
+      padding: 20px 10px;
+    }
+  }
+
+  &__titleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__titleIcon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__title {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-color-primary);
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__detailsTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__detailsTopTitle {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-secondary);
+  }
+
+  &__quantity {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-primary);
+
+    &_accent {
+      color: var(--yellow-primary);
+    }
+  }
+
+  &__detailsMain {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__detailsTextBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-color-secondary);
+
+    &_big {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  &__detailsBottom {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-secondary);
+  }
+
+  &__starBox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 }
-
-/* .progressYearBlock__link {
-  color: var(--blue-primary);
-  text-decoration: underline;
-  transition: 0.25s ease;
-} */
-
-/* .progressYearBlock__link:hover {
-  color: var(--red-primary);
-} */
 
 .progressIcon {
   color: var(--green-secondary);
@@ -202,11 +209,5 @@ const { place, title } = defineProps(["place", "title"]);
   height: 16px;
   fill: var(--yellow-primary);
   color: var(--yellow-primary);
-}
-
-@media (max-width: 767px) {
-  .progressYearBlock_wide {
-    padding: 20px 10px;
-  }
 }
 </style>

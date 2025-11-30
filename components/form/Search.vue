@@ -25,11 +25,7 @@ const { type, name, placeholder, value } = defineProps([
   "value",
 ]);
 
-// console.log(e.target);
-
 const emit = defineEmits(["update:value", "clearInput"]);
-
-// const updateValue = (e) => emit("update:value", e.target.value);
 
 const updateValue = async (e) => {
   try {

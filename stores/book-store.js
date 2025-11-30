@@ -29,7 +29,6 @@ export const useBookStore = defineStore("bookStore", () => {
 
   // Получаем книги пользователя по поиску
   const loadSearchBooks = async (searchData, userId) => {
-    // console.log(searchData, userId);
     const result = await useFetch("/api/books/load-search-books", {
       method: "POST",
       body: { searchData, userId },
@@ -88,8 +87,6 @@ export const useBookStore = defineStore("bookStore", () => {
       filterBooks.value = filterBooks.value.map((item) =>
         item.id === book.value.id ? { ...item, rating: newRating } : item
       );
-
-      // console.log(books.value);
     }
 
     return result;
@@ -114,8 +111,6 @@ export const useBookStore = defineStore("bookStore", () => {
       filterBooks.value = filterBooks.value.map((item) =>
         item.id === book.value.id ? { ...item, comment: newComment } : item
       );
-
-      // console.log(books.value);
     }
 
     return result;
@@ -140,8 +135,6 @@ export const useBookStore = defineStore("bookStore", () => {
       filterBooks.value = filterBooks.value.map((item) =>
         item.id === book.value.id ? { ...item, progress: progress } : item
       );
-
-      // console.log(books.value);
     }
 
     return result;

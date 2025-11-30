@@ -32,7 +32,7 @@ const { name, text, number, route } = defineProps([
 ]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .buttonWithIcon {
   display: flex;
   flex-direction: column;
@@ -41,53 +41,63 @@ const { name, text, number, route } = defineProps([
   gap: 8px;
   border-radius: var(--border-radius-s);
   padding: 22px;
+
+  &_addBook {
+    background: var(--gradient-form-login);
+    box-shadow: var(--shadow-secondary);
+    transition: 0.25s ease;
+
+    &:hover {
+      box-shadow: var(--shadow-primary);
+    }
+  }
+
+  &_library {
+    background: var(--white-primary);
+    border: 1px solid var(--border-color-primary);
+    box-shadow: var(--shadow-fourthly);
+    backdrop-filter: blur(8px);
+    transition: 0.25s ease;
+
+    &:hover {
+      box-shadow: var(--shadow-primary);
+    }
+  }
+
+  &__textBlock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__text {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 17px;
+    line-height: 28px;
+
+    &_addBook {
+      color: var(--white-primary);
+    }
+
+    &_library {
+      color: var(--text-color-secondary);
+    }
+  }
+
+  &__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-s);
+    background: var(--gray-fourthly);
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-color-seventhly);
+    padding: 3px 9px;
+  }
 }
-.buttonWithIcon_addBook {
-  background: var(--gradient-form-login);
-  box-shadow: var(--shadow-secondary);
-  transition: 0.25s ease;
-}
-.buttonWithIcon_addBook:hover {
-  box-shadow: var(--shadow-primary);
-}
-.buttonWithIcon_library {
-  background: var(--white-primary);
-  border: 1px solid var(--border-color-primary);
-  box-shadow: var(--shadow-fourthly);
-  backdrop-filter: blur(8px);
-  transition: 0.25s ease;
-}
-.buttonWithIcon_library:hover {
-  box-shadow: var(--shadow-primary);
-}
-.buttonWithIcon__textBlock {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.buttonWithIcon__text {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 17px;
-  line-height: 28px;
-}
-.buttonWithIcon__text_addBook {
-  color: var(--white-primary);
-}
-.buttonWithIcon__text_library {
-  color: var(--text-color-secondary);
-}
-.buttonWithIcon__number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: var(--border-radius-s);
-  background: var(--gray-fourthly);
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-color-seventhly);
-  padding: 3px 9px;
-}
+
 .plusIcon {
   width: 16px;
   height: 16px;

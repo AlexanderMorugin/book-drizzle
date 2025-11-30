@@ -62,18 +62,11 @@ definePageMeta({
   layout: "main",
 });
 
-// const headerStore = useHeaderStore();
 const bookStore = useBookStore();
-const userStore = useUserStore();
 
-// const isLoading = ref(false);
-
-const isYearProgress = computed(() => userStore.user[0]?.books_for_year > 0);
 const doneBooks = computed(() =>
   bookStore.books.filter((item) => item.progress === 100)
 );
-
-// headerStore.setHeaderTitle("Главная");
 </script>
 
 <style lang="scss" scoped>

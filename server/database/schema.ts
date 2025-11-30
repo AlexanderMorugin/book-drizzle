@@ -24,7 +24,6 @@ export const books = pgTable("books", {
   image: text("image"),
   progress: integer("progress").default(0),
   rating: integer("rating").default(0),
-  // status: integer("status").default(0),
   comment: text("comment"),
   genre: text("genre"),
   owner_id: integer("user_id")
@@ -41,9 +40,3 @@ export const BookRelations = relations(books, ({ one }) => ({
     references: [users.id],
   }),
 }));
-
-// export type userSchemaSelect = typeof Users.$inferSelect;
-// export type userSchemaInsert = typeof Users.$inferInsert;
-
-// export type bookSchemaSelect = typeof Books.$inferSelect;
-// export type bookSchemaInsert = typeof Books.$inferInsert;

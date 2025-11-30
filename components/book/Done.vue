@@ -32,7 +32,7 @@ const { bookName, author, rating, comment, route } = defineProps([
 ]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .lastRatingPlate {
   display: flex;
   justify-content: space-between;
@@ -44,49 +44,53 @@ const { bookName, author, rating, comment, route } = defineProps([
   backdrop-filter: blur(8px);
   padding: 16px;
   transition: 0.2s ease;
-}
-.lastRatingPlate:hover {
-  background: var(--green-primary);
-  box-shadow: var(--shadow-secondary);
-}
-.lastRatingPlate__nameBlock {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.lastRatingPlate__circle {
-  min-width: 8px;
-  height: 8px;
-  border-radius: var(--border-radius-full);
-  background: var(--green-sixthly);
-}
-.lastRatingPlate__name {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--text-color-primary);
-}
-.lastRatingPlate__text {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 14px;
-  line-height: 24px;
-  color: var(--text-color-secondary);
-}
-.lastRatingPlate__text_comment {
-  font-style: italic;
-  font-size: 15px;
-}
 
-.lastRatingPlate__line {
-  width: 100%;
-  height: 1px;
-  background: var(--gradient-form-login);
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+  &:hover {
+    background: var(--green-primary);
+    box-shadow: var(--shadow-secondary);
+  }
 
-@media (max-width: 767px) {
-  .lastRatingPlate {
+  &__nameBlock {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__circle {
+    min-width: 8px;
+    height: 8px;
+    border-radius: var(--border-radius-full);
+    background: var(--green-sixthly);
+  }
+
+  &__name {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-color-primary);
+  }
+
+  &__text {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--text-color-secondary);
+
+    &_comment {
+      font-style: italic;
+      font-size: 15px;
+    }
+  }
+
+  &__line {
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-form-login);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 767px) {
     padding-left: 10px;
     padding-right: 10px;
   }

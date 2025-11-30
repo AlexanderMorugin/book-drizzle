@@ -22,11 +22,6 @@
       @click="clearErrorMessage"
     />
 
-    <!-- Появляющийся текст ошибки -->
-    <!-- <TransitionGroup name="error" tag="ul">
-      <FormErrorMessage v-if="loginMessage" :text="loginMessage" />
-    </TransitionGroup> -->
-
     <!-- Кнопка Сабмит -->
     <FormSubmitButton
       :place="place"
@@ -91,10 +86,6 @@ const submitLoginForm = async () => {
       // Отправляем данные пользователя на логин
       const result = await userStore.loginUser(userData);
 
-      // console.log(result.data.value.user);
-
-      // console.log(result);
-
       if (!result) {
         return;
       }
@@ -115,7 +106,6 @@ const submitLoginForm = async () => {
         });
 
         // Находим в БД его книги и записываем в стор
-        // bookStore.loadBooks(0, 100, result.data.value.user.id);
         bookStore.loadBooks(result.data.value.user.id);
 
         return navigateTo("/");

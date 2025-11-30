@@ -65,9 +65,6 @@ const rules = computed(() => ({
     required: helpers.withMessage("Укажите имя автора", required),
     minLength: helpers.withMessage("Не менее 3 символов", minLength(3)),
   },
-  // parrentSelectedOption: {
-  //   required: helpers.withMessage("Выберите жанр", required),
-  // },
   imageUrlField: {
     url: helpers.withMessage("Вставьте ссылку", url),
   },
@@ -76,14 +73,10 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, {
   bookNameField,
   authorField,
-  // parrentSelectedOption,
   imageUrlField,
 });
 
-const isFromEmpty = computed(
-  () => !bookNameField.value || !authorField.value
-  //  || !parrentSelectedOption.value
-);
+const isFromEmpty = computed(() => !bookNameField.value || !authorField.value);
 
 const isValid = computed(() => v$.value.$errors);
 
@@ -100,8 +93,6 @@ const submitAddBook = async () => {
         image: imageUrlField.value,
         // dropedImage: dropedImage.value,
         owner_id: userStore.user.id,
-        // progress: 0,
-        // rating: 0,
       };
 
       // console.log(bookData);

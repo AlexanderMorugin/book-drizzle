@@ -22,7 +22,7 @@ watch(() => isModalOpen, lockScroll());
 onBeforeUnmount(() => unlockScroll());
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modalOverlay {
   position: fixed;
   top: 0;

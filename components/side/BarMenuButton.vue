@@ -52,7 +52,7 @@ const { name, title, number, route, isActive } = defineProps([
 const bookStore = useBookStore();
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .sideBarMenuButton {
   display: flex;
   justify-content: space-between;
@@ -61,53 +61,63 @@ const bookStore = useBookStore();
   height: 48px;
   border-radius: var(--border-radius-l);
   padding: 14px 16px;
+
+  &:hover {
+    background: var(--gray-primary);
+  }
+
+  &_active {
+    background: var(--gray-thirdly);
+    box-shadow: var(--shadow-thirdly);
+    cursor: auto;
+  }
+
+  &__iconBox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__title {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-color-secondary);
+    transition: 0.25s all;
+
+    &_active {
+      color: var(--green-secondary);
+    }
+  }
+
+  &__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-s);
+    background: var(--gray-fourthly);
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-color-seventhly);
+    padding: 3px 9px;
+
+    &_active {
+      background: var(--green-primary);
+      color: var(--green-fourthly);
+    }
+  }
 }
-.sideBarMenuButton_active {
-  background: var(--gray-thirdly);
-  box-shadow: var(--shadow-thirdly);
-  cursor: auto;
-}
-.sideBarMenuButton__iconBox {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.sideBarMenuButton__title {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 15px;
-  line-height: 24px;
-  color: var(--text-color-secondary);
-  transition: 0.25s all;
-}
-.sideBarMenuButton__title_active {
-  color: var(--green-secondary);
-}
-.sideBarMenuButton__number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: var(--border-radius-s);
-  background: var(--gray-fourthly);
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-color-seventhly);
-  padding: 3px 9px;
-}
-.sideBarMenuButton__number_active {
-  background: var(--green-primary);
-  color: var(--green-fourthly);
-}
+
 .menuIcon {
   color: var(--text-color-secondary);
   transition: 0.25s all;
+
+  &_active {
+    color: var(--green-secondary);
+  }
 }
-.menuIcon_active {
-  color: var(--green-secondary);
-}
-.sideBarMenuButton:hover {
-  background: var(--gray-primary);
-}
+
 .sideBarMenuButton:hover .sideBarMenuButton__title {
   color: var(--violet-secondary);
 }

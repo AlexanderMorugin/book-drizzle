@@ -10,7 +10,7 @@ const emit = defineEmits(["update:value"]);
 const updateValue = (e) => emit("update:value", e.target.value);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookCommentTextArea {
   min-height: 100px;
   border-radius: var(--border-radius-s);
@@ -21,10 +21,11 @@ const updateValue = (e) => emit("update:value", e.target.value);
   line-height: 20px;
   color: var(--text-color-eighthly);
   border: 1px solid transparent;
-}
-.bookCommentTextArea:focus {
-  outline: 0;
-  background: transparent;
-  border: 1px solid var(--blue-thirdly);
+
+  &:focus {
+    outline: 0;
+    background: transparent;
+    border: 1px solid var(--blue-thirdly);
+  }
 }
 </style>

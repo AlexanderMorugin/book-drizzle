@@ -9,27 +9,22 @@
 const { place, image, title } = defineProps(["place", "image", "title"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookImage {
   overflow: hidden;
-}
-.bookImage_home {
-  width: 100%;
-  max-width: 160px;
-  height: 140px;
-  border-radius: var(--border-radius-m);
-  box-shadow: var(--shadow-thirdly);
-}
-.bookImage__picture {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
-/* @media (max-width: 767px) {
-  .bookImage_home {
-    width: 160px;
-    height: 100%;
+  &_home {
+    width: 100%;
+    max-width: 160px;
+    height: 140px;
+    border-radius: var(--border-radius-m);
+    box-shadow: var(--shadow-thirdly);
   }
-} */
+
+  &__picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 </style>

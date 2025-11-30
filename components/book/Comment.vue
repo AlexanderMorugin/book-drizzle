@@ -10,7 +10,7 @@
 const { bookComment } = defineProps(["bookComment"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookComment {
   font-family: "Inter-Regular", sans-serif;
   font-size: 16px;

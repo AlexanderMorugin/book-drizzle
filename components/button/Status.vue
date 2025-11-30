@@ -20,7 +20,7 @@ const { title, quantity, isActive } = defineProps([
 const emit = defineEmits(["handleClick"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .statusButton {
   display: flex;
   align-items: center;
@@ -31,40 +31,45 @@ const emit = defineEmits(["handleClick"]);
   border: 1px solid var(--border-color-primary);
   padding-left: 13px;
   padding-right: 13px;
-  /* transition: 0.25s ease; */
+
+  &:hover {
+    box-shadow: var(--shadow-fourthly);
+  }
+
+  &_active {
+    background: var(--green-thirdly);
+    border: 1px solid var(--green-thirdly);
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  &__title {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-eighthly);
+
+    &_active {
+      color: var(--white-primary);
+    }
+  }
+
+  &__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--gray-fourthly);
+    border-radius: var(--border-radius-s);
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-color-seventhly);
+    padding: 3px 9px;
+  }
 }
-.statusButton_active {
-  background: var(--green-thirdly);
-  border: 1px solid var(--green-thirdly);
-  /* cursor: auto; */
-}
-.statusButton__title {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-eighthly);
-}
-.statusButton__title_active {
-  color: var(--white-primary);
-}
-.statusButton__number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--gray-fourthly);
-  border-radius: var(--border-radius-s);
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-color-seventhly);
-  padding: 3px 9px;
-}
-.statusButton:hover {
-  box-shadow: var(--shadow-fourthly);
-}
-.statusButton_active:hover {
-  box-shadow: none;
-}
+
 .statusButton:hover .statusButton__number {
   animation: scale 0.3s ease-in-out;
 }

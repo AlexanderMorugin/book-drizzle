@@ -4,7 +4,6 @@ import { books } from "~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  // console.log(body.progressFirst, body.progressLast, body.userId);
 
   const result = await db
     .select()

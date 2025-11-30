@@ -20,7 +20,6 @@
 </template>
 
 <script setup>
-// const headerStore = useHeaderStore();
 const route = useRoute();
 
 const emit = defineEmits(["closeMobileSideBar"]);
@@ -51,8 +50,6 @@ const menuButtons = ref([
     path: "/add-book",
   },
 ]);
-
-// headerStore.setHeaderTitle();
 </script>
 
 <style lang="scss" scoped>

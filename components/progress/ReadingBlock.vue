@@ -89,89 +89,99 @@ const readingBooks = computed(() =>
 );
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .progressReadingBlock {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
-}
-.progressReadingBlock_wide {
-  gap: 16px;
-}
-.progressReadingBlock__title {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--text-color-primary);
-}
-.progressReadingBlock__title_wide {
-  font-family: "Inter-SemiBold", sans-serif;
-  font-size: 19px;
-  line-height: 28px;
-}
-.progressReadingBlock__bookBlock {
-  display: flex;
-  gap: 24px;
-  width: 100%;
-  background: var(--white-primary);
-  border-radius: var(--border-radius-l);
-  box-shadow: var(--shadow-thirdly);
-  padding: 12px;
-  transition: 0.2s ease;
-}
 
-.progressReadingBlock__bookBlock:hover {
-  background: var(--green-primary);
-  box-shadow: var(--shadow-secondary);
-}
-
-.progressReadingBlock__bookBlock_wide {
-  box-shadow: var(--shadow-fourthly);
-  backdrop-filter: blur(8px);
-  padding: 24px;
-}
-.progressReadingBlock__details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-.progressReadingBlock__details_wide {
-  gap: 12px;
-}
-.progressReadingBlock__detailsTitle {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--text-color-primary);
-}
-.progressReadingBlock__detailsTitle_wide {
-  font-size: 17px;
-  line-height: 28px;
-}
-.progressReadingBlock__detailsAuthor {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-color-secondary);
-}
-.progressReadingBlock__detailsAuthor_wide {
-  font-size: 16px;
-  line-height: 24px;
-}
-.progressReadingBlock__list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-@media (max-width: 767px) {
-  .progressReadingBlock__bookBlock {
-    gap: 12px;
+  &_wide {
+    gap: 16px;
   }
-  .progressReadingBlock__bookBlock_wide {
-    padding: 20px 10px;
+
+  &__title {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-color-primary);
+
+    &_wide {
+      font-family: "Inter-SemiBold", sans-serif;
+      font-size: 19px;
+      line-height: 28px;
+    }
+  }
+
+  &__bookBlock {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    background: var(--white-primary);
+    border-radius: var(--border-radius-l);
+    box-shadow: var(--shadow-thirdly);
+    padding: 12px;
+    transition: 0.2s ease;
+
+    &:hover {
+      background: var(--green-primary);
+      box-shadow: var(--shadow-secondary);
+    }
+
+    &_wide {
+      box-shadow: var(--shadow-fourthly);
+      backdrop-filter: blur(8px);
+      padding: 24px;
+
+      @media (max-width: 767px) {
+        padding: 20px 10px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      gap: 12px;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    &_wide {
+      gap: 12px;
+    }
+  }
+
+  &__detailsTitle {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-color-primary);
+
+    &_wide {
+      font-size: 17px;
+      line-height: 28px;
+    }
+  }
+
+  &__detailsAuthor {
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-color-secondary);
+
+    &_wide {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 }
 </style>

@@ -4,7 +4,6 @@ import { books } from "~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
   const { searchData, userId } = await readBody(event);
-  // console.log(body.searchData, body.userId);
 
   const result = await db
     .select()
@@ -20,6 +19,5 @@ export default defineEventHandler(async (event) => {
     )
     .orderBy(desc(books.createdAt));
 
-  // console.log(result);
   return result;
 });

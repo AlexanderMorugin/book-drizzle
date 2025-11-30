@@ -14,7 +14,7 @@ const { name } = defineProps(["name"]);
 const emit = defineEmits(["handleClick"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .buttonIconNavigate {
   display: flex;
   justify-content: center;
@@ -24,10 +24,12 @@ const emit = defineEmits(["handleClick"]);
   border: 1px solid transparent;
   border-radius: var(--border-radius-s);
   transition: 0.25s ease;
+
+  &:hover {
+    border: 1px solid var(--border-color-primary);
+  }
 }
-.buttonIconNavigate:hover {
-  border: 1px solid var(--border-color-primary);
-}
+
 .menuIcon {
   width: 20px;
   height: 20px;

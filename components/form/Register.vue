@@ -41,12 +41,6 @@
       @clearInput="confirmPasswordField = null"
     />
 
-    <!-- Появляющийся текст ошибки -->
-    <!-- {{ registerMessage }} -->
-    <TransitionGroup name="error" tag="ul">
-      <FormErrorMessage v-if="registerMessage" :text="registerMessage" />
-    </TransitionGroup>
-
     <!-- Кнопка Сабмит -->
     <FormSubmitButton
       :place="place"
@@ -69,6 +63,7 @@ import {
 
 const { place } = defineProps(["place"]);
 
+const toast = useToast();
 const userStore = useUserStore();
 
 const isLoading = ref(false);
@@ -136,7 +131,10 @@ const submitRegisterForm = async () => {
 
       // Если пользователь не создался в БД, пишем ошибку
       if (status.value === "error") {
-        registerMessage.value = "Пользователь с такой почтой уже существует.";
+        toast.error({
+          title: "Ошибка!",
+          message: "Пользователь с такой почтой уже существует.",
+        });
 
         // Очищаем поля паролей чтобы снова регистрироваться
         passwordField.value = null;
@@ -145,7 +143,11 @@ const submitRegisterForm = async () => {
 
       // Если пользователь создался в БД, перенаправляем его на логин
       if (status.value === "success") {
-        registerMessage.value = "Регистрация прошла успешно!";
+        toast.success({
+          title: "Успешно!",
+          message: "Регистрация прошла успешно!",
+        });
+
         return navigateTo(`/login`);
       }
     }

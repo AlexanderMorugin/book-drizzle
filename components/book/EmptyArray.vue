@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookEmptyArray {
   width: 100%;
   height: 100%;

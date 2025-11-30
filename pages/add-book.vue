@@ -13,10 +13,6 @@ definePageMeta({
   middleware: ["auth"],
   layout: "main",
 });
-
-// const headerStore = useHeaderStore();
-
-// headerStore.setHeaderTitle("Добавить книгу");
 </script>
 
 <style lang="scss" scoped>

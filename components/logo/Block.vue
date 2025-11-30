@@ -33,31 +33,6 @@
         Book Tracker
       </div>
 
-      <!-- <component
-        :is="place === 'addBook' ? 'h1' : 'progressYear' ? 'h2' : 'div'"
-        :class="[
-          'logoBlock__title',
-          {
-            logoBlock__title_login:
-              place === 'register' || place === 'login' || place === 'sidebar',
-          },
-          {
-            logoBlock__title_addBook:
-              place === 'addBook' || place === 'progressYear',
-          },
-        ]"
-      >
-        {{
-          place === "register" || place === "login" || place === "sidebar"
-            ? "Book Tracker"
-            : place === "addBook"
-            ? "Добавить новую книгу"
-            : place === "progressYear"
-            ? "Цель чтения"
-            : ""
-        }}
-      </component> -->
-
       <div
         :class="[
           'logoBlock__subtitle',

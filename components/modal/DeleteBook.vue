@@ -39,7 +39,7 @@ const { isModalOpen, message, yesButtonText, noButtonText } = defineProps([
 const emit = defineEmits(["closeModal", "continue"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bookModal {
   display: flex;
   flex-direction: column;
@@ -51,52 +51,58 @@ const emit = defineEmits(["closeModal", "continue"]);
   border-radius: var(--border-radius-l);
   padding: 32px;
   box-shadow: var(--shadow-primary);
-}
-.bookModal__message {
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 17px;
-  line-height: 28px;
-  color: var(--text-color-primary);
-  text-align: center;
-}
-.bookModal__buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-}
-.bookModal__buttons_oneButton {
-  grid-template-columns: 1fr;
-}
-.bookModal__button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  border-radius: var(--border-radius-m);
-  font-family: "Inter-Medium", sans-serif;
-  font-size: 17px;
-  line-height: 28px;
-  color: var(--white-primary);
-}
-.bookModal__button_yes {
-  background: var(--green-fifthly);
-  transition: 0.25s ease;
-}
-.bookModal__button_yes:hover {
-  background: var(--green-fourthly);
-}
-.bookModal__button_no {
-  background: var(--red-primary);
-  transition: 0.25s ease;
-}
-.bookModal__button_no:hover {
-  background: var(--brown-secondary);
-}
 
-@media (max-width: 767px) {
-  .bookModal__buttons {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  &__message {
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 17px;
+    line-height: 28px;
+    color: var(--text-color-primary);
+    text-align: center;
+  }
+
+  &__buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+
+    &_oneButton {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-m);
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 17px;
+    line-height: 28px;
+    color: var(--white-primary);
+
+    &_yes {
+      background: var(--green-fifthly);
+      transition: 0.25s ease;
+
+      &:hover {
+        background: var(--green-fourthly);
+      }
+    }
+
+    &_no {
+      background: var(--red-primary);
+      transition: 0.25s ease;
+
+      &:hover {
+        background: var(--brown-secondary);
+      }
+    }
   }
 }
 </style>

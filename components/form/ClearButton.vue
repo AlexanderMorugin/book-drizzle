@@ -10,7 +10,7 @@
 const { place } = defineProps(["place"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .formClearButton {
   position: absolute;
   bottom: 8px;
@@ -18,13 +18,15 @@ const { place } = defineProps(["place"]);
   width: 36px;
   height: 36px;
   cursor: pointer;
+
+  &_search {
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    height: 48px;
+  }
 }
-.formClearButton_search {
-  top: 0;
-  bottom: 0;
-  width: 48px;
-  height: 48px;
-}
+
 .clearIcon {
   width: 18px;
   height: 18px;

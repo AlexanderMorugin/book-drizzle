@@ -42,10 +42,3 @@ export const generateTokens = (user) => {
 
   return { accessToken, refreshToken };
 };
-
-// export const sendRefreshTokenToCookie = (event, token) => {
-//   setCookie(event, "refresh_token", token, {
-//     httpOnly: true,
-//     sameSite: true,
-//   });
-// };
