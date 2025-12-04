@@ -25,8 +25,8 @@
 
 <script setup>
 definePageMeta({
-  layout: "auth",
   // middleware: ["auth"],
+  layout: "auth",
 });
 
 const bookStore = useBookStore();

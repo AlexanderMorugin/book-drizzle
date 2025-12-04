@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   if (!body) {
-    return { access_token: null, user: null };
+    return;
   }
 
   // Проверяем в БД есть ли пользователь с такой почтой
@@ -17,34 +17,31 @@ export default defineEventHandler(async (event) => {
     .where(eq(users.email, body.email))
     .limit(1);
 
-  // Если пользователь с такой почтой существует: Выбрасываем ошибку на стороне сервере
-  if (!existUser) {
-    return createError({
-      statusCode: 401,
-      message: "Имя пользователя или пароль неверные.",
-    });
+  // Если пользователь с такой почтой не существует
+  if (!existUser[0]) {
+    console.log("login.js - Почта неверная");
   }
 
-  // Сверяем пароль
+  // Сверяем пароль true or false
   const doesThePasswordMatch = comparePassword(
     body.password,
     existUser[0].password
   );
 
-  // Если пароли не совпадают: Выбрасываем ошибку на стороне сервере
+  // Если пароли не совпадают
   if (!doesThePasswordMatch) {
-    return createError({
-      statusCode: 401,
-      message: "Имя пользователя или пароль неверные.",
-    });
+    console.log("login.js - Пароль неверный");
   }
 
-  // Генерируем два токена для пользователя
-  // accessToken передаем на устройство пользователя
-  // refreshToken сохраняем в БД на сервере
+  // Если почта и пароль правильные, создаем токены и записываем в куки
   const { accessToken, refreshToken } = generateTokens(existUser[0]);
 
-  // Записываем в куки refreshToken
+  setCookie(event, "access_token", accessToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: true,
+  });
+
   setCookie(event, "refresh_token", refreshToken, {
     httpOnly: true,
     secure: true,
@@ -52,11 +49,13 @@ export default defineEventHandler(async (event) => {
   });
 
   // Записываем в Database refreshToken
-  await db
+  const result = await db
     .update(users)
     .set({ refresh_token: refreshToken })
     .where(eq(users.email, body.email));
 
-  // Возвращаем на фронтенд accessToken
-  return { access_token: accessToken, user: existUser[0] };
+  // Возвращаем на фронт пользователя
+  return {
+    user: transformUser(existUser[0]),
+  };
 });

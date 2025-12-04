@@ -20,11 +20,10 @@ const userStore = useUserStore();
 
 const handleLogout = async () => {
   // Удаляем куки
-  const { refresh } = await useFetch("/api/auth/logout", {
+  await $fetch("/api/auth/logout", {
     method: "POST",
   });
 
-  await refresh();
   // Очищаем пользователя в сторе
   userStore.logoutCurrentUser();
   return navigateTo("/login");

@@ -25,7 +25,7 @@ export const useUserStore = defineStore("userStore", () => {
     });
 
     if (result.error.value) {
-      return null;
+      user.value = null;
     }
 
     user.value = result.data.value.user;

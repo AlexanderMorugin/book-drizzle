@@ -83,11 +83,17 @@ const submitLoginForm = async () => {
         password: passwordField.value?.trim(),
       };
 
-      // Отправляем данные пользователя на логин
+      // Отправляем данные пользователя в стор на логин
       const result = await userStore.loginUser(userData);
+      // console.log(result);
 
+      // Если ответ из стора не пришел
       if (!result) {
-        return;
+        toast.error({
+          title: "Ошибка!",
+          message: "Сервер не ответил.",
+        });
+        // return;
       }
 
       // Если пользователь не залогинился в БД, пишем ошибку

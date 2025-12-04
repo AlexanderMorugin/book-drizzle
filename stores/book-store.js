@@ -9,6 +9,9 @@ export const useBookStore = defineStore("bookStore", () => {
     const result = await useFetch("/api/books/load-books", {
       method: "POST",
       body: userId,
+      // headers: {
+      //   authorization: token,
+      // },
     });
 
     books.value = result.data.value;

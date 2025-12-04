@@ -4,42 +4,34 @@ import { users } from "~/server/database/schema";
 import { transformUser } from "~/server/utils/transform-user";
 
 export default defineEventHandler(async (event) => {
-  const cookie = getCookie(event, "refresh_token");
+  // Находим в куках refresh_token
+  const cookieTokenRefresh = getCookie(event, "refresh_token");
+  // Валидируем его
+  const decodeCookieTokenRefresh = await decodeRefreshToken(cookieTokenRefresh);
 
-  // Проверяем действительность рефреш токена
-  const rСookie = await decodeRefreshToken(cookie);
-
-  if (!cookie) {
-    return sendError(
-      event,
-      createError({
-        statusCode: 401,
-        message: "Refresh token не найден.",
-      })
-    );
+  // Если рефреша в куках нет или его срок годности закончился
+  if (!decodeCookieTokenRefresh) {
+    return {
+      user: null,
+    };
   }
 
-  // Находим в БД пользователя по рефреш токену
+  // Находим в БД пользователя по рефреш токену - cookieTokenRefresh
   const existUser = await db
     .select()
     .from(users)
-    .where(eq(users.refresh_token, cookie))
-    .limit(1);
+    .where(eq(users.refresh_token, cookieTokenRefresh));
 
-  // Проверяем действительность рефреш токена
+  // Проверяем действительность рефреш токена в БД
   const rToken = await decodeRefreshToken(existUser[0].refresh_token);
-
-  // Если рефреш истек, возвращаем ноль вместо пользователя
-  // Далее идем на логин и получаем новый рефреш
+  // Если рефреш истек, идем на логин и получаем новый рефреш
   if (!rToken) {
-    return null;
+    return {
+      user: null,
+    };
   }
 
-  // Генерируем accessToken передаем на устройство пользователя
-  const { accessToken } = generateTokens(existUser[0]);
-
   return {
-    access_token: accessToken,
     user: transformUser(existUser[0]),
   };
 });

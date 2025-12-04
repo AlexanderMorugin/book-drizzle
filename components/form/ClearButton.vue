@@ -1,9 +1,9 @@
 <template>
-  <button
+  <div
     :class="['formClearButton', { formClearButton_search: place === 'search' }]"
   >
     <IconClear class="clearIcon" />
-  </button>
+  </div>
 </template>
 
 <script setup>
