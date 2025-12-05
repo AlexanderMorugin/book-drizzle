@@ -22,6 +22,7 @@ export const useBookStore = defineStore("bookStore", () => {
       body: { progressFirst, progressLast, userId },
     });
 
+    // Если рефреш токен действующий, иначе уходим на логин
     if (result !== "goToLogin") {
       filterBooks.value = result.data.value;
     }
@@ -56,16 +57,19 @@ export const useBookStore = defineStore("bookStore", () => {
   };
 
   const getBook = async (bookId) => {
-    const { data, status, pending } = await useFetch("/api/books/get-book", {
+    const result = await useFetch("/api/books/get-book", {
       method: "POST",
       body: {
         id: bookId,
       },
     });
 
-    book.value = data.value[0];
+    // Если рефреш токен действующий, иначе уходим на логин
+    if (result !== "goToLogin") {
+      book.value = result.data.value[0];
+    }
 
-    return { data, status, pending };
+    return result;
   };
 
   const updateBookRating = async (newRating) => {
