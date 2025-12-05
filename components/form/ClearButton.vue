@@ -13,7 +13,7 @@ const { place } = defineProps(["place"]);
 <style lang="scss" scoped>
 .formClearButton {
   position: absolute;
-  bottom: 8px;
+  bottom: 0;
   right: 0;
   width: 36px;
   height: 36px;

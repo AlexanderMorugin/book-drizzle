@@ -26,6 +26,7 @@ const handleLogout = async () => {
 
   // Очищаем пользователя в сторе
   userStore.logoutCurrentUser();
+  location.reload();
   return navigateTo("/login");
 };
 </script>

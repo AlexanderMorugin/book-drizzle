@@ -1,17 +1,15 @@
 <template>
   <section>
-    <div>
-      <BookEmptyArray
-        v-if="!bookStore.books"
-        title="В вашей библиотеке книг пока нет."
-      />
+    <BookEmptyArray
+      v-if="!bookStore.books"
+      title="В вашей библиотеке книг пока нет."
+    />
 
-      <ul v-else class="booksBlock">
-        <li v-for="book in bookStore.filterBooks" :key="book.id">
-          <BookCard :book="book" />
-        </li>
-      </ul>
-    </div>
+    <ul v-else class="booksBlock">
+      <li v-for="book in bookStore.filterBooks" :key="book.id">
+        <BookCard :book="book" />
+      </li>
+    </ul>
   </section>
 </template>
 

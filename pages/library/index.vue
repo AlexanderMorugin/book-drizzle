@@ -1,5 +1,5 @@
 <template>
-  <PageContainer width="wide">
+  <PageContainer width="home">
     <!-- Инпут поиска -->
     <FormSearch
       type="text"

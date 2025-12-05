@@ -85,7 +85,6 @@ const submitLoginForm = async () => {
 
       // Отправляем данные пользователя в стор на логин
       const result = await userStore.loginUser(userData);
-      // console.log(result);
 
       // Если ответ из стора не пришел
       if (!result) {
@@ -93,7 +92,6 @@ const submitLoginForm = async () => {
           title: "Ошибка!",
           message: "Сервер не ответил.",
         });
-        // return;
       }
 
       // Если пользователь не залогинился в БД, пишем ошибку

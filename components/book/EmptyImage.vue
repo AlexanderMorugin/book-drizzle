@@ -14,7 +14,7 @@ const { title, place } = defineProps(["title", "place"]);
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 224px;
+  min-height: 224px;
   background: gainsboro;
   border-radius: var(--border-radius-m);
   font-family: "Inter-Medium", sans-serif;
