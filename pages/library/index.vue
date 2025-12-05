@@ -116,7 +116,14 @@ const setActive = (id) => {
   }
 };
 
-await bookStore.loadFilterBooks(0, 100, userStore.user.id);
+const result = await bookStore.loadFilterBooks(0, 100, userStore.user.id);
+
+// Если рефреш токен истек, отправляемся на логин
+if (result.data.value === "goToLogin") {
+  userStore.logoutCurrentUser();
+  location.reload();
+  await navigateTo("/login");
+}
 </script>
 
 <style lang="scss" scoped>

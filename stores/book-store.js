@@ -19,13 +19,12 @@ export const useBookStore = defineStore("bookStore", () => {
   const loadFilterBooks = async (progressFirst, progressLast, userId) => {
     const result = await useFetch("/api/books/load-filter-books", {
       method: "POST",
-      // headers: {
-      //   Authorization: `Bearer ${token.value}`,
-      // },
       body: { progressFirst, progressLast, userId },
     });
 
-    filterBooks.value = result.data.value;
+    if (result !== "goToLogin") {
+      filterBooks.value = result.data.value;
+    }
 
     return result;
   };
