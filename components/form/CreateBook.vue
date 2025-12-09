@@ -1,113 +1,131 @@
 <template>
-  <form class="form-auth" @submit.prevent="submitAddBook">
-    <FormInput
-      lastInput="true"
-      label="Название книги *"
-      type="text"
-      name="bookName"
-      placeholder="Введите название книги"
-      v-model:value="v$.bookNameField.$model"
-      :error="v$.bookNameField.$errors"
-      @clearInput="bookNameField = null"
-    />
-    <FormInput
-      lastInput="true"
-      label="Автор *"
-      type="text"
-      name="author"
-      placeholder="Введите имя автора"
-      v-model:value="v$.authorField.$model"
-      :error="v$.authorField.$errors"
-      @clearInput="authorField = null"
-    />
-    <FormSelectGenre
-      label="Жанр"
-      :options="genres"
-      v-model:value="v$.selectedGenre.$model"
-    />
-    <FormInput
-      v-if="!dropedImage"
-      lastInput="true"
-      label="Обложка книги"
-      type="text"
-      name="imageUrl"
-      placeholder="Вставьте ссылку на изображение"
-      v-model:value="v$.imageUrlField.$model"
-      :error="v$.imageUrlField.$errors"
-      @clearInput="imageUrlField = null"
-    />
+  <div>
+    <form class="form-auth" @submit.prevent="submitAddBook">
+      <FormInput
+        lastInput="true"
+        label="Название книги *"
+        type="text"
+        name="bookName"
+        placeholder="Введите название книги"
+        v-model:value="v$.bookNameField.$model"
+        :error="v$.bookNameField.$errors"
+        @clearInput="bookNameField = null"
+      />
+      <FormInput
+        lastInput="true"
+        label="Автор *"
+        type="text"
+        name="author"
+        placeholder="Введите имя автора"
+        v-model:value="v$.authorField.$model"
+        :error="v$.authorField.$errors"
+        @clearInput="authorField = null"
+      />
+      <FormSelectGenre
+        label="Жанр"
+        :options="genres"
+        v-model:value="v$.selectedGenre.$model"
+      />
+      <FormInput
+        v-if="!dropedImage"
+        lastInput="true"
+        label="Обложка книги"
+        type="text"
+        name="imageUrl"
+        placeholder="Вставьте ссылку на изображение"
+        v-model:value="v$.imageUrlField.$model"
+        :error="v$.imageUrlField.$errors"
+        @clearInput="imageUrlField = null"
+      />
 
-    <!-- Поле с ручной загрузкой картинки -->
-    <ClientOnly>
-      <div v-if="!imageUrlField" class="bookUploadImageBlock">
-        <div
-          :class="[
-            'bookUploadImageBlock__background',
-            { bookUploadImageBlock__background_isDragging: isDragging },
-          ]"
-        >
+      <!-- Поле с ручной загрузкой картинки -->
+      <ClientOnly>
+        <div v-if="!imageUrlField" class="bookUploadImageBlock">
           <div
-            v-if="!images.length"
-            class="bookUploadImageBlock__container"
-            @dragover.prevent="onDragover"
-            @dragleave.prevent="onDragleave"
-            @drop.prevent="onDrop"
-          >
-            <!-- Кнопка загрузки картинки -->
-            <ButtonUploadImage @click="selectFiles" />
-
-            <span class="bookUploadImageBlock__title"
-              >Загрузить обложку книги</span
-            >
-            <span class="bookUploadImageBlock__subtitle"
-              >Перетащите файл или нажмите для выбора • Макс. 5МБ</span
-            >
-
-            <input
-              name="file"
-              type="file"
-              ref="fileInput"
-              @change="onFileSelect"
-              class="bookUploadImageBlock__input"
-            />
-          </div>
-
-          <div
-            v-if="images.length"
-            class="bookUploadImageBlock__imageContainer"
+            :class="[
+              'bookUploadImageBlock__background',
+              { bookUploadImageBlock__background_isDragging: isDragging },
+            ]"
           >
             <div
-              class="bookUploadImageBlock__imageBox"
-              v-for="(image, index) in images"
-              :key="index"
+              v-if="!images.length"
+              class="bookUploadImageBlock__container"
+              @dragover.prevent="onDragover"
+              @dragleave.prevent="onDragleave"
+              @drop.prevent="onDrop"
+            >
+              <!-- Кнопка загрузки картинки -->
+              <ButtonUploadImage @click="selectFiles" />
+
+              <span class="bookUploadImageBlock__title"
+                >Загрузить обложку книги</span
+              >
+              <span class="bookUploadImageBlock__subtitle"
+                >Перетащите файл или нажмите для выбора • Макс. 5МБ</span
+              >
+
+              <input
+                name="file"
+                type="file"
+                ref="fileInput"
+                @change="onFileSelect"
+                class="bookUploadImageBlock__input"
+              />
+            </div>
+
+            <div
+              v-if="images.length"
+              class="bookUploadImageBlock__imageContainer"
             >
               <div
-                role="button"
-                class="bookUploadImageBlock__imageDelete"
-                @click="deleteImage(index)"
+                class="bookUploadImageBlock__imageBox"
+                v-for="(image, index) in images"
+                :key="index"
               >
-                <IconClear />
+                <div
+                  role="button"
+                  class="bookUploadImageBlock__imageDelete"
+                  @click="deleteImage(index)"
+                >
+                  <IconClear />
+                </div>
+                <img :src="image.url" class="bookUploadImageBlock__image" />
               </div>
-              <img :src="image.url" class="bookUploadImageBlock__image" />
             </div>
           </div>
+
+          <span v-if="!images.length" class="bookUploadImageBlock__subtitle"
+            >Загрузите файл изображения, вставьте ссылку или используйте кнопку
+            "Найти"</span
+          >
         </div>
+      </ClientOnly>
 
-        <span v-if="!images.length" class="bookUploadImageBlock__subtitle"
-          >Загрузите файл изображения, вставьте ссылку или используйте кнопку
-          "Найти"</span
-        >
-      </div>
-    </ClientOnly>
+      <!-- Кнопка Сабмит -->
+      <FormSubmitButton
+        :place="place"
+        :isFromEmpty="isFromEmpty"
+        :isValid="isValid.length"
+        :isLoading="isLoading"
+      />
+    </form>
 
-    <!-- Кнопка Сабмит -->
-    <FormSubmitButton
-      :place="place"
-      :isFromEmpty="isFromEmpty"
-      :isValid="isValid.length"
-      :isLoading="isLoading"
-    />
-  </form>
+    <!-- Модалка предупреждения, что добавляется книга без обложки -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <ModalConfirmBook
+          v-if="isWarningNoImageModalOpen"
+          :isModalOpen="isWarningNoImageModalOpen"
+          message="Книга будет без обложки?"
+          :listeners="isWarningAgreement"
+          yesButtonText="Да"
+          noButtonText="Нет"
+          @continue="continueSubmitAddBook"
+          @closeModal="closeWarningNoImageModal"
+        />
+      </Transition>
+    </Teleport>
+  </div>
 </template>
 
 <script setup>
@@ -116,6 +134,7 @@ import { helpers, required, minLength, url } from "@vuelidate/validators";
 
 const { place } = defineProps(["place"]);
 
+const toast = useToast();
 const userStore = useUserStore();
 const bookStore = useBookStore();
 
@@ -128,6 +147,8 @@ const images = ref([]);
 const fileInput = ref(null);
 const dropedImage = ref(null);
 const isDragging = ref(false);
+const isWarningNoImageModalOpen = ref(false);
+const isWarningAgreement = ref(false);
 
 const genres = ref([
   { id: 1, name: "Художественная литература" },
@@ -237,10 +258,21 @@ const onDrop = (event) => {
   imageUrlField.value = null;
 };
 
-const submitAddBook = async () => {
-  isLoading.value = true;
+// Функции модалок
+const continueSubmitAddBook = () => {
+  isWarningAgreement.value = true;
+  closeWarningNoImageModal();
+  submitAddBook();
+};
 
+const closeWarningNoImageModal = () => {
+  isWarningNoImageModalOpen.value = false;
+};
+
+const submitAddBook = async () => {
   try {
+    isLoading.value = true;
+
     if (!isFromEmpty.value && !isValid.value.length) {
       // собираем книгу для деплоя
       const bookData = {
@@ -252,11 +284,66 @@ const submitAddBook = async () => {
         owner_id: userStore.user.id,
       };
 
-      console.log(bookData);
+      // Если деплоим книгу без картинки совсем
+      if (
+        !isWarningAgreement.value &&
+        (!imageUrlField.value || !dropedImage.value)
+      ) {
+        // Открываем модалку с предупреждением
+        isWarningNoImageModalOpen.value = true;
+      }
 
-      // const status = await bookStore.createdBook(bookData);
+      // Если модалку с предупреждением об отсутствии картинки подтвердили,
+      // то деплоим книгу без картинки
+      if (
+        isWarningAgreement.value &&
+        (!imageUrlField.value || !dropedImage.value)
+      ) {
+        const result = await bookStore.createdBook(bookData);
 
-      // return navigateTo("/library");
+        if (result.status.value === "error") {
+          toast.error({
+            title: "Ошибка!",
+            message: "Книгу добавить не удалось.",
+          });
+        }
+
+        if (result.status.value === "success") {
+          toast.success({
+            title: "Успешно!",
+            message: "Книга добавлена.",
+          });
+
+          return navigateTo("/library");
+        }
+      }
+
+      // Если картинки добавлены через инпут или драг дроп, деплоим книгу
+      if (
+        !isWarningAgreement.value &&
+        (imageUrlField.value || dropedImage.value)
+      ) {
+        // Отключаем модалку подтверждения о картинке
+        isWarningNoImageModalOpen.value = false;
+
+        const result = await bookStore.createdBook(bookData);
+
+        if (result.status.value === "error") {
+          toast.error({
+            title: "Ошибка!",
+            message: "Книгу добавить не удалось.",
+          });
+        }
+
+        if (result.status.value === "success") {
+          toast.success({
+            title: "Успешно!",
+            message: "Книга добавлена.",
+          });
+
+          return navigateTo("/library");
+        }
+      }
     }
   } catch (error) {
     console.log(error);

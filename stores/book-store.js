@@ -1,3 +1,4 @@
+import { CopyObjectCommand } from "@aws-sdk/client-s3";
 import { defineStore } from "pinia";
 
 export const useBookStore = defineStore("bookStore", () => {
@@ -42,18 +43,62 @@ export const useBookStore = defineStore("bookStore", () => {
     return result;
   };
 
-  const createdBook = async (bookData) => {
-    const result = await useFetch("/api/books/create-book", {
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    // Отправляем картинку на сервер и получаем ответ
+    const response = await useFetch("/api/books/upload-book-image", {
       method: "POST",
-      body: bookData,
+      body: formData,
     });
 
-    if (result.status.value === "success") {
-      // Добавляем книгу в массив Стора
-      books.value.unshift(result.data.value[0]);
+    return response;
+  };
+
+  const createdBook = async (bookData) => {
+    // Деплой книги с картинкой по инпуту или без картинки совсем
+    if (!bookData.dropedImage) {
+      const result = await useFetch("/api/books/create-book", {
+        method: "POST",
+        body: bookData,
+      });
+
+      if (result.status.value === "success") {
+        // Добавляем книгу в массив Стора
+        books.value.unshift(result.data.value[0]);
+      }
+
+      return result;
     }
 
-    return result;
+    // Деплой с драг дроп картинкой
+    if (bookData.dropedImage) {
+      // Загружаем картинку на удаленный сервер REG.RU storage S3
+      // и получаем ссылку на нее result.data.value.fileUrl
+      const response = await uploadFile(bookData.dropedImage);
+
+      // Собираем книгу для деплоя
+      const newBookData = {
+        name: bookData.name,
+        author: bookData.name,
+        genre: bookData.genre,
+        image: response.data.value.fileUrl,
+        owner_id: bookData.owner_id,
+      };
+
+      const result = await useFetch("/api/books/create-book", {
+        method: "POST",
+        body: newBookData,
+      });
+
+      if (result.status.value === "success") {
+        // Добавляем книгу в массив Стора
+        books.value.unshift(result.data.value[0]);
+      }
+
+      return result;
+    }
   };
 
   const getBook = async (bookId) => {

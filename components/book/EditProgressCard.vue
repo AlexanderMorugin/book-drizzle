@@ -38,10 +38,10 @@
       @handleClick="isDeleteModalOpen = true"
     />
 
-    <!-- Модалка успешного удаления книги из supabase -->
+    <!-- Модалка успешного удаления книги из БД -->
     <Teleport to="body">
       <Transition name="fade">
-        <ModalDeleteBook
+        <ModalConfirmBook
           v-if="isDeleteModalOpen"
           :isModalOpen="isDeleteModalOpen"
           message="Удалить книгу?"

@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     jwtAccessSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
     jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
+    regAwsAccessKeyId: process.env.REG_AWS_ACCESS_KEY_ID,
+    regAwsSecretKey: process.env.REG_AWS_SECRET_KEY,
+    regAwsBucketName: process.env.REG_AWS_BUCKET_NAME,
+    regAwsRegion: process.env.REG_AWS_REGION,
+    regAwsEndpoint: process.env.REG_AWS_API_ENDPOINT,
   },
   css: [
     "~/assets/styles/global.scss",
