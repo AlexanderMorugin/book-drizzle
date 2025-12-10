@@ -231,6 +231,82 @@ export const useBookStore = defineStore("bookStore", () => {
     return result;
   };
 
+  const updateBookImage = async (bookData) => {
+    // Апдейт книги с картинкой по инпуту
+    if (!bookData.dropedImage) {
+      const result = await useFetch("/api/books/update-book-image", {
+        method: "PATCH",
+        body: {
+          image: bookData.image,
+          id: book.value.id,
+        },
+      });
+
+      if (result.status.value === "success") {
+        book.value.image = bookData.image;
+
+        // Обновляем в массиве книг Стора
+        books.value = books.value.map((item) =>
+          item.id === book.value.id
+            ? {
+                ...item,
+                image: bookData.image,
+              }
+            : item
+        );
+        filterBooks.value = filterBooks.value.map((item) =>
+          item.id === book.value.id
+            ? {
+                ...item,
+                image: bookData.image,
+              }
+            : item
+        );
+      }
+
+      return result;
+    }
+
+    // Апдейт книги с  драг дроп картинкой
+    if (bookData.dropedImage) {
+      // Загружаем картинку на удаленный сервер REG.RU storage S3
+      // и получаем ссылку на нее result.data.value.fileUrl
+      const response = await uploadFile(bookData.dropedImage);
+
+      const result = await useFetch("/api/books/update-book-image", {
+        method: "PATCH",
+        body: {
+          image: response.data.value.fileUrl,
+          id: book.value.id,
+        },
+      });
+
+      if (result.status.value === "success") {
+        book.value.image = response.data.value.fileUrl;
+
+        // Обновляем в массиве книг Стора
+        books.value = books.value.map((item) =>
+          item.id === book.value.id
+            ? {
+                ...item,
+                image: response.data.value.fileUrl,
+              }
+            : item
+        );
+        filterBooks.value = filterBooks.value.map((item) =>
+          item.id === book.value.id
+            ? {
+                ...item,
+                image: response.data.value.fileUrl,
+              }
+            : item
+        );
+      }
+
+      return result;
+    }
+  };
+
   const deleteBook = async (bookId) => {
     const result = await useFetch("/api/books/delete-book", {
       method: "DELETE",
@@ -265,6 +341,7 @@ export const useBookStore = defineStore("bookStore", () => {
     updateBookComment,
     updateBookProgress,
     updateBook,
+    updateBookImage,
     deleteBook,
     logoutUser,
   };

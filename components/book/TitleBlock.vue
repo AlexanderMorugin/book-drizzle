@@ -1,17 +1,25 @@
 <template>
   <section class="bookTitleBlock">
     <div class="bookTitleBlock__container">
-      <!-- Если книга без обложки -->
-      <div v-if="!bookStore.book?.image" class="bookTitleBlock__noImage">
-        Книга без обложки
-      </div>
+      <div class="bookTitleBlock__imageBox">
+        <!-- Если книга без обложки -->
+        <div v-if="!bookStore.book?.image" class="bookTitleBlock__noImage">
+          Книга без обложки
+        </div>
 
-      <img
-        v-else
-        :src="bookStore.book?.image"
-        :alt="bookStore.book?.name"
-        class="bookTitleBlock__image"
-      />
+        <img
+          v-else
+          :src="bookStore.book?.image"
+          :alt="bookStore.book?.name"
+          class="bookTitleBlock__image"
+        />
+
+        <!-- Кнопка "Редактировать обложку" -->
+        <ButtonIconNavigate
+          name="image"
+          @handleClick="isEditBookImageModalOpen = true"
+        />
+      </div>
       <div class="bookTitleBlock__details">
         <div class="bookTitleBlock__titleBox">
           <h1 class="bookTitleBlock__title">{{ bookStore.book?.name }}</h1>
@@ -40,6 +48,18 @@
         />
       </Transition>
     </Teleport>
+
+    <!-- Модалка редактирования обложки -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <ModalEditBookImage
+          v-if="isEditBookImageModalOpen"
+          :isModalOpen="isEditBookImageModalOpen"
+          title="Изменить обложку"
+          @closeModal="closeEditBookImageModal"
+        />
+      </Transition>
+    </Teleport>
   </section>
 </template>
 
@@ -47,8 +67,10 @@
 const bookStore = useBookStore();
 
 const isEditBookModalOpen = ref(false);
+const isEditBookImageModalOpen = ref(false);
 
 const closeEditBookModal = () => (isEditBookModalOpen.value = false);
+const closeEditBookImageModal = () => (isEditBookImageModalOpen.value = false);
 </script>
 
 <style lang="scss" scoped>
@@ -91,6 +113,10 @@ const closeEditBookModal = () => (isEditBookModalOpen.value = false);
       width: 100%;
       height: 260px;
     }
+  }
+
+  &__imageBox {
+    position: relative;
   }
 
   &__image {

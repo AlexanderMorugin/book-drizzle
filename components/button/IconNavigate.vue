@@ -3,6 +3,7 @@
     :class="[
       'buttonIconNavigate',
       { buttonIconNavigate_close: name === 'close' },
+      { buttonIconNavigate_image: name === 'image' },
     ]"
     @click="emit('handleClick')"
   >
@@ -10,7 +11,10 @@
     <IconArrow v-if="name === 'back'" class="icon" />
     <IconClear v-if="name === 'clear' || name === 'close'" class="icon" />
     <IconLogout v-if="name === 'logout'" class="icon" />
-    <IconEdition v-if="name === 'edit'" class="editionIcon" />
+    <IconEdition
+      v-if="name === 'edit' || name === 'image'"
+      class="editionIcon"
+    />
   </button>
 </template>
 
@@ -39,6 +43,14 @@ const emit = defineEmits(["handleClick"]);
     position: absolute;
     top: 12px;
     right: 12px;
+  }
+
+  &_image {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--white-primary);
+    box-shadow: var(--shadow-thirdly);
   }
 }
 
