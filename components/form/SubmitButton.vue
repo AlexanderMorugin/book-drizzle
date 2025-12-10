@@ -13,7 +13,8 @@
       {
         formSubmitButton_loginActive:
           (place === 'login' && !isFromEmpty && !isValid) ||
-          (place === 'addBook' && !isFromEmpty && !isValid),
+          (place === 'addBook' && !isFromEmpty && !isValid) ||
+          (place === 'editBook' && !isValid),
       },
       { formSubmitButton_book: place === 'book' },
       { formSubmitButton_delete: place === 'delete' },
@@ -25,7 +26,10 @@
       <IconRegister v-if="place === 'register'" class="icon" />
       <IconLogin v-if="place === 'login'" class="icon" />
       <IconDone v-if="place === 'book'" class="icon" />
-      <IconSave v-if="place === 'addBook'" class="icon" />
+      <IconSave
+        v-if="place === 'addBook' || place === 'editBook'"
+        class="icon"
+      />
 
       <span class="formSubmitButton__text">
         {{
@@ -37,6 +41,8 @@
             ? "Прочитано"
             : place === "addBook"
             ? "Добавить книгу"
+            : place === "editBook"
+            ? "Изменить"
             : place === "delete"
             ? "Удалить"
             : ""

@@ -1,8 +1,14 @@
 <template>
-  <button class="buttonIconNavigate" @click="emit('handleClick')">
+  <button
+    :class="[
+      'buttonIconNavigate',
+      { buttonIconNavigate_close: name === 'close' },
+    ]"
+    @click="emit('handleClick')"
+  >
     <IconMenu v-if="name === 'menu'" class="icon" />
     <IconArrow v-if="name === 'back'" class="icon" />
-    <IconClear v-if="name === 'clear'" class="icon" />
+    <IconClear v-if="name === 'clear' || name === 'close'" class="icon" />
     <IconLogout v-if="name === 'logout'" class="icon" />
     <IconEdition v-if="name === 'edit'" class="editionIcon" />
   </button>
@@ -27,6 +33,12 @@ const emit = defineEmits(["handleClick"]);
 
   &:hover {
     border: 1px solid var(--border-color-primary);
+  }
+
+  &_close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
   }
 }
 

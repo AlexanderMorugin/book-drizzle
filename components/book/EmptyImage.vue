@@ -26,12 +26,12 @@ const { title, place } = defineProps(["title", "place"]);
   padding: 20px;
 
   &_home {
-    height: 100%;
+    min-height: 100%;
     font-size: 14px;
     line-height: 20px;
 
     @media (max-width: 379px) {
-      height: 160px;
+      min-height: 160px;
     }
   }
 }

@@ -1,9 +1,11 @@
 <template>
   <section class="bookTitleBlock">
     <div class="bookTitleBlock__container">
+      <!-- Если книга без обложки -->
       <div v-if="!bookStore.book?.image" class="bookTitleBlock__noImage">
         Книга без обложки
       </div>
+
       <img
         v-else
         :src="bookStore.book?.image"
@@ -11,7 +13,14 @@
         class="bookTitleBlock__image"
       />
       <div class="bookTitleBlock__details">
-        <h1 class="bookTitleBlock__title">{{ bookStore.book?.name }}</h1>
+        <div class="bookTitleBlock__titleBox">
+          <h1 class="bookTitleBlock__title">{{ bookStore.book?.name }}</h1>
+          <!-- Кнопка "Редактировать книгу" -->
+          <ButtonIconNavigate
+            name="edit"
+            @handleClick="isEditBookModalOpen = true"
+          />
+        </div>
         <span class="bookTitleBlock__author">{{ bookStore.book?.author }}</span>
         <span class="bookTitleBlock__genre">{{
           bookStore.book?.genre || "Жанр не выбран"
@@ -19,11 +28,27 @@
         <BookStatus :progress="bookStore.book?.progress" />
       </div>
     </div>
+
+    <!-- Модалка редактирования книги -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <ModalEditBook
+          v-if="isEditBookModalOpen"
+          :isModalOpen="isEditBookModalOpen"
+          title="Редактирование"
+          @closeModal="closeEditBookModal"
+        />
+      </Transition>
+    </Teleport>
   </section>
 </template>
 
 <script setup>
 const bookStore = useBookStore();
+
+const isEditBookModalOpen = ref(false);
+
+const closeEditBookModal = () => (isEditBookModalOpen.value = false);
 </script>
 
 <style lang="scss" scoped>
@@ -85,6 +110,14 @@ const bookStore = useBookStore();
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
+  }
+
+  &__titleBox {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    gap: 20px;
+    width: 100%;
   }
 
   &__title {
