@@ -64,7 +64,9 @@
   font-size: 14px;
   line-height: 14px;
   color: var(--text-color-primary);
-  border-bottom: 1px solid transparent;
+  // border-bottom: 1px solid transparent;
+  border-radius: var(--border-radius-s);
+  border: 1px solid var(--border-color-primary);
   padding-left: 13px;
   padding-right: 13px;
   transition: 0.25s ease all;
@@ -75,7 +77,8 @@
   line-height: 14px;
   color: var(--text-color-primary);
   outline: 0;
-  border-bottom: 1px solid var(--gray-secondary);
+  // border-bottom: 1px solid var(--gray-secondary);
+  border: 1px solid var(--blue-primary);
 }
 .form-input::placeholder {
   font-family: "Inter-Regular", sans-serif;
@@ -96,6 +99,7 @@
   line-height: 14px;
   color: red;
   text-align: right;
+  // border: 1px solid red;
 }
 
 @media (max-width: 767px) {
