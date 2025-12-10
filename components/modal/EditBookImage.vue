@@ -2,9 +2,43 @@
   <ModalOverlay :isModalOpen="isModalOpen" @click="$emit('closeModal')">
     <div class="editBookModal" @click.stop>
       <ButtonIconNavigate name="close" @handleClick="emit('closeModal')" />
-      <span class="editBookModal__title">{{ title }}</span>
+      <span class="editBookModal__title">{{
+        isEditFormOpen
+          ? "Заменить обложку"
+          : isDeleteFormOpen
+          ? "Удалить обложку"
+          : title
+      }}</span>
 
-      <FormEditBookImage place="editBook" @closeModal="emit('closeModal')" />
+      <div
+        v-if="!isEditFormOpen && !isDeleteFormOpen"
+        class="editBookModal__buttons"
+      >
+        <button
+          class="editBookModal__button editBookModal__button_yes"
+          @click="openEditForm"
+        >
+          Заменить обложку
+        </button>
+        <button
+          class="editBookModal__button editBookModal__button_no"
+          @click="openDeleteForm"
+        >
+          Удалить обложку
+        </button>
+      </div>
+
+      <TransitionGroup name="list">
+        <FormEditBookImage
+          v-if="isEditFormOpen"
+          place="editBook"
+          @closeModal="emit('closeModal')"
+        />
+      </TransitionGroup>
+
+      <TransitionGroup name="error">
+        <div v-if="isDeleteFormOpen">Заменить обложку DELETE</div>
+      </TransitionGroup>
     </div>
   </ModalOverlay>
 </template>
@@ -12,6 +46,19 @@
 <script setup>
 const { isModalOpen, title } = defineProps(["isModalOpen", "title"]);
 const emit = defineEmits(["closeModal"]);
+
+const isEditFormOpen = ref(false);
+const isDeleteFormOpen = ref(false);
+
+const openEditForm = () => {
+  isDeleteFormOpen.value = false;
+  isEditFormOpen.value = true;
+};
+
+const openDeleteForm = () => {
+  isEditFormOpen.value = false;
+  isDeleteFormOpen.value = true;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +85,45 @@ const emit = defineEmits(["closeModal"]);
     line-height: 32px;
     color: var(--text-color-primary);
     text-align: center;
+  }
+
+  &__buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-s);
+    font-family: "Inter-Medium", sans-serif;
+    font-size: 17px;
+    line-height: 28px;
+    color: var(--white-primary);
+
+    &_yes {
+      background: var(--gradient-progress-blue);
+
+      &:hover {
+        background: var(--gradient-logo-primary);
+      }
+    }
+
+    &_no {
+      background: var(--gradient-form-register);
+
+      &:hover {
+        background: var(--gradient-logo-primary);
+      }
+    }
   }
 }
 </style>

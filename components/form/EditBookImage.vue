@@ -3,7 +3,7 @@
     <FormInput
       v-if="!dropedImage"
       lastInput="true"
-      label="Обложка книги"
+      label="Новая обложка"
       type="text"
       name="imageUrl"
       placeholder="Вставьте ссылку на изображение"

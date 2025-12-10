@@ -55,7 +55,7 @@
         <ModalEditBookImage
           v-if="isEditBookImageModalOpen"
           :isModalOpen="isEditBookImageModalOpen"
-          title="Изменить обложку"
+          title="Редактирование"
           @closeModal="closeEditBookImageModal"
         />
       </Transition>
