@@ -1,6 +1,6 @@
 <template>
-  <ModalOverlay :isModalOpen="isModalOpen">
-    <div class="bookModal">
+  <ModalOverlay :isModalOpen="isModalOpen" @click="$emit('closeModal')">
+    <div class="bookModal" @click.stop>
       <span class="bookModal__message">{{ message }}</span>
       <div
         :class="[

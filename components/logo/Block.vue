@@ -122,13 +122,6 @@ setSubtitle();
         }
       }
     }
-
-    &_login {
-      @media (max-width: 1023px) {
-        border-bottom: 1px solid var(--border-color-primary);
-        padding-bottom: 20px;
-      }
-    }
   }
 
   @media (max-width: 1023px) {

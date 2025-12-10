@@ -22,7 +22,6 @@ export const books = pgTable("books", {
   name: text("name").notNull(),
   author: text("author").notNull(),
   image: text("image"),
-  // dropedImage
   progress: integer("progress").default(0),
   rating: integer("rating").default(0),
   comment: text("comment"),

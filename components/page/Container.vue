@@ -27,7 +27,7 @@ const { width } = defineProps(["width"]);
     gap: 32px;
 
     @media (max-width: 767px) {
-      gap: 0;
+      gap: 20px;
     }
   }
 

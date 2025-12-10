@@ -9,12 +9,15 @@
         formSubmitButton_registerActive:
           place === 'register' && !isFromEmpty && !isValid,
       },
-      { formSubmitButton_login: place === 'login' || place === 'addBook' },
+      {
+        formSubmitButton_login:
+          place === 'login' || place === 'addBook' || place === 'editBook',
+      },
       {
         formSubmitButton_loginActive:
           (place === 'login' && !isFromEmpty && !isValid) ||
           (place === 'addBook' && !isFromEmpty && !isValid) ||
-          (place === 'editBook' && !isValid),
+          (place === 'editBook' && !isFromEmpty),
       },
       { formSubmitButton_book: place === 'book' },
       { formSubmitButton_delete: place === 'delete' },

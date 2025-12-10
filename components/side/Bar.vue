@@ -4,8 +4,16 @@
       <SideBarLogo place="sidebar" />
       <SideBarAuth />
       <SideBarMenu @closeMobileSideBar="emit('closeMobileSideBar')" />
-      <SideBarYearProgress place="sidebar" title="Цель 2025" />
-      <SideBarReadingProgress place="sidebar" title="Сейчас читаю" />
+      <SideBarYearProgress
+        v-if="!isMobileSideBar"
+        place="sidebar"
+        title="Цель 2025"
+      />
+      <SideBarReadingProgress
+        v-if="!isMobileSideBar"
+        place="sidebar"
+        title="Сейчас читаю"
+      />
     </div>
 
     <SideBarCounter padding="slim" line="top" />
@@ -13,6 +21,7 @@
 </template>
 
 <script setup>
+const { isMobileSideBar } = defineProps(["isMobileSideBar"]);
 const emit = defineEmits(["closeMobileSideBar"]);
 </script>
 

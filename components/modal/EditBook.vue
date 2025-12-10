@@ -1,10 +1,10 @@
 <template>
-  <ModalOverlay :isModalOpen="isModalOpen">
-    <div class="editBookModal">
+  <ModalOverlay :isModalOpen="isModalOpen" @click="$emit('closeModal')">
+    <div class="editBookModal" @click.stop>
       <ButtonIconNavigate name="close" @handleClick="emit('closeModal')" />
       <span class="editBookModal__title">{{ title }}</span>
 
-      <FormEditBook place="editBook" />
+      <FormEditBook place="editBook" @closeModal="emit('closeModal')" />
     </div>
   </ModalOverlay>
 </template>
@@ -28,6 +28,10 @@ const emit = defineEmits(["closeModal"]);
   padding: 32px;
   box-shadow: var(--shadow-primary);
 
+  @media (max-width: 767px) {
+    padding: 20px;
+  }
+
   &__title {
     font-family: "Inter-Medium", sans-serif;
     font-size: 22px;
@@ -35,54 +39,5 @@ const emit = defineEmits(["closeModal"]);
     color: var(--text-color-primary);
     text-align: center;
   }
-
-  // &__buttons {
-  //   display: grid;
-  //   grid-template-columns: repeat(2, 1fr);
-  //   gap: 32px;
-
-  //   &_oneButton {
-  //     grid-template-columns: 1fr;
-  //   }
-
-  //   @media (max-width: 767px) {
-  //     grid-template-columns: 1fr;
-  //     gap: 20px;
-  //   }
-  // }
-
-  // &__button {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   padding: 10px 20px;
-  //   border-radius: var(--border-radius-m);
-  //   font-family: "Inter-Medium", sans-serif;
-  //   font-size: 17px;
-  //   line-height: 28px;
-  //   color: var(--white-primary);
-
-  //   &_yes {
-  //     background: var(--green-fifthly);
-  //     transition: 0.25s ease;
-
-  //     &:hover {
-  //       background: var(--green-fourthly);
-  //     }
-  //   }
-
-  //   &_no {
-  //     background: var(--red-primary);
-  //     transition: 0.25s ease;
-
-  //     &:hover {
-  //       background: var(--brown-secondary);
-  //     }
-  //   }
-  // }
-}
-
-.icon {
-  color: var(--text-color-primary);
 }
 </style>

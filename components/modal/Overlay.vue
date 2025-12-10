@@ -35,5 +35,9 @@ onBeforeUnmount(() => unlockScroll());
   background: var(--black-secondary);
   padding: 20px;
   z-index: 20;
+
+  @media (max-width: 767px) {
+    padding: 10px;
+  }
 }
 </style>
