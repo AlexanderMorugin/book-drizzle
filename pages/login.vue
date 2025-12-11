@@ -20,6 +20,8 @@
       <!-- Блок смены авторизации -->
       <AuthChange place="login" />
     </AuthFormContainer>
+
+    <InfoLink place="auth" />
   </AuthContainer>
 </template>
 

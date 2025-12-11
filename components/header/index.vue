@@ -12,6 +12,8 @@
       <span class="header__title">{{ pageTitle }}</span>
     </div>
 
+    <InfoLink place="header" />
+
     <ButtonIconNavigate
       v-if="pageTitle === 'Детали книги'"
       name="back"
@@ -50,6 +52,7 @@ const goBack = () => router.go(-1);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   min-height: 99px;
   background: var(--white-primary);
   border-bottom: 1px solid var(--border-color-primary);

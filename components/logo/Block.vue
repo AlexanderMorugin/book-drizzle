@@ -30,7 +30,7 @@
         v-if="place === 'register' || place === 'login' || place === 'sidebar'"
         class="logoBlock__title logoBlock__title_login"
       >
-        Book Tracker
+        Book Drizzle
       </div>
 
       <div

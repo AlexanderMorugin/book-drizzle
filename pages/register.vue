@@ -26,6 +26,8 @@
       <!-- Блок политики конфиденциональности -->
       <AuthConditions />
     </AuthFormContainer>
+
+    <InfoLink />
   </AuthContainer>
 </template>
 
