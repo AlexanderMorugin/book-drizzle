@@ -1,7 +1,5 @@
 <template>
   <section class="bookEditProgressYearBlock">
-    <!-- <LoaderPage /> -->
-
     <div class="bookEditProgressYearBlock__container">
       <LogoBlock place="progressYear" />
 
@@ -40,8 +38,6 @@ const userStore = useUserStore();
 const bookStore = useBookStore();
 
 const quantityBooksField = ref(userStore.user.book_for_years);
-// const quantityBooksFromDatabase = ref(0);
-// const isLoading = ref(false);
 const isButtonLoading = ref(false);
 
 const doneBooks = computed(() =>

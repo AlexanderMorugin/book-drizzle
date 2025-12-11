@@ -1,5 +1,3 @@
-// import { ref, onMounted, onUnmounted } from 'vue'
-
 const isScreenLarge = ref(null);
 const windowWidth = ref(null);
 

@@ -18,7 +18,6 @@ export default defineEventHandler(async (event) => {
 
   // Вычисляем имя файла картинки из строки
   const imageName = image.split("/").slice(-1)[0];
-  // console.log(imageName);
 
   // Удаляем картинку из серверного хранилища S3
   await s3Client.send(
@@ -28,7 +27,6 @@ export default defineEventHandler(async (event) => {
     })
   );
 
-  // console.log(res);
   // Удаляем обложку из ДБ
   const result = await db
     .update(books)
@@ -36,29 +34,4 @@ export default defineEventHandler(async (event) => {
     .where(eq(books.id, id));
 
   return result;
-
-  // try {
-
-  //   // Деплоим картинку в сторадж REG.RU
-  //   await s3Client.send(
-  //     new PutObjectCommand({
-  //       Bucket: config.regAwsBucketName,
-  //       Key: fileName,
-  //       Body: filePart.data,
-  //       ContentType: filePart.type || "application/octet-stream",
-  //     })
-  //   );
-
-  //   return {
-  //     message: "Обложка успешно загружена на сервер",
-  //     fileName: fileName,
-  //     fileUrl: `${config.regAwsEndpoint}/${config.regAwsBucketName}/${fileName}`,
-  //   };
-  // } catch (error) {
-  //   console.log("Ошибка загрузки файла:", error);
-  //   return createError({
-  //     statusCode: 500,
-  //     message: "Ошибка загрузки файла",
-  //   });
-  // }
 });

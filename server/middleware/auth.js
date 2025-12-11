@@ -11,16 +11,13 @@ export default defineEventHandler((event) => {
   const decodeAccess = decodeAccessToken(cookieTokenAccess);
   const decodeRefresh = decodeRefreshToken(refreshCookieToken);
 
-  console.log("Server-Middleware-decodeAccess: ", decodeAccess);
-  console.log("Server-Middleware-decodeRefresh: ", decodeRefresh);
-
   // Если access истек, но refresh действует, переиздаем access и передаем в куки
   if (!decodeAccess && decodeRefresh) {
     const accessToken = jwt.sign(
       { userId: decodeRefresh.userId },
       config.jwtAccessSecret,
       {
-        expiresIn: "10s",
+        expiresIn: "1m",
       }
     );
     setCookie(event, "access_token", accessToken, {
