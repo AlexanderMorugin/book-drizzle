@@ -1,4 +1,3 @@
-import { CopyObjectCommand } from "@aws-sdk/client-s3";
 import { defineStore } from "pinia";
 
 export const useBookStore = defineStore("bookStore", () => {

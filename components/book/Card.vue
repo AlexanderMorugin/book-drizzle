@@ -1,5 +1,6 @@
 <template>
   <NuxtLink :to="`/library/${book.id}`" class="bookCard">
+    {{ book }}
     <BookEmptyImage v-if="!book.image" title="Книга без обложки" />
     <img v-else :src="book.image" :alt="book.title" class="bookCard__image" />
     <span class="bookCard__title">{{ book.name }}</span>

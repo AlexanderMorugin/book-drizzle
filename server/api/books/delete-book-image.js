@@ -6,24 +6,38 @@ import { books } from "~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
   const { id, image } = await readBody(event);
+  const config = useRuntimeConfig();
+  const s3Client = getS3Client();
 
+  if (!image) {
+    return createError({
+      statusCode: 400,
+      message: "Картинка отсутствует",
+    });
+  }
+
+  // Вычисляем имя файла картинки из строки
+  const imageName = image.split("/").slice(-1)[0];
+  // console.log(imageName);
+
+  // Удаляем картинку из серверного хранилища S3
+  await s3Client.send(
+    new DeleteObjectCommand({
+      Bucket: config.regAwsBucketName,
+      Key: imageName,
+    })
+  );
+
+  // console.log(res);
+  // Удаляем обложку из ДБ
   const result = await db
     .update(books)
     .set({ image: null })
     .where(eq(books.id, id));
 
   return result;
+
   // try {
-  //   const config = useRuntimeConfig();
-  //   const s3Client = getS3Client();
-
-  //   const formData = await readMultipartFormData(event);
-
-  //   // Декомпозируем файл
-  //   const filePart = formData.find((part) => part.name === "file");
-
-  //   // Генерируем уникальное наименование файла
-  //   const fileName = Date.now() + "-" + filePart.filename;
 
   //   // Деплоим картинку в сторадж REG.RU
   //   await s3Client.send(
