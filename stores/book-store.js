@@ -307,6 +307,40 @@ export const useBookStore = defineStore("bookStore", () => {
     }
   };
 
+  const deleteBookImage = async () => {
+    const result = await useFetch("/api/books/delete-book-image", {
+      method: "PATCH",
+      body: {
+        id: book.value.id,
+        image: book.value.image,
+      },
+    });
+
+    if (result.status.value === "success") {
+      book.value.image = result.data.value.image;
+
+      // Обновляем в массиве книг Стора
+      books.value = books.value.map((item) =>
+        item.id === book.value.id
+          ? {
+              ...item,
+              image: result.data.value.image,
+            }
+          : item
+      );
+      filterBooks.value = filterBooks.value.map((item) =>
+        item.id === book.value.id
+          ? {
+              ...item,
+              image: result.data.value.image,
+            }
+          : item
+      );
+    }
+
+    return result;
+  };
+
   const deleteBook = async (bookId) => {
     const result = await useFetch("/api/books/delete-book", {
       method: "DELETE",
@@ -342,6 +376,7 @@ export const useBookStore = defineStore("bookStore", () => {
     updateBookProgress,
     updateBook,
     updateBookImage,
+    deleteBookImage,
     deleteBook,
     logoutUser,
   };

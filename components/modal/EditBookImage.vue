@@ -37,7 +37,12 @@
       </TransitionGroup>
 
       <TransitionGroup name="error">
-        <div v-if="isDeleteFormOpen">Заменить обложку DELETE</div>
+        <BookImageDelete
+          v-if="isDeleteFormOpen"
+          :isLoading="isLoading"
+          @continue="deleteBookImage"
+          @closeModal="emit('closeModal')"
+        />
       </TransitionGroup>
     </div>
   </ModalOverlay>
@@ -47,8 +52,12 @@
 const { isModalOpen, title } = defineProps(["isModalOpen", "title"]);
 const emit = defineEmits(["closeModal"]);
 
+const toast = useToast();
+const bookStore = useBookStore();
+
 const isEditFormOpen = ref(false);
 const isDeleteFormOpen = ref(false);
+const isLoading = ref(false);
 
 const openEditForm = () => {
   isDeleteFormOpen.value = false;
@@ -58,6 +67,36 @@ const openEditForm = () => {
 const openDeleteForm = () => {
   isEditFormOpen.value = false;
   isDeleteFormOpen.value = true;
+};
+
+const deleteBookImage = async () => {
+  try {
+    isLoading.value = true;
+
+    const result = await bookStore.deleteBookImage();
+
+    console.log(result.status.value);
+
+    if (result.status.value === "error") {
+      toast.error({
+        title: "Ошибка!",
+        message: "Обложку удалить не удалось.",
+      });
+    }
+
+    if (result.status.value === "success") {
+      toast.success({
+        title: "Успешно!",
+        message: "Обложка удалена.",
+      });
+
+      emit("closeModal");
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isLoading.value = false;
+  }
 };
 </script>
 
