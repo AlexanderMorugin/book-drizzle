@@ -80,7 +80,7 @@ export const useBookStore = defineStore("bookStore", () => {
       // Собираем книгу для деплоя
       const newBookData = {
         name: bookData.name,
-        author: bookData.name,
+        author: bookData.author,
         genre: bookData.genre,
         image: response.data.value.fileUrl,
         owner_id: bookData.owner_id,

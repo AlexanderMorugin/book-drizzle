@@ -21,6 +21,11 @@ const router = useRouter();
   display: flex;
   flex-direction: column;
   gap: 32px;
+  padding: 20px;
+
+  @media (max-width: 767px) {
+    padding: 10px;
+  }
 
   &__buttonBox {
     position: sticky;
